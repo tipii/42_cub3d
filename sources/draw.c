@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cube3d.h                                           :+:      :+:    :+:   */
+/*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/26 20:29:22 by tpalhol          ###   ########.fr       */
+/*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
+/*   Updated: 2019/11/26 17:54:49 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUBE3D_H
-# define CUBE3D_H
+#include "cube3d.h"
 
-# include "env.h"
-# include "keys.h"
-# include "player.h"
+int generate_color(int r, int g, int b)
+{
+	int		color;
+	char	*clr;
 
-# include <math.h>
-# include <mlx.h>
-# include <stdio.h>
-# include <stdlib.h>
+	clr = (char*)&color;
+	clr[0] = g;
+	clr[1] = b;
+	clr[2] = r;
 
-int generate_color(int r, int g, int b);
-
-float	deg_to_radian(float deg);
-
-#endif
+	// printf("%d\n", color);
+	return (color);
+}

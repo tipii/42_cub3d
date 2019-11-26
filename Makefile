@@ -6,12 +6,12 @@ COMPIL = gcc
 FLAG = -Wall -Wextra -Werror
 
 HEADER = -I $(INCLUDES_DIR)
-
+LIB = -lmlx -framework OpenGL -framework AppKit
 SRCS = $(wildcard $(SOURCES_DIR)*.c)
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
-			$(COMPIL) $(FLAG) $(HEADER) $(OBJS) -o $(NAME).o 
+			$(COMPIL) $(FLAG) $(LIB) $(HEADER) $(OBJS) -o $(NAME).o 
 			./$(NAME).o
 
 %.o: %.c
