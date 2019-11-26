@@ -25,3 +25,4 @@ int generate_color(int r, int g, int b)
 	// printf("%d\n", color);
 	return (color);
 }
+
