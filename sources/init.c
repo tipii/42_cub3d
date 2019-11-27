@@ -6,26 +6,13 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 10:34:08 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 15:44:57 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_player *init_player()
-{
-	t_player *player;
-
-	if(!(player = malloc(sizeof(t_player))))
-		return (NULL);
-	player->posX = START_POSX;
-	player->posX = START_POSY;
-	player->dirX = -1;
-	player->dirY = 0;
-	return (player);
-}
-
-t_env *init_env(t_player *player)
+t_env *init_env()
 {
 	t_env	*env;
 	int res_x = 720;
@@ -33,25 +20,56 @@ t_env *init_env(t_player *player)
 
 	if(!(env = malloc(sizeof(t_env))))
 		return (NULL);
-	env->fov = FOV;
-	env->wallH = H_WALL;
-	env->playerH = H_PLAYER;
+
+	env->posX = 5;
+	env->posY = 5;
+	env->dirX = -1;
+	env->dirY = 0;
+	env->r_speed = 0.1;
+	env->t_speed = 0.1;
 	env->resX = res_x;
 	env->resY = res_y;
+	env->fov = FOV;
 	if (!(env->map = init_map(10, 10)))
 		return(NULL);
-	env->mapX = (int)player->posX;
-	env->mapY = (int)player->posY;
+	env->mapX = (int)env->posX;
+	env->mapY = (int)env->posY;
 	env->planeX = 0;
 	env->planeY = 0.66;
+	env->oldPlaneX = 0;
+	env->oldPlaneY = 0;
+	env->x = 0;
+	env->cameraX = 0;
+	env->rayDirX = 0;
+	env->rayDirY = 0;
+	env->sideDistX = 0;
+	env->sideDistY = 0;
+	env->deltaDistX = 0;
+	env->deltaDistY = 0;
+	env->perpWallDist = 0;
+	env->stepX = 0;
+	env->stepY = 0;
+	env->hit = 0;
+	env->side = 0;
+	env->bpp = 0;
+	env->size_line = 0;
+	env->endian = 0;
+	env->mlx = NULL;
+	env->window = NULL;
+	env->img = NULL;
+	env->img_data = NULL;
+	env->lineHeight = 0;
+	env->drawStart = 0;
+	env->drawEnd = 0;
+
 
 	return (env);
 }
 
-// void		init_all(t_player *player, t_env *env)
+// void		init_all(t_env *env, t_env *env)
 // {
-// 	player = init_player();
+// 	env = init_env();
 
-// 	env = init_env(player);
+// 	env = init_env(env);
 // 	printf("%d", env->resX);
 // }

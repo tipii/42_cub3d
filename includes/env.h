@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 10:08:41 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:45:42 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,19 @@
 
 typedef	struct	s_env
 {
+
+	///PLAYER INFOS
+	double			posX;
+	double			posY;
+	double			t_speed;
+	double			r_speed;
+	/* direction of player */
+	double			dirX;
+	double			dirY;
+	/* stock old dirX and dirY */
+	double			oldDirX;
+	double			oldDirY;
+
 	/* resolution */
 	int		resX;
 	int		resY;
@@ -35,6 +48,8 @@ typedef	struct	s_env
 	/* camera plane */
 	double		planeX;
 	double		planeY;
+	double		oldPlaneX;
+	double		oldPlaneY;
 	/* definig wich ray (left -1 to right 1) and dir */
 	int			x;
 	double		cameraX;
@@ -66,6 +81,8 @@ typedef	struct	s_env
 	int			lineHeight;
 	int			drawStart;
 	int			drawEnd;
+
+
 }				t_env;
 
 int	**init_map(int width, int height);

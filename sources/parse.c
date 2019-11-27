@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 10:45:06 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 15:44:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ int	**init_map(int width, int height)
 		x++;
 	}
 	map[2][1] = 1;
+	map[2][5] = 1;
+	map[4][2] = 1;
+	map[9][7] = 1;
 	/*END OF MAP GENERATION*/
 
 	return (map);

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 10:42:04 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 14:48:25 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,13 @@ void loop(t_env *env)
 	mlx_loop(env->mlx);
 }
 
+
 int main()
 {
-	t_player	*player;
+
 	t_env		*env;
 	// init_all(player, env);
-	if (!(player = init_player()) || !(env = init_env(player)))
+	if (!(env = init_env()))
 		return(0);
 
 	env->mlx = mlx_init();
@@ -72,9 +73,10 @@ int main()
 	printf("bpp : %d, size_line : %d, endian : %d \n\n", env->bpp, env->size_line, env->endian);
 	show_map(env->map, 10, 10);
 
-	raytrace(env, player);
-	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);
+	render(env);
 	// exit(0);
+	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
 	loop(env);
+
 	return (0);
 }
