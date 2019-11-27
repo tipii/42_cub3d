@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 15:44:57 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 00:33:11 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,14 @@ t_env *init_env()
 	t_env	*env;
 	int res_x = 720;
 	int res_y = 576;
+	float pos_X = 5;
+	float pos_Y = 5;
 
 	if(!(env = malloc(sizeof(t_env))))
 		return (NULL);
 
-	env->posX = 5;
-	env->posY = 5;
+	env->posX = pos_X;
+	env->posY = pos_Y;
 	env->dirX = -1;
 	env->dirY = 0;
 	env->r_speed = 0.1;
@@ -32,8 +34,8 @@ t_env *init_env()
 	env->fov = FOV;
 	if (!(env->map = init_map(10, 10)))
 		return(NULL);
-	env->mapX = (int)env->posX;
-	env->mapY = (int)env->posY;
+	env->mapX = (int)pos_X;
+	env->mapY = (int)pos_Y;
 	env->planeX = 0;
 	env->planeY = 0.66;
 	env->oldPlaneX = 0;
@@ -58,6 +60,7 @@ t_env *init_env()
 	env->window = NULL;
 	env->img = NULL;
 	env->img_data = NULL;
+	env->lumvalue = 1;
 	env->lineHeight = 0;
 	env->drawStart = 0;
 	env->drawEnd = 0;

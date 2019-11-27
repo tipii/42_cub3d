@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 15:37:27 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 00:37:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,8 @@ void	render(t_env *env)
 		printf("x : %d | ", env->x);
 		printf("map x :%d | ", env->mapX);
 		printf("map x :%d | ", env->mapY);
-		printf("envposX %f | ", env->posX);
-		printf("envposY %f | ", env->posY);
+		printf("posX %f | ", env->posX);
+		printf("posY %f | ", env->posY);
 		printf("stepX %d | ", env->stepX);
 		printf("stepY %d | ", env->stepY);
 		printf("raydirx :%f | ", env->rayDirX);
@@ -98,6 +98,8 @@ void	render(t_env *env)
 	  	env->drawEnd = (env->lineHeight / 2) + (env->resY / 2);
 	  	if(env->drawEnd >= env->resY)
 		  	env->drawEnd = env->resY - 1;
+
+			
 		// printf("start : %d, end : %d ", env->drawStart, env->drawEnd);
 		draw_column(env);
 		env->x++;

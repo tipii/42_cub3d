@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 15:59:07 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 00:39:09 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int generate_color(int r, int g, int b)
 	return (color);
 }
 
+
+void	get_lum_value(t_env *env)
+{
+
+	if (env->perpWallDist >= 0.0 && env->lumvalue < 3.0)
+		env->lumvalue = 1.0;
+	if (env->perpWallDist >= 3.0 && env->perpWallDist <= 5.0)
+		env->lumvalue = 1.0 - (env->perpWallDist - 3.0) * 0.5;
+	if (env->perpWallDist > 5.0)
+		env->lumvalue = 0.0;
+}
+
 void	draw_column(t_env *env)
 {
 	// exit(0);
@@ -33,17 +45,18 @@ void	draw_column(t_env *env)
 	// exit(0);
 	int i;
 	int r,g,b;
+	get_lum_value(env);
 	if(env->side == 0)
 	{
-		r = 255;
-		g = 128;
-		b = 100; 
+		r = 255 * env->lumvalue;
+		g = 128 * env->lumvalue;
+		b = 100 * env->lumvalue; 
 	}
 	else
 	{
-		r = 100;
-		g = 128;
-		b = 255;
+		r = 100 * env->lumvalue;
+		g = 128 * env->lumvalue;
+		b = 255 * env->lumvalue;
 	}
 	
 	i = env->drawStart;
