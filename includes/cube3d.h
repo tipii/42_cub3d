@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/26 20:29:22 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 09:33:45 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 
-int generate_color(int r, int g, int b);
-
-float	deg_to_radian(float deg);
+void		init_all(t_player *player, t_env *env);
+t_env		*init_env(t_player *player);
+t_player	*init_player();
+void		draw_vert_line(t_env *env);
+void		raytrace(t_env *env, t_player *player);
+int			generate_color(int r, int g, int b);
+double		deg_to_radian(double deg);
 
 #endif

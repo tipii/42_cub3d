@@ -6,13 +6,13 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 20:27:06 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/26 20:28:41 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 07:05:47 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-float	deg_to_radian(float deg)
+double	deg_to_radian(double deg)
 {
 	return ((deg * 3.14)/180);
 }

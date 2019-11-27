@@ -6,14 +6,43 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/22 18:47:09 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 07:24:06 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void		create_player(t_player *player, float pos_x, float pos_y)
+int	**init_map(int width, int height)
 {
-	player->pos_x = pos_x;
-	player->pos_y = pos_y;
+	int **map;
+	int i;
+	
+	i = 0;
+	map = (int **)malloc(sizeof(*map) * width);
+	while (i < width)
+	{
+		map[i] = (int *)malloc(sizeof(int) * height);
+		i++;
+	}
+
+	/* MAP GENERATION */
+	int x = 0;
+	int y = 0;
+	while(x < width)
+	{
+		while(y < height)
+		{
+			if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+				map[x][y] = 1;
+			else
+				map[x][y] = 0;
+			y++;
+		}
+		y = 0;
+		x++;
+	}
+	map[2][1] = 1;
+	/*END OF MAP GENERATION*/
+
+	return (map);
 }

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/26 19:50:18 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 09:52:38 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void show_map(int **map, int width, int height)
 		y++;
 		x = 0;
 	}
+	printf("\n");
 }
 
 
@@ -49,33 +50,27 @@ void show_map(int **map, int width, int height)
 
 int main()
 {
-	void *mlx;
-	void *window;
-	int bpp, size_line, endian;
-	void *img = NULL;
-	char *img_data = NULL;
-	unsigned int test;
+	t_player	*player;
+	t_env		*env;
+	// init_all(player, env);
+	if (!(player = init_player()) || !(env = init_env(player)))
+		return(0);
 
-	mlx = mlx_init();
-	window = mlx_new_window(mlx, 1000, 1000, "Test string");
+	env->mlx = mlx_init();
+	printf("\nInitializing...\n\n");
+	printf("RES : x %d, y %d\n\n", env->resX, env->resY);
+	// printf("%f\n", (((2 * 719) / (double)env->resX) -1 ));
 
-	img = mlx_new_image (mlx, 1000, 1000);
-	img_data = mlx_get_data_addr(img, &bpp, &size_line, &endian);
-	printf("bpp : %d, size_line : %d, endian : %d \n", bpp, size_line, endian);
-	test = generate_color(255, 165, 32);
+	env->window = mlx_new_window(env->mlx, env->resX, env->resY, "Test string");
+	env->img = mlx_new_image (env->mlx, env->resX, env->resY);
+	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
 
-	for (size_t i = 0; i < 1000; i++)
-	{
-		img_data[500 * 4000 + (i * 4)] = (char)0;
-		img_data[500 * 4000 + (i * 4) + 1] = (char)255;
-		img_data[500 * 4000 + (i * 4) + 2] = (char)128;
-		img_data[500 * 4000 + (i * 4) + 3] = (char)100;
-	}
+	printf("bpp : %d, size_line : %d, endian : %d \n\n", env->bpp, env->size_line, env->endian);
+	show_map(env->map, 10, 10);
 
-	// float len = (1920/2) / tan((FOV / 2 * 3.14)/180);
-	// printf("%f\n", len);
-	mlx_put_image_to_window(mlx, window, img, 0, 0);
+	raytrace(env, player);
+	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);
 	// exit(0);
-	mlx_loop(mlx);
+	// mlx_loop(env->mlx);
 	return (0);
 }
