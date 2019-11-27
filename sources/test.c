@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 09:52:38 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 10:42:04 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,10 @@ void show_map(int **map, int width, int height)
 // 	show_map(map, 5,5);
 // 	return (0);
 // }
+void loop(t_env *env)
+{
+	mlx_loop(env->mlx);
+}
 
 int main()
 {
@@ -71,6 +75,6 @@ int main()
 	raytrace(env, player);
 	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);
 	// exit(0);
-	// mlx_loop(env->mlx);
+	loop(env);
 	return (0);
 }

@@ -6,14 +6,14 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:41:18 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 09:46:12 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 10:24:33 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PLAYER_H
 # define PLAYER_H
-# define START_POSX 1
-# define START_POSY 1
+# define START_POSX 1.1
+# define START_POSY 1.1
 typedef	struct	s_player
 {
 	/* position of player */

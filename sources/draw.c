@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 09:35:21 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 10:40:52 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int generate_color(int r, int g, int b)
 
 void	draw_vert_line(t_env *env)
 {
+	// exit(0);
+	printf("start : %d, end : %d\n", env->drawStart, env->drawEnd);
+	// exit(0);
 	for (int i = env->drawStart; i < env->drawEnd; i++)
 	{
 		env->img_data[(i * env->size_line) + env->x * (env->bpp / 8) + 0] = (char)0;

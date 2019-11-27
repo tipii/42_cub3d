@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 09:49:11 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 10:52:50 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	raytrace(t_env *env, t_player *player)
 	while(env->x < env->resX)
 	{
 		env->cameraX = (2 * env->x) / (double)env->resX - 1;
-		printf("%f", env->cameraX);
+		env->rayDirX = player->dirX + env->planeX * env->cameraX;
+	  	env->rayDirY = player->dirY + env->planeY * env->cameraX;
+
 		if (env->rayDirX < 0)
 		{
 			env->stepX = -1;
@@ -56,24 +58,34 @@ void	raytrace(t_env *env, t_player *player)
 				env->side = 1;
 			}
 		//Check if ray has hit a wall
-			if (env->map[env->mapX][env->mapY] > 0) env->hit = 1;
+			if (env->map[env->mapX][env->mapY] > 0)
+				env->hit = 1;
 		}
 		if (env->side == 0)
 			env->perpWallDist = (env->mapX - player->posX + (1 - env->stepX) / 2) / env->rayDirX;
 	  	else
 			env->perpWallDist = (env->mapY - player->posY + (1 - env->stepY) / 2) / env->rayDirY;
+		// exit(0);
+		printf("%d ", env->mapX);
+		printf("%f ", player->posX);
+		printf("%d ", env->stepX);
+		printf("%f ", env->rayDirY);
 
+		printf("%f\n", env->perpWallDist);
+		// exit(0);
 		env->lineHeight = (int)(env->resY / env->perpWallDist);
 
-		env->drawStart = -env->lineHeight / 2 + env->resY / 2;
+		env->drawStart = (-(env->lineHeight) / 2) + (env->resY / 2);
 	  	if(env->drawStart < 0)
 			env->drawStart = 0;
-	  	env->drawEnd = env->lineHeight / 2 + env->resY / 2;
+	  	env->drawEnd = (env->lineHeight / 2) + (env->resY / 2);
 	  	if(env->drawEnd >= env->resY)
 		  	env->drawEnd = env->resY - 1;
+		// printf("start : %d, end : %d ", env->drawStart, env->drawEnd);
 
-		// draw_vert_line(env);
-		
+		// env->img_data[5000] = (char)255;
+		draw_vert_line(env);
+		// exit(0);
 		env->x++;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 07:40:18 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/27 10:34:08 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ t_player *init_player()
 		return (NULL);
 	player->posX = START_POSX;
 	player->posX = START_POSY;
+	player->dirX = -1;
+	player->dirY = 0;
 	return (player);
 }
 
@@ -40,6 +42,9 @@ t_env *init_env(t_player *player)
 		return(NULL);
 	env->mapX = (int)player->posX;
 	env->mapY = (int)player->posY;
+	env->planeX = 0;
+	env->planeY = 0.66;
+
 	return (env);
 }
 
