@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 14:47:50 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 16:59:51 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,16 +15,17 @@
 
 # include "env.h"
 # include "keys.h"
-
+# include "get_next_line.h"
 
 # include <math.h>
 # include <mlx.h>
 # include <stdio.h>
 # include <stdlib.h>
 
+//parse
+int parse(char *filepath, t_env *env);
 
 t_env		*init_env();
-
 void		draw_column(t_env *env);
 void		render(t_env *env);
 int			generate_color(int r, int g, int b);

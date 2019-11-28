@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:47:16 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 15:11:35 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 13:32:33 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,20 @@ void	move_backward(t_env *env)
 		env->posY -= env->dirY * env->t_speed;
 }
 
+void	toogle_lum(t_env *env)
+{
+	if (env->lum == 0)
+		env->lum = 1;
+	else
+		env->lum = 0;
+}
+
 int		hook_keydown(int key, t_env *env)
 {
 	// if (key == K_ESC)
 	// 	exit(EXIT_SUCCESS);
+	if (key == KEY_T)
+	 	toogle_lum(env);
 	if (key == KEY_LEFT)
 	 	rotate_left(env);
 	if (key == KEY_RIGHT)

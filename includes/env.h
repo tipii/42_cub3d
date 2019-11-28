@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 00:37:31 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 13:32:52 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ typedef	struct	s_env
 	char		*img_data;
 	/*DRAW*/
 	float		lumvalue;
+	int			lum;
 	int			lineHeight;
 	int			drawStart;
 	int			drawEnd;

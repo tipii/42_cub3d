@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 00:33:11 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 16:45:46 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_env *init_env()
 	t_env	*env;
 	int res_x = 720;
 	int res_y = 576;
-	float pos_X = 5;
-	float pos_Y = 5;
+	float pos_X = 1.1;
+	float pos_Y = 1.1;
 
 	if(!(env = malloc(sizeof(t_env))))
 		return (NULL);
@@ -61,6 +61,7 @@ t_env *init_env()
 	env->img = NULL;
 	env->img_data = NULL;
 	env->lumvalue = 1;
+	env->lum = 1;
 	env->lineHeight = 0;
 	env->drawStart = 0;
 	env->drawEnd = 0;

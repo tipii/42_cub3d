@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/27 15:44:17 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 17:06:26 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,22 @@ int	**init_map(int width, int height)
 	/*END OF MAP GENERATION*/
 
 	return (map);
+}
+
+int parse(char *filepath, t_env *env)
+{
+	int	fd;
+	char **line;
+
+	line = malloc(sizeof(*line));
+	(void)env;
+	fd = open(filepath, O_RDONLY);
+	while(get_next_line(fd, line) > 0)
+	{
+		if (*line[0] >= '0' && *line[0] <= '9')
+			printf("%s\n", *line);
+		free(*line);
+	}
+
+	return (1);
 }

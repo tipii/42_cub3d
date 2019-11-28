@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 00:39:09 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/11/28 13:32:36 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,11 @@ int generate_color(int r, int g, int b)
 
 void	get_lum_value(t_env *env)
 {
-
+	if (env->lum == 0)
+	{
+		env->lumvalue = 1.0;
+		return ;
+	}
 	if (env->perpWallDist >= 0.0 && env->lumvalue < 3.0)
 		env->lumvalue = 1.0;
 	if (env->perpWallDist >= 3.0 && env->perpWallDist <= 5.0)
