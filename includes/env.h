@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 13:32:52 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/06 16:52:33 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef	struct	s_env
 	/* field of view */
 	double		fov;
 	/* map */
-	int			**map;
+	char			**map;
+	int				mapWidth;
+	int				mapHeight;
 	/* current pos on map */
 	int			mapX;
 	int			mapY;
@@ -87,7 +89,9 @@ typedef	struct	s_env
 
 }				t_env;
 
-int	**init_map(int width, int height);
+char	**init_map(int width, int height);
+void	show_map(t_env *env);
+
 void	get_lum_value(t_env *env);
 
 #endif

@@ -6,64 +6,161 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 17:06:26 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/06 17:45:56 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int	**init_map(int width, int height)
+char	**init_map(int width, int height)
 {
-	int **map;
+	char **map;
 	int i;
 	
 	i = 0;
-	map = (int **)malloc(sizeof(*map) * width);
-	while (i < width)
+	map = (char **)malloc(sizeof(*map) * (height + 1));
+	while (i < height)
 	{
-		map[i] = (int *)malloc(sizeof(int) * height);
+		map[i] = (char *)malloc(sizeof(char) * (width + 1));
+		map[i][width] = 0;
 		i++;
 	}
+	map[height] = 0;
 
-	/* MAP GENERATION */
-	int x = 0;
-	int y = 0;
-	while(x < width)
-	{
-		while(y < height)
-		{
-			if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
-				map[x][y] = 1;
-			else
-				map[x][y] = 0;
-			y++;
-		}
-		y = 0;
-		x++;
-	}
-	map[2][1] = 1;
-	map[2][5] = 1;
-	map[4][2] = 1;
-	map[9][7] = 1;
-	/*END OF MAP GENERATION*/
+	// /* MAP GENERATION */
+	// int x = 0;
+	// int y = 0;
+	// while(x < width)
+	// {
+	// 	while(y < height)
+	// 	{
+	// 		if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
+	// 			map[x][y] = 1;
+	// 		else
+	// 			map[x][y] = 0;
+	// 		y++;
+	// 	}
+	// 	y = 0;
+	// 	x++;
+	// }
+	// map[2][1] = 1;
+	// map[2][5] = 1;
+	// map[4][2] = 1;
+	// map[9][7] = 1;
+	// /*END OF MAP GENERATION*/
 
 	return (map);
+}
+int	first_pass(char *filepath, t_env *env)
+{
+	int fd;
+	char **line;
+	int i;
+	int height;
+	int width;
+
+	i = 0;
+	width = 0;
+	height = 0;
+	line = malloc(sizeof(*line));
+	fd = open(filepath, O_RDONLY);
+	while(get_next_line(fd, line) > 0)
+	{
+		if(*line[0] >= '0' && *line[0] <= '9')
+		{
+			while ((*line)[i])
+			{
+				if((*line)[i] != ' ')
+					width++;
+				i++;
+				
+			}
+			env->mapWidth = width;
+			height++;
+		}
+		width = 0;
+		i = 0;
+		free(*line);
+	}
+	env->mapHeight = height;
+	free(line);
+	close(fd);
+	return (1);
+}
+void	set_player_value(char c, t_env *env)
+{
+	if (c == 'N')
+	{
+		env->dirX = 0;
+		env->dirY = -1;
+		env->planeX = 0.66;
+		env->planeY = 0;
+	}
+	if (c == 'S')
+	{
+		env->dirX = 0;
+		env->dirY = 1;
+		env->planeX = -0.66;
+		env->planeY = 0;
+	}
+	if (c == 'E')
+	{
+		env->dirX = 1;
+		env->dirY = 0;
+		env->planeX = 0;
+		env->planeY = 0.66;
+	}
+	if (c == 'W')
+	{
+		env->dirX = -1;
+		env->dirY = 0;
+		env->planeX = 0;
+		env->planeY = -0.66;
+	}
 }
 
 int parse(char *filepath, t_env *env)
 {
 	int	fd;
 	char **line;
-
+	int i = 0;
+	int j = 0;
+	int k = 0;
+	
+	first_pass(filepath, env);
+	env->map = init_map(env->mapWidth, env->mapHeight);
 	line = malloc(sizeof(*line));
-	(void)env;
 	fd = open(filepath, O_RDONLY);
 	while(get_next_line(fd, line) > 0)
 	{
 		if (*line[0] >= '0' && *line[0] <= '9')
-			printf("%s\n", *line);
-		free(*line);
-	}
+		{
+			while ((*line)[i])
+			{
+				if((*line)[i] != ' ')
+				{
+					if((*line)[i] == 'N' || (*line)[i] == 'S' || (*line)[i] == 'W' || (*line)[i] == 'E')
+					{
+						env->posX = k + 0.5;
+						env->posY = j + 0.5;
+						env->mapX = k;
+						env->mapY = j;
+						set_player_value((*line)[i], env);
+						env->map[j][k++] = '0';
 
+					}
+					else
+						env->map[j][k++] = (*line)[i];
+				}
+				i++;
+			}
+			k = 0;
+			j++;
+		}
+		i = 0;
+		// free(*line);
+	}
+	show_map(env);
+	close(fd);
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 16:45:46 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/06 17:39:18 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,21 @@ t_env *init_env()
 
 	env->posX = pos_X;
 	env->posY = pos_Y;
-	env->dirX = -1;
-	env->dirY = 0;
+	env->dirX = 0;
+	env->dirY = -1;
 	env->r_speed = 0.1;
 	env->t_speed = 0.1;
 	env->resX = res_x;
 	env->resY = res_y;
 	env->fov = FOV;
-	if (!(env->map = init_map(10, 10)))
-		return(NULL);
-	env->mapX = (int)pos_X;
-	env->mapY = (int)pos_Y;
-	env->planeX = 0;
-	env->planeY = 0.66;
+	// if (!(env->map = init_map(10, 10)))
+	// 	return(NULL);
+	env->mapWidth = 0;
+	env->mapHeight = 0;
+	env->mapX = 1;
+	env->mapY = 1;
+	env->planeX = 0.66;
+	env->planeY = 0;
 	env->oldPlaneX = 0;
 	env->oldPlaneY = 0;
 	env->x = 0;

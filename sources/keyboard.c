@@ -6,13 +6,13 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:47:16 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 13:32:33 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/06 17:37:42 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	rotate_right(t_env *env)
+void	rotate_left(t_env *env)
 {
 	env->oldDirX = env->dirX;
 	env->dirX = env->dirX * cos(-env->r_speed) - env->dirY * sin(-env->r_speed);
@@ -23,7 +23,7 @@ void	rotate_right(t_env *env)
 
 }
 
-void	rotate_left(t_env *env)
+void	rotate_right(t_env *env)
 {
 	env->oldDirX = env->dirX;
 	env->dirX = env->dirX * cos(env->r_speed) - env->dirY * sin(env->r_speed);
@@ -35,17 +35,17 @@ void	rotate_left(t_env *env)
 
 void	move_forward(t_env *env)
 {
-	if(env->map[(int)(env->posX + env->dirX * env->t_speed)][(int)env->posY] == 0) 
+	if(env->map[(int)env->posY][(int)(env->posX + env->dirX * env->t_speed)] == '0') 
 		env->posX += env->dirX * env->t_speed;
-	if(env->map[(int)env->posX][(int)(env->posY + env->dirY * env->t_speed)] == 0) 
+	if(env->map[(int)(env->posY + env->dirY * env->t_speed)][(int)env->posX] == '0') 
 		env->posY += env->dirY * env->t_speed;
 }
     //move backwards if no wall behind you
 void	move_backward(t_env *env)
 {
-	if(env->map[(int)(env->posX - env->dirX * env->t_speed)][(int)env->posY] == 0)
+	if(env->map[(int)env->posY][(int)(env->posX - env->dirX * env->t_speed)] == '0')
 		env->posX -= env->dirX * env->t_speed;
-	if(env->map[(int)env->posX][(int)(env->posY - env->dirY * env->t_speed)] == 0)
+	if(env->map[(int)(env->posY - env->dirY * env->t_speed)][(int)env->posX] == '0')
 		env->posY -= env->dirY * env->t_speed;
 }
 

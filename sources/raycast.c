@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 00:37:17 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/06 17:33:29 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ void	render(t_env *env)
 			env->sideDistY = (env->mapY + 1.0 - env->posY) * env->deltaDistY;
 		}
 		//perform DDA
+
 		while (env->hit == 0)
 		{
 		//jump to next map square, OR in x-direction, OR in y-direction
@@ -67,7 +68,7 @@ void	render(t_env *env)
 				env->side = 1;
 			}
 		//Check if ray has hit a wall
-			if (env->map[env->mapX][env->mapY] > 0)
+			if (env->map[env->mapY][env->mapX] > '0')
 				env->hit = 1;
 		}
 		if (env->side == 0)
@@ -75,18 +76,18 @@ void	render(t_env *env)
 	  	else
 			env->perpWallDist = (env->mapY - env->posY + (1 - env->stepY) / 2) / env->rayDirY;
 
-		printf("x : %d | ", env->x);
-		printf("map x :%d | ", env->mapX);
-		printf("map x :%d | ", env->mapY);
-		printf("posX %f | ", env->posX);
-		printf("posY %f | ", env->posY);
-		printf("stepX %d | ", env->stepX);
-		printf("stepY %d | ", env->stepY);
-		printf("raydirx :%f | ", env->rayDirX);
-		printf("raydiry :%f | ", env->rayDirY);
+		// printf("x : %d | ", env->x);
+		// printf("map x :%d | ", env->mapX);
+		// printf("map x :%d | ", env->mapY);
+		// printf("posX %f | ", env->posX);
+		// printf("posY %f | ", env->posY);
+		// printf("stepX %d | ", env->stepX);
+		// printf("stepY %d | ", env->stepY);
+		// printf("raydirx :%f | ", env->rayDirX);
+		// printf("raydiry :%f | ", env->rayDirY);
 
-		printf("wall dist : %f\n", env->perpWallDist);
-		printf("\n");
+		// printf("wall dist : %f\n", env->perpWallDist);
+		// printf("\n");
 
 
 		env->lineHeight = (int)(env->resY / env->perpWallDist);
