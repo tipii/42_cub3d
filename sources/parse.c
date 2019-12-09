@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 17:45:56 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/09 15:14:02 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,29 +26,6 @@ char	**init_map(int width, int height)
 		i++;
 	}
 	map[height] = 0;
-
-	// /* MAP GENERATION */
-	// int x = 0;
-	// int y = 0;
-	// while(x < width)
-	// {
-	// 	while(y < height)
-	// 	{
-	// 		if (x == 0 || x == width - 1 || y == 0 || y == height - 1)
-	// 			map[x][y] = 1;
-	// 		else
-	// 			map[x][y] = 0;
-	// 		y++;
-	// 	}
-	// 	y = 0;
-	// 	x++;
-	// }
-	// map[2][1] = 1;
-	// map[2][5] = 1;
-	// map[4][2] = 1;
-	// map[9][7] = 1;
-	// /*END OF MAP GENERATION*/
-
 	return (map);
 }
 int	first_pass(char *filepath, t_env *env)
@@ -126,13 +103,19 @@ int parse(char *filepath, t_env *env)
 	int i = 0;
 	int j = 0;
 	int k = 0;
-	
+	// t_error *error;
+
+
 	first_pass(filepath, env);
 	env->map = init_map(env->mapWidth, env->mapHeight);
 	line = malloc(sizeof(*line));
 	fd = open(filepath, O_RDONLY);
 	while(get_next_line(fd, line) > 0)
 	{
+		if (*line[0] == 'R')
+		{
+			
+		}
 		if (*line[0] >= '0' && *line[0] <= '9')
 		{
 			while ((*line)[i])
@@ -160,7 +143,6 @@ int parse(char *filepath, t_env *env)
 		i = 0;
 		// free(*line);
 	}
-	show_map(env);
 	close(fd);
 	return (1);
 }

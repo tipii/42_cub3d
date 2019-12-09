@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 15:29:11 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/09 14:00:49 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "keys.h"
 # include "get_next_line.h"
 # include "parse.h"
+# include "error.h"
 
 # include <math.h>
 # include <mlx.h>

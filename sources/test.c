@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 17:26:59 by tpalhol          ###   ########.fr       */
+/*   Updated: 2019/12/09 13:55:12 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void show_map(t_env *env)
 {
 	int x = 0;
 	int y = 0;
-
+	printf("\x1b[33mMap...\x1b[39m\n\n");
 	while (env->map[y])
 	{
 		while (env->map[y][x])
@@ -61,20 +61,20 @@ int main()
 	if (!(env = init_env()))
 		return(0);
 	parse("./maps/map_1.cub", env);
-	printf("\nParsing...\n\n");
+	printf("\n\x1b[33mParsing...\x1b[39m\n\n");
 
-	printf("width : %d, height : %d \n", env->mapWidth, env->mapHeight);
-	printf("pos x %f, pos y %f\n", env->posX, env->posY);
+	printf("MAP : Width : %d, Height : %d \n", env->mapWidth, env->mapHeight);
+	printf("PLAYER : Pos x %f, Pos y %f\n", env->posX, env->posY);
 	env->mlx = mlx_init();
-	printf("\nInitializing...\n\n");
-	printf("RES : x %d, y %d\n\n", env->resX, env->resY);
+	printf("\n\x1b[33mInitializing...\x1b[39m\n\n");
+	printf("RES : x %d, y %d\n", env->resX, env->resY);
 	// printf("%f\n", (((2 * 719) / (double)env->resX) -1 ));
 
 	env->window = mlx_new_window(env->mlx, env->resX, env->resY, "Test string");
 	env->img = mlx_new_image (env->mlx, env->resX, env->resY);
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
 
-	printf("bpp : %d, size_line : %d, endian : %d \n\n", env->bpp, env->size_line, env->endian);
+	printf("MLX INFOS : bpp : %d, size_line : %d, endian : %d \n\n", env->bpp, env->size_line, env->endian);
 	show_map(env);
 
 	render(env);
