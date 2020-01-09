@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 16:52:33 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 14:15:30 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,18 @@
 # define FOV 60
 # define H_WALL 64
 # define H_PLAYER 64
+
+
+typedef struct s_text
+{
+	void		*ptr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	int			width;
+	int			height;
+	char		*data;
+}				t_text;
 
 typedef	struct	s_env
 {
@@ -85,7 +97,7 @@ typedef	struct	s_env
 	int			lineHeight;
 	int			drawStart;
 	int			drawEnd;
-
+	t_text		*textS;
 
 }				t_env;
 

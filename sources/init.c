@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 17:39:18 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 14:38:39 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@ t_env *init_env()
 	float pos_Y = 1.1;
 
 	if(!(env = malloc(sizeof(t_env))))
+		return (NULL);	
+		
+	if(!(env->textS = malloc(sizeof(t_text))))
 		return (NULL);
 
 	env->posX = pos_X;
@@ -67,6 +70,9 @@ t_env *init_env()
 	env->lineHeight = 0;
 	env->drawStart = 0;
 	env->drawEnd = 0;
+
+	env->textS->width = 0;
+	env->textS->height = 0;
 
 
 	return (env);

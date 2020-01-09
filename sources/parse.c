@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 12:43:34 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 14:51:45 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,13 @@ int parse(char *filepath, t_env *env)
 		i = 0;
 		// free(*line);
 	}
+
+	//texture load test
+	// env->textS->width = 32;
+	// printf("%d", env->textS->height);
+	printf("%p\n", mlx_xpm_file_to_image(env->mlx, "./textures/stone.xpm", &env->textS->width, &env->textS->height));
+	// exit(0);
+
 	close(fd);
 	return (1);
 }

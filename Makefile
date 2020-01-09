@@ -11,7 +11,7 @@ SRCS = $(wildcard $(SOURCES_DIR)*.c)
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
-			$(COMPIL) $(FLAG) $(LIB) $(HEADER) $(OBJS) -o $(NAME).o 
+			$(COMPIL) $(FLAG) -g3 -fsanitize=address $(LIB) $(HEADER) $(OBJS) -o $(NAME).o 
 			./$(NAME).o
 
 %.o: %.c
