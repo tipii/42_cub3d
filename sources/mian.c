@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test.c                                             :+:      :+:    :+:   */
+/*   mian.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 12:45:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 12:55:34 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,22 +31,6 @@ void show_map(t_env *env)
 	printf("\n");
 }
 
-
-// int	main()
-// {
-// 	t_player	*player;
-// 	int			**map;
-
-// 	if(!(player = init_player()))
-// 		return (0);
-// 	printf("x : %f, y : %f\n", player->pos_x, player->pos_y);
-
-// 	printf("\n---------\n\n");
-// 	if(!(map = init_map(5, 5)))
-// 		return (0);
-// 	show_map(map, 5,5);
-// 	return (0);
-// }
 void loop(t_env *env)
 {
 	mlx_loop(env->mlx);
@@ -68,8 +52,7 @@ int main()
 	env->mlx = mlx_init();
 	printf("\n\x1b[33mInitializing...\x1b[39m\n\n");
 	printf("RES : x %d, y %d\n", env->resX, env->resY);
-	// printf("%f\n", (((2 * 719) / (double)env->resX) -1 ));
-
+	
 	env->window = mlx_new_window(env->mlx, env->resX, env->resY, "AWESOME RAYCASTING SHIT V0.0000001beta");
 	env->img = mlx_new_image (env->mlx, env->resX, env->resY);
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
