@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/09 15:14:02 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 12:43:34 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int parse(char *filepath, t_env *env)
 {
 	int	fd;
 	char **line;
+	char **args;
 	int i = 0;
 	int j = 0;
 	int k = 0;
@@ -114,7 +115,12 @@ int parse(char *filepath, t_env *env)
 	{
 		if (*line[0] == 'R')
 		{
-			
+			args = ft_split(*line, ' ');
+			if (ft_tablen(args) != 3)
+				exit(0);
+			env->resX = ft_atoi(args[1]);
+			env->resY = ft_atoi(args[2]);
+			ft_freetab(args);
 		}
 		if (*line[0] >= '0' && *line[0] <= '9')
 		{

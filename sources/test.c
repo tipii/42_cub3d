@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/09 13:55:12 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 12:45:32 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int main()
 	printf("RES : x %d, y %d\n", env->resX, env->resY);
 	// printf("%f\n", (((2 * 719) / (double)env->resX) -1 ));
 
-	env->window = mlx_new_window(env->mlx, env->resX, env->resY, "Test string");
+	env->window = mlx_new_window(env->mlx, env->resX, env->resY, "AWESOME RAYCASTING SHIT V0.0000001beta");
 	env->img = mlx_new_image (env->mlx, env->resX, env->resY);
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
 

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 13:32:36 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 11:46:52 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,26 @@ void	draw_column(t_env *env)
 	if(env->side == 0)
 	{
 		r = 255 * env->lumvalue;
-		g = 128 * env->lumvalue;
-		b = 100 * env->lumvalue; 
+		g = 20 * env->lumvalue;
+		b = 20 * env->lumvalue; 
 	}
-	else
+	else if (env->side == 1)
 	{
-		r = 100 * env->lumvalue;
-		g = 128 * env->lumvalue;
+		r = 20 * env->lumvalue;
+		g = 255 * env->lumvalue;
+		b = 20 * env->lumvalue;
+	}
+	else if (env->side == 2)
+	{
+		r = 20 * env->lumvalue;
+		g = 20 * env->lumvalue;
 		b = 255 * env->lumvalue;
+	}	
+	else if (env->side == 3)
+	{
+		r = 128 * env->lumvalue;
+		g = 128 * env->lumvalue;
+		b = 128 * env->lumvalue;
 	}
 	
 	i = env->drawStart;

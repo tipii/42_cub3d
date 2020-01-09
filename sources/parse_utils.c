@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:27:40 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 16:09:34 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 12:43:43 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,3 +22,41 @@ int ft_strlen(char *str)
 	return (i);
 }
 
+int ft_tablen(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+		i++;
+
+	return (i);
+}
+
+int ft_atoi(char *s)
+{
+	int atoi;
+	int i;
+
+	atoi = 0;
+	i = 0;
+	while (s[i] && s[i] >= '0' && s[i] <= '9')
+	{
+		atoi = atoi * 10 + (s[i] - 48);
+		i++;
+	}
+	return (atoi);
+}
+
+void ft_freetab(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i])
+	{
+		free(tab[i]);
+		i++;
+	}
+	free(tab);
+}

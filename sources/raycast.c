@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 17:33:29 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 12:40:44 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,28 +50,33 @@ void	render(t_env *env)
 			env->stepY = 1;
 			env->sideDistY = (env->mapY + 1.0 - env->posY) * env->deltaDistY;
 		}
-		//perform DDA
-
+		
 		while (env->hit == 0)
 		{
-		//jump to next map square, OR in x-direction, OR in y-direction
 			if (env->sideDistX < env->sideDistY)
 			{
 				env->sideDistX += env->deltaDistX;
 				env->mapX += env->stepX;
-				env->side = 0;
+				if (env->rayDirX >=0)
+					env->side = 0;
+				else
+					env->side = 2;
 			}
 			else
 			{
 				env->sideDistY += env->deltaDistY;
 				env->mapY += env->stepY;
-				env->side = 1;
+				if (env->rayDirY >= 0)
+					env->side = 1;
+				else
+					env->side = 3;
 			}
+
 		//Check if ray has hit a wall
 			if (env->map[env->mapY][env->mapX] > '0')
 				env->hit = 1;
 		}
-		if (env->side == 0)
+		if (env->side == 0 || env->side == 2)
 			env->perpWallDist = (env->mapX - env->posX + (1 - env->stepX) / 2) / env->rayDirX;
 	  	else
 			env->perpWallDist = (env->mapY - env->posY + (1 - env->stepY) / 2) / env->rayDirY;
