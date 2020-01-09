@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mian.c                                             :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 12:55:34 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 15:06:52 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,12 +44,15 @@ int main()
 	// init_all(player, env);
 	if (!(env = init_env()))
 		return(0);
+	env->mlx = mlx_init();
+	
 	parse("./maps/map_1.cub", env);
+
 	printf("\n\x1b[33mParsing...\x1b[39m\n\n");
 
 	printf("MAP : Width : %d, Height : %d \n", env->mapWidth, env->mapHeight);
 	printf("PLAYER : Pos x %f, Pos y %f\n", env->posX, env->posY);
-	env->mlx = mlx_init();
+
 	printf("\n\x1b[33mInitializing...\x1b[39m\n\n");
 	printf("RES : x %d, y %d\n", env->resX, env->resY);
 	

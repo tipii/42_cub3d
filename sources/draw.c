@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 11:46:52 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 16:46:52 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,19 @@ void	get_lum_value(t_env *env)
 		env->lumvalue = 1.0 - (env->perpWallDist - 3.0) * 0.5;
 	if (env->perpWallDist > 5.0)
 		env->lumvalue = 0.0;
+}
+
+int get_pxl_clr_value(int x, int y, t_text *text)
+{
+	*(int *)(image->ptr + ((x + y * image->width) * image->bpp));
+	return (result);
+}
+
+void put_pxl_clr(int x, int y, unsigned int color, t_env *env)
+{
+	// printf("%d", color);
+	*(int *)(env->img_data + ((x + y * env->resX) * env->bpp)) = color;
+	// env->img_data[(y * env->size_line) + x * (env->bpp / 8)] = color;
 }
 
 void	draw_column(t_env *env)

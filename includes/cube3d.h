@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/09 14:00:49 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 16:22:09 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,7 @@ void		render(t_env *env);
 int			generate_color(int r, int g, int b);
 double		deg_to_radian(double deg);
 int			hook_keydown(int key, t_env *env);
+int		get_pxl_clr_value(int x, int y, t_text *text);
+void put_pxl_clr(int x, int y, unsigned int color, t_env *env);
 
 #endif

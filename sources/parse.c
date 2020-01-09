@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 14:51:45 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 16:03:53 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,8 @@ int parse(char *filepath, t_env *env)
 	//texture load test
 	// env->textS->width = 32;
 	// printf("%d", env->textS->height);
-	printf("%p\n", mlx_xpm_file_to_image(env->mlx, "./textures/stone.xpm", &env->textS->width, &env->textS->height));
-	// exit(0);
+	env->textS->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/eagle.xpm", &env->textS->width, &env->textS->height);
+	env->textS->data = mlx_get_data_addr(env->textS->ptr, &env->textS->bpp, &env->textS->size_line, &env->textS->endian);
 
 	close(fd);
 	return (1);

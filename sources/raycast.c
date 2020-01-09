@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 12:40:44 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/09 16:36:50 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,41 @@ void	render(t_env *env)
 	  	if(env->drawEnd >= env->resY)
 		  	env->drawEnd = env->resY - 1;
 
-			
+
+
+		// Texture Start
+		double wallX; //where exactly the wall was hit
+	  	if (env->side == 0 || env->side == 2) 
+			wallX = env->posY + env->perpWallDist * env->rayDirY;
+	  	else
+			wallX = env->posX + env->perpWallDist * env->rayDirX;
+	  	wallX -= floor((wallX));
+	  	//x coordinate on the texture
+	  	int texX = (int)(wallX * (double)env->textS->width);
+		// printf("%d  ", texX);
+
+	  	if((env->side == 0 || env->side == 2) && env->rayDirX > 0) 
+			texX = env->textS->width - texX - 1;
+	  	if((env->side == 1 || env->side == 3) && env->rayDirY < 0)
+			texX = env->textS->width - texX - 1;
+
+		double step = 1.0 * env->textS->height / env->lineHeight;
+      	// Starting texture coordinate
+      	double texPos = (env->drawStart - env->resY / 2 + env->resY / 2) * step;
+      	for(int y = env->drawStart; y < env->drawEnd; y++)
+      	{
+        	// Cast the texture coordinate to integer, and mask with (texHeight - 1) in case of overflow
+        	int texY = (int)texPos & (env->textS->height - 1);
+			printf("x : %d , y : %d \n", texX, texY);
+        	texPos += step;
+        	put_pxl_clr(env->x, y, get_pxl_clr_value(texX, texY, env->textS), env) ;
+        	//make color darker for y-sides: R, G and B byte each divided through two with a "shift" and an "and"
+      	}
+
+
+
 		// printf("start : %d, end : %d ", env->drawStart, env->drawEnd);
-		draw_column(env);
+		// draw_column(env);
 		env->x++;
 	}
 	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);
