@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/10 17:13:30 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/10 18:15:58 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	render(t_env *env)
         	floorY += floorStepY;
 			// printf("tx : %d | ty : %d | envx : %d | envy : %d\n", tx, ty, env->x, env->y);
 			// if (env->y > env->resY/2)
-			put_pxl_clr(env->x, env->y, get_pxl_clr_value(tx, ty, env->textN), env);
-			put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(tx, ty, env->textS), env);
+			put_pxl_clr(env->x, env->y, get_pxl_clr_value(tx, ty, env->textF), env);
+			put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(tx, ty, env->textC), env);
 			env->x++;
 		}
 		env->x = 0;

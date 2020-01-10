@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 15:06:52 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/10 17:51:22 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int main()
 {
 
 	t_env		*env;
-	// init_all(player, env);
 	if (!(env = init_env()))
 		return(0);
 	env->mlx = mlx_init();

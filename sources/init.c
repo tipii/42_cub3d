@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/10 16:04:00 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/10 18:06:33 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ t_env *init_env()
 	if(!(env->textE = malloc(sizeof(t_text))))
 		return (NULL);
 	if(!(env->textW = malloc(sizeof(t_text))))
+		return (NULL);
+	if(!(env->textF = malloc(sizeof(t_text))))
+		return (NULL);
+	if(!(env->textC = malloc(sizeof(t_text))))
 		return (NULL);
 	env->posX = pos_X;
 	env->posY = pos_Y;
