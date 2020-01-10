@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 14:15:30 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/10 16:03:00 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef	struct	s_env
 	double		oldPlaneY;
 	/* definig wich ray (left -1 to right 1) and dir */
 	int			x;
+	int			y;
 	double		cameraX;
 	double		rayDirX;
 	double		rayDirY;
@@ -98,7 +99,9 @@ typedef	struct	s_env
 	int			drawStart;
 	int			drawEnd;
 	t_text		*textS;
-
+	t_text		*textN;
+	t_text		*textE;
+	t_text		*textW;
 }				t_env;
 
 char	**init_map(int width, int height);

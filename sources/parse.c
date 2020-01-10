@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 16:03:53 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/10 15:29:15 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,8 +153,14 @@ int parse(char *filepath, t_env *env)
 	//texture load test
 	// env->textS->width = 32;
 	// printf("%d", env->textS->height);
-	env->textS->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/eagle.xpm", &env->textS->width, &env->textS->height);
+	env->textS->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/stone.xpm", &env->textS->width, &env->textS->height);
 	env->textS->data = mlx_get_data_addr(env->textS->ptr, &env->textS->bpp, &env->textS->size_line, &env->textS->endian);
+	env->textN->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/eagle.xpm", &env->textN->width, &env->textN->height);
+	env->textN->data = mlx_get_data_addr(env->textN->ptr, &env->textN->bpp, &env->textN->size_line, &env->textN->endian);
+	env->textE->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/redbrick.xpm", &env->textE->width, &env->textE->height);
+	env->textE->data = mlx_get_data_addr(env->textE->ptr, &env->textE->bpp, &env->textE->size_line, &env->textE->endian);
+	env->textW->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/wood.xpm", &env->textW->width, &env->textW->height);
+	env->textW->data = mlx_get_data_addr(env->textW->ptr, &env->textW->bpp, &env->textW->size_line, &env->textW->endian);
 
 	close(fd);
 	return (1);

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 14:38:39 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/10 16:04:00 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,12 @@ t_env *init_env()
 		
 	if(!(env->textS = malloc(sizeof(t_text))))
 		return (NULL);
-
+	if(!(env->textN = malloc(sizeof(t_text))))
+		return (NULL);
+	if(!(env->textE = malloc(sizeof(t_text))))
+		return (NULL);
+	if(!(env->textW = malloc(sizeof(t_text))))
+		return (NULL);
 	env->posX = pos_X;
 	env->posY = pos_Y;
 	env->dirX = 0;
@@ -46,6 +51,7 @@ t_env *init_env()
 	env->oldPlaneX = 0;
 	env->oldPlaneY = 0;
 	env->x = 0;
+	env->y = 0;
 	env->cameraX = 0;
 	env->rayDirX = 0;
 	env->rayDirY = 0;
