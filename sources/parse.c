@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/13 15:00:57 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 15:31:23 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	error(char* message)
 {
 	write(1, "Error\n", 6);
 	write(1, message, ft_strlen(message));
-	exit(0);
+	exit(1);
 }
 
 char	**init_map(int width, int height)
@@ -35,6 +35,7 @@ char	**init_map(int width, int height)
 	map[height] = 0;
 	return (map);
 }
+
 int	first_pass(char *filepath, t_env *env)
 {
 	int fd;
@@ -57,7 +58,6 @@ int	first_pass(char *filepath, t_env *env)
 				if((*line)[i] != ' ')
 					width++;
 				i++;
-				
 			}
 			env->mapWidth = width;
 			height++;
@@ -71,6 +71,7 @@ int	first_pass(char *filepath, t_env *env)
 	close(fd);
 	return (1);
 }
+
 void	set_player_value(char c, t_env *env)
 {
 	if (c == 'N')
@@ -143,7 +144,6 @@ int parse(char *filepath, t_env *env)
 					}
 					else
 						env->map[j][k++] = args[i][0];
-				
 				i++;
 			}
 			k = 0;

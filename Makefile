@@ -1,4 +1,4 @@
-NAME = cube3d
+NAME = cube3D
 SOURCES_DIR = ./sources/
 INCLUDES_DIR = ./includes
 
