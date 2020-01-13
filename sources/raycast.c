@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/13 11:41:42 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 11:43:20 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	floor_casting(t_env *env)
 		env->rayDirY0 = env->dirY - env->planeY;
 		env->rayDirX1 = env->dirX + env->planeX;
 		env->rayDirY1 = env->dirY + env->planeY;
-
 		env->p = env->y - env->resY / 2;
 		env->posZ = 0.5 * env->resY;
 		env->rowDistance = env->posZ / env->p; 
