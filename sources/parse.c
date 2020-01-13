@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/10 18:15:08 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 15:00:57 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,12 @@ void	set_player_value(char c, t_env *env)
 	}
 }
 
+void load_texture(char *filepath, t_text *text, t_env *env)
+{
+	text->ptr = mlx_xpm_file_to_image(env->mlx, filepath, &text->width, &text->height);
+	text->data = mlx_get_data_addr(text->ptr, &text->bpp, &text->size_line, &text->endian);
+}
+
 int parse(char *filepath, t_env *env)
 {
 	int	fd;
@@ -120,54 +126,56 @@ int parse(char *filepath, t_env *env)
 	fd = open(filepath, O_RDONLY);
 	while(get_next_line(fd, line) > 0)
 	{
-		if (*line[0] == 'R')
+		args = ft_split(*line, ' ');
+		if (args[0][0] >= '0' && args[0][0] <= '9')
 		{
-			args = ft_split(*line, ' ');
-			if (ft_tablen(args) != 3)
-				error("Wrong number of args for RES\n");
-			env->resX = ft_atoi(args[1]);
-			env->resY = ft_atoi(args[2]);
-			ft_freetab(args);
-		}
-		if (*line[0] >= '0' && *line[0] <= '9')
-		{
-			while ((*line)[i])
+			while (args[i])
 			{
-				if((*line)[i] != ' ')
-				{
-					if((*line)[i] == 'N' || (*line)[i] == 'S' || (*line)[i] == 'W' || (*line)[i] == 'E')
+				if(args[i][0] == 'N' || args[i][0] == 'S' || args[i][0] == 'W' || args[i][0] == 'E')
 					{
 						env->posX = k + 0.5;
 						env->posY = j + 0.5;
 						env->mapX = k;
 						env->mapY = j;
-						set_player_value((*line)[i], env);
+						set_player_value(args[i][0], env);
 						env->map[j][k++] = '0';
 
 					}
 					else
-						env->map[j][k++] = (*line)[i];
-				}
+						env->map[j][k++] = args[i][0];
+				
 				i++;
 			}
 			k = 0;
 			j++;
 		}
+		else
+		{
+			if (ft_strcmp(args[0], "R") == 0)
+			{
+				if (ft_tablen(args) != 3)
+					error("Wrong number of args for RES\n");
+				env->resX = ft_atoi(args[1]);
+				if (env->resX > 2560)
+					env->resX = 2560;
+				env->resY = ft_atoi(args[2]);
+				if (env->resY > 1440)
+					env->resY = 1440;
+			}
+			else if (ft_strcmp(args[0], "NO") == 0)
+				load_texture(args[1], env->textN, env);
+			else if (ft_strcmp(args[0], "SO") == 0)
+				load_texture(args[1], env->textS, env);
+			else if (ft_strcmp(args[0], "WE") == 0)
+				load_texture(args[1], env->textW, env);
+			else if (ft_strcmp(args[0], "EA") == 0)
+				load_texture(args[1], env->textE, env);
+		}
+		ft_freetab(args);
 		i = 0;
-		// free(*line);
+		free(*line);
 	}
-
-	//texture load test
-	// env->textS->width = 32;
-	// printf("%d", env->textS->height);
-	env->textS->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/south.xpm", &env->textS->width, &env->textS->height);
-	env->textS->data = mlx_get_data_addr(env->textS->ptr, &env->textS->bpp, &env->textS->size_line, &env->textS->endian);
-	env->textN->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/north.xpm", &env->textN->width, &env->textN->height);
-	env->textN->data = mlx_get_data_addr(env->textN->ptr, &env->textN->bpp, &env->textN->size_line, &env->textN->endian);
-	env->textE->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/east.xpm", &env->textE->width, &env->textE->height);
-	env->textE->data = mlx_get_data_addr(env->textE->ptr, &env->textE->bpp, &env->textE->size_line, &env->textE->endian);
-	env->textW->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/west.xpm", &env->textW->width, &env->textW->height);
-	env->textW->data = mlx_get_data_addr(env->textW->ptr, &env->textW->bpp, &env->textW->size_line, &env->textW->endian);	
+	
 	env->textF->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/floor.xpm", &env->textF->width, &env->textF->height);
 	env->textF->data = mlx_get_data_addr(env->textF->ptr, &env->textF->bpp, &env->textF->size_line, &env->textF->endian);
 	env->textC->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/ceiling.xpm", &env->textC->width, &env->textC->height);

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/13 11:43:20 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 15:18:20 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	render(t_env *env)
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
 	env->x = 0;
 	env->y = 0;
-
 	//FLOOR CASTING
 	floor_casting(env);
 	//WALL CASTING
@@ -88,7 +87,6 @@ void	render(t_env *env)
 			env->stepY = 1;
 			env->sideDistY = (env->mapY + 1.0 - env->posY) * env->deltaDistY;
 		}
-		
 		while (env->hit == 0)
 		{
 			if (env->sideDistX < env->sideDistY)
@@ -109,7 +107,6 @@ void	render(t_env *env)
 				else
 					env->side = 3;
 			}
-
 		//Check if ray has hit a wall
 			if (env->map[env->mapY][env->mapX] > '0')
 				env->hit = 1;
@@ -119,23 +116,7 @@ void	render(t_env *env)
 	  	else
 			env->perpWallDist = (env->mapY - env->posY + (1 - env->stepY) / 2) / env->rayDirY;
 
-		// printf("x : %d | ", env->x);
-		// printf("map x :%d | ", env->mapX);
-		// printf("map x :%d | ", env->mapY);
-		// printf("posX %f | ", env->posX);
-		// printf("posY %f | ", env->posY);
-		// printf("stepX %d | ", env->stepX);
-		// printf("stepY %d | ", env->stepY);
-		// printf("raydirx :%f | ", env->rayDirX);
-		// printf("raydiry :%f | ", env->rayDirY);
-
-		// printf("wall dist : %f\n", env->perpWallDist);
-		// printf("\n");
-
-
 		env->lineHeight = (int)(env->resY / env->perpWallDist);
-		// printf("resY :%d, lineheight : %d | ", env->resY, env->lineHeight);
-
 		env->drawStart = env->resY / 2 - env->lineHeight / 2;
 	  	if(env->drawStart < 0)
 			env->drawStart = 0;
@@ -143,10 +124,7 @@ void	render(t_env *env)
 	  	if(env->drawEnd >= env->resY)
 		  	env->drawEnd = env->resY - 1;
 
-
-
 		// Texture Start
-
 	  	if (env->side == 0 || env->side == 2) 
 			env->wallX = env->posY + env->perpWallDist * env->rayDirY;
 	  	else
@@ -167,21 +145,18 @@ void	render(t_env *env)
       	while (env->y < env->drawEnd)
       	{
         	env->texY = (int)env->texPos & (env->textS->height - 1);
-			// printf("x : %d, texX : %d , texY : %d \n", env->x, texX, texY);
         	env->texPos += env->step;
 			if (env->side == 0)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textN), env);
-			else if (env->side == 1)
         		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textE), env);
-			else if (env->side == 2)
+			else if (env->side == 1)
         		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textS), env);
-			else if (env->side == 3)
+			else if (env->side == 2)
         		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textW), env);
+			else if (env->side == 3)
+        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textN), env);
 			env->y++;
       	}
 		env->y = 0;
-		// printf("start : %d, end : %d ", env->drawStart, env->drawEnd);
-		// draw_column(env);
 		env->x++;
 	}
 	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);

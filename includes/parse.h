@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:26:57 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/09 12:43:57 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 14:30:39 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ char		**no_str(char **tab);
 char		**ft_split(char const *s, char c);
 int			ft_atoi(char *s);
 void		ft_freetab(char **tab);
+int			ft_strcmp(const char *s1, const char *s2);
 
 
 #endif
