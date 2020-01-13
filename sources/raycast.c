@@ -6,11 +6,46 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/10 18:15:58 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 11:41:42 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	floor_casting(t_env *env)
+{
+	while (env->y < env->resY)
+	{
+		env->rayDirX0 = env->dirX - env->planeX;
+		env->rayDirY0 = env->dirY - env->planeY;
+		env->rayDirX1 = env->dirX + env->planeX;
+		env->rayDirY1 = env->dirY + env->planeY;
+
+		env->p = env->y - env->resY / 2;
+		env->posZ = 0.5 * env->resY;
+		env->rowDistance = env->posZ / env->p; 
+		env->floorStepX = env->rowDistance * (env->rayDirX1 - env->rayDirX0) / env->resX;
+		env->floorStepY = env->rowDistance * (env->rayDirY1 - env->rayDirY0) / env->resX;
+		env->floorX = env->posX + env->rowDistance * env->rayDirX0;
+    	env->floorY = env->posY + env->rowDistance * env->rayDirY0;
+		while (env->x < env->resX)
+		{
+			env->cellX = (int)env->floorX;
+			env->cellY = (int)env->floorY;
+			env->tx = (int)(env->textN->width * (env->floorX - env->cellX)) & (env->textN->width - 1);
+        	env->ty = (int)(env->textN->height * (env->floorY - env->cellY)) & (env->textN->height - 1);
+        	env->floorX += env->floorStepX;
+        	env->floorY += env->floorStepY;
+			put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->tx, env->ty, env->textF), env);
+			put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(env->tx, env->ty, env->textC), env);
+			env->x++;
+		}
+		env->x = 0;
+		env->y++;
+	}
+	env->x = 0;
+	env->y = 0;
+}
 
 void	render(t_env *env)
 {
@@ -21,41 +56,7 @@ void	render(t_env *env)
 	env->y = 0;
 
 	//FLOOR CASTING
-	while (env->y < env->resY)
-	{
-		float rayDirX0 = env->dirX - env->planeX;
-		float rayDirY0 = env->dirY - env->planeY;
-		float rayDirX1 = env->dirX + env->planeX;
-		float rayDirY1 = env->dirY + env->planeY;
-
-		int p = env->y - env->resY / 2;
-		float posZ = 0.5 * env->resY;
-		float rowDistance = posZ / p; 
-		float floorStepX = rowDistance * (rayDirX1 - rayDirX0) / env->resX;
-		float floorStepY = rowDistance * (rayDirY1 - rayDirY0) / env->resX;
-		float floorX = env->posX + rowDistance * rayDirX0;
-    	float floorY = env->posY + rowDistance * rayDirY0;
-		while (env->x < env->resX)
-		{
-			int cellX = (int)floorX;
-			int cellY = (int)floorY;
-			int tx = (int)(env->textN->width * (floorX - cellX)) & (env->textN->width - 1);
-        	int ty = (int)(env->textN->height * (floorY - cellY)) & (env->textN->height - 1);
-        	floorX += floorStepX;
-        	floorY += floorStepY;
-			// printf("tx : %d | ty : %d | envx : %d | envy : %d\n", tx, ty, env->x, env->y);
-			// if (env->y > env->resY/2)
-			put_pxl_clr(env->x, env->y, get_pxl_clr_value(tx, ty, env->textF), env);
-			put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(tx, ty, env->textC), env);
-			env->x++;
-		}
-		env->x = 0;
-		env->y++;
-	}
-	env->x = 0;
-	env->y = 0;
-
-	
+	floor_casting(env);
 	//WALL CASTING
 	while(env->x < env->resX)
 	{
@@ -146,41 +147,37 @@ void	render(t_env *env)
 
 
 		// Texture Start
-		double wallX; //where exactly the wall was hit
-		int texX;
-		double step;
-		double texPos;
 
 	  	if (env->side == 0 || env->side == 2) 
-			wallX = env->posY + env->perpWallDist * env->rayDirY;
+			env->wallX = env->posY + env->perpWallDist * env->rayDirY;
 	  	else
-			wallX = env->posX + env->perpWallDist * env->rayDirX;
-	  	wallX -= floor(wallX);
+			env->wallX = env->posX + env->perpWallDist * env->rayDirX;
+	  	env->wallX -= floor(env->wallX);
 	  	//x coordinate on the texture
-	  	texX = (int)(wallX * (double)env->textS->width);
+	  	env->texX = (int)(env->wallX * (double)env->textS->width);
 
 	  	if((env->side == 0 || env->side == 2) && env->rayDirX > 0) 
-			texX = env->textS->width - texX - 1;
+			env->texX = env->textS->width - env->texX - 1;
 	  	if((env->side == 1 || env->side == 3) && env->rayDirY < 0)
-			texX = env->textS->width - texX - 1;
+			env->texX = env->textS->width - env->texX - 1;
 
-		step = 1.0 * env->textS->height / env->lineHeight;
-      	texPos = (env->drawStart - env->resY / 2 + env->lineHeight / 2) * step;
+		env->step = 1.0 * env->textS->height / env->lineHeight;
+      	env->texPos = (env->drawStart - env->resY / 2 + env->lineHeight / 2) * env->step;
 		
 		env->y = env->drawStart;
       	while (env->y < env->drawEnd)
       	{
-        	int texY = (int)texPos & (env->textS->height - 1);
+        	env->texY = (int)env->texPos & (env->textS->height - 1);
 			// printf("x : %d, texX : %d , texY : %d \n", env->x, texX, texY);
-        	texPos += step;
+        	env->texPos += env->step;
 			if (env->side == 0)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(texX, texY, env->textN), env);
+        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textN), env);
 			else if (env->side == 1)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(texX, texY, env->textE), env);
+        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textE), env);
 			else if (env->side == 2)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(texX, texY, env->textS), env);
+        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textS), env);
 			else if (env->side == 3)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(texX, texY, env->textW), env);
+        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textW), env);
 			env->y++;
       	}
 		env->y = 0;

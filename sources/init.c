@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/10 18:06:33 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 11:28:29 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,10 @@ t_env *init_env()
 	env->stepY = 0;
 	env->hit = 0;
 	env->side = 0;
+	env->rayDirX0 = 0;
+	env->rayDirY0 = 0;
+	env->rayDirX1 = 0;
+	env->rayDirY1 = 0;
 	env->bpp = 0;
 	env->size_line = 0;
 	env->endian = 0;

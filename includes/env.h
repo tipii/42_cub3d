@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/10 18:06:52 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 11:40:41 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,28 @@ typedef	struct	s_env
 	int			hit;
 	/* side of wall */
 	int			side;
+	/* textures variables */
+	double		wallX;
+	int			texX;
+	double		step;
+	double		texPos;
+	int			texY;
+	/* wall and floor variables */
+	double		rayDirX0;
+	double		rayDirY0;
+	double		rayDirX1;
+	double		rayDirY1;
+	int			p;
+	double		posZ;
+	double		rowDistance;
+	double		floorStepX;
+	double		floorStepY;
+	double		floorX;
+	double		floorY;
+	int			cellX;
+	int			cellY;
+	int			tx;
+	int			ty;
 	/* mlx prop */
 	int			bpp;
 	int			size_line;
