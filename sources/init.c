@@ -6,11 +6,34 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/13 12:16:09 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/14 15:41:25 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+t_checks	*init_checks()
+{
+	t_checks *checks;
+
+	if(!(checks = malloc(sizeof(t_checks))))
+		error("Malloc of checks has failed");
+	checks->found_res = 0;
+	checks->found_map = 0;
+	checks->found_player = 0;
+	checks->found_sprite = 0;
+	checks->found_textN = 0;
+	checks->found_textS = 0;
+	checks->found_textE = 0;
+	checks->found_textW = 0;
+	checks->found_floor = 0;
+	checks->found_ceiling = 0;
+	checks->line = malloc(sizeof(*checks->line));
+	checks->i = 0;
+	checks->j = 0;
+	checks->k = 0;
+	return (checks);
+}
 
 t_env *init_env()
 {
@@ -34,6 +57,8 @@ t_env *init_env()
 		return (NULL);
 	if(!(env->textC = malloc(sizeof(t_text))))
 		return (NULL);
+	if(!(env->textsprite = malloc(sizeof(t_text))))
+		return (NULL);
 	env->posX = pos_X;
 	env->posY = pos_Y;
 	env->dirX = 0;
@@ -43,8 +68,6 @@ t_env *init_env()
 	env->resX = res_x;
 	env->resY = res_y;
 	env->fov = FOV;
-	// if (!(env->map = init_map(10, 10)))
-	// 	return(NULL);
 	env->mapWidth = 0;
 	env->mapHeight = 0;
 	env->mapX = 1;

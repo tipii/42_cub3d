@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/13 14:16:06 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/14 16:11:53 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,25 @@
 # define H_WALL 64
 # define H_PLAYER 64
 
+typedef	struct s_checks
+{
+	int				found_res;
+	int				found_player;
+	int				found_map;
+	int				found_textN;
+	int				found_textS;
+	int				found_textE;
+	int				found_textW;
+	int				found_sprite;
+	int				found_ceiling;
+	int				found_floor;
+	int				fd;
+	char			**line;
+	char			**args;
+	int				i;
+	int				j;
+	int				k;
+}				t_checks;
 
 typedef struct s_text
 {
@@ -31,7 +50,6 @@ typedef struct s_text
 
 typedef	struct	s_env
 {
-
 	///PLAYER INFOS
 	double			posX;
 	double			posY;
@@ -105,6 +123,8 @@ typedef	struct	s_env
 	int			cellY;
 	int			tx;
 	int			ty;
+	/* sprites */
+	
 	/* mlx prop */
 	int			bpp;
 	int			size_line;
@@ -123,13 +143,14 @@ typedef	struct	s_env
 	t_text		*textN;
 	t_text		*textE;
 	t_text		*textW;
+	t_text		*textsprite;
 	t_text		*textF;
 	t_text		*textC;
 }				t_env;
 
 char	**init_map(int width, int height);
 void	show_map(t_env *env);
-
+void	error(char* message);
 void	get_lum_value(t_env *env);
 
 #endif
