@@ -6,11 +6,23 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/13 11:43:20 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/14 09:50:14 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+void	floor_print(t_env *env)
+{
+	env->cellX = (int)env->floorX;
+	env->cellY = (int)env->floorY;
+	env->tx = (int)(env->textN->width * (env->floorX - env->cellX)) & (env->textN->width - 1);
+	env->ty = (int)(env->textN->height * (env->floorY - env->cellY)) & (env->textN->height - 1);
+	env->floorX += env->floorStepX;
+	env->floorY += env->floorStepY;
+	put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->tx, env->ty, env->textF), env);
+	put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(env->tx, env->ty, env->textC), env);
+	env->x++;
+}
 
 void	floor_casting(t_env *env)
 {
@@ -29,15 +41,7 @@ void	floor_casting(t_env *env)
     	env->floorY = env->posY + env->rowDistance * env->rayDirY0;
 		while (env->x < env->resX)
 		{
-			env->cellX = (int)env->floorX;
-			env->cellY = (int)env->floorY;
-			env->tx = (int)(env->textN->width * (env->floorX - env->cellX)) & (env->textN->width - 1);
-        	env->ty = (int)(env->textN->height * (env->floorY - env->cellY)) & (env->textN->height - 1);
-        	env->floorX += env->floorStepX;
-        	env->floorY += env->floorStepY;
-			put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->tx, env->ty, env->textF), env);
-			put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(env->tx, env->ty, env->textC), env);
-			env->x++;
+			floor_print(env);
 		}
 		env->x = 0;
 		env->y++;
