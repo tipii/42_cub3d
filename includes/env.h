@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 16:11:53 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/14 16:24:36 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef	struct	s_env
 	int			tx;
 	int			ty;
 	/* sprites */
-	
+	int			countsprite;
 	/* mlx prop */
 	int			bpp;
 	int			size_line;
@@ -152,5 +152,6 @@ char	**init_map(int width, int height);
 void	show_map(t_env *env);
 void	error(char* message);
 void	get_lum_value(t_env *env);
+void	sprite_casting(t_env *env);
 
 #endif

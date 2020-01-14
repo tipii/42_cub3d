@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 16:12:05 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/14 16:20:49 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,11 @@ int parse(char *filepath, t_env *env)
 					set_player_value(c->args[c->i][0], env);
 					env->map[c->j][c->k++] = '0';
 					c->found_player = 1;
+				}
+				else if (c->args[c->i][0] == '2')
+				{
+					env->countsprite++;
+					env->map[c->j][c->k++] = c->args[c->i][0];
 				}
 				else
 					env->map[c->j][c->k++] = c->args[c->i][0];
