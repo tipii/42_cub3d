@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/13 11:40:41 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/13 14:16:06 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,6 @@ typedef	struct	s_env
 	/* stock old dirX and dirY */
 	double			oldDirX;
 	double			oldDirY;
-
 	/* resolution */
 	int		resX;
 	int		resY;
