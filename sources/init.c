@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 16:20:01 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/15 16:24:57 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ t_env *init_env()
 	env->rayDirX1 = 0;
 	env->rayDirY1 = 0;
 	env->countsprite = 0;
+	env->isprite = 0;
+	env->jsprite = 0;
 	env->bpp = 0;
 	env->size_line = 0;
 	env->endian = 0;
@@ -115,6 +117,48 @@ t_env *init_env()
 	return (env);
 }
 
+
+char	**init_map(int width, int height)
+{
+	char **map;
+	int i;
+	
+	i = 0;
+	map = (char **)malloc(sizeof(*map) * (height + 1));
+	while (i < height)
+	{
+		map[i] = (char *)malloc(sizeof(char) * (width + 1));
+		map[i][width] = 0;
+		i++;
+	}
+	map[height] = 0;
+	return (map);
+}
+
+
+t_sprite **init_sprite(int i)
+{
+	int j;
+	t_sprite **sprites;
+
+	j = 0;	
+	printf("%d sprites\n", i);
+	sprites = malloc(sizeof(*sprites) * (i + 1));
+		// error("Malloc of **sprites has failed");
+	while(j < i)
+	{
+		if(!(sprites[j] = malloc(sizeof(t_sprite))))
+			exit(1);
+		sprites[j]->bpp = 0;
+		sprites[j]->size_line = 0;
+		sprites[j]->endian = 0;
+		sprites[j]->width = 0;
+		sprites[j]->height = 0;
+		j++;
+	}
+	sprites[j] = 0;
+	return (sprites);
+}
 // void		init_all(t_env *env, t_env *env)
 // {
 // 	env = init_env();

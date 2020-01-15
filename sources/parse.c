@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 16:20:49 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/15 16:24:05 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,6 @@ void	error(char* message)
 	write(1, message, ft_strlen(message));
 	write(1, "\n" ,1);
 	exit(1);
-}
-
-char	**init_map(int width, int height)
-{
-	char **map;
-	int i;
-	
-	i = 0;
-	map = (char **)malloc(sizeof(*map) * (height + 1));
-	while (i < height)
-	{
-		map[i] = (char *)malloc(sizeof(char) * (width + 1));
-		map[i][width] = 0;
-		i++;
-	}
-	map[height] = 0;
-	return (map);
 }
 
 int	first_pass(char *filepath, t_env *env)
@@ -58,6 +41,8 @@ int	first_pass(char *filepath, t_env *env)
 			{
 				if((*line)[i] != ' ')
 					width++;
+				if ((*line)[i] == '2')
+					env->countsprite++;
 				i++;
 			}
 			env->mapWidth = width;
@@ -111,6 +96,12 @@ void load_texture(char *filepath, t_text *text, t_env *env)
 	text->data = mlx_get_data_addr(text->ptr, &text->bpp, &text->size_line, &text->endian);
 }
 
+void load_sprite(char *filepath, t_sprite *text, t_env *env)
+{
+	text->ptr = mlx_xpm_file_to_image(env->mlx, filepath, &text->width, &text->height);
+	text->data = mlx_get_data_addr(text->ptr, &text->bpp, &text->size_line, &text->endian);
+}
+
 void	has_found_all(t_checks *c)
 {
 	if	(!c->found_res || !c->found_player || !c->found_map || !c->found_textS ||
@@ -130,6 +121,7 @@ int parse(char *filepath, t_env *env)
 		error("Checks init error");
 	first_pass(filepath, env);
 	env->map = init_map(env->mapWidth, env->mapHeight);
+	env->sprites = init_sprite(env->countsprite);
 	c->line = malloc(sizeof(*c->line));
 	c->fd = open(filepath, O_RDONLY);
 	while(get_next_line(c->fd, c->line) > 0)
@@ -152,7 +144,9 @@ int parse(char *filepath, t_env *env)
 				}
 				else if (c->args[c->i][0] == '2')
 				{
-					env->countsprite++;
+					env->sprites[env->isprite]->posx = c->k;
+					env->sprites[env->isprite]->posy = c->j;
+					env->isprite++;
 					env->map[c->j][c->k++] = c->args[c->i][0];
 				}
 				else
@@ -198,7 +192,13 @@ int parse(char *filepath, t_env *env)
 			}
 			else if (ft_strcmp(c->args[0], "S") == 0)
 			{
-				load_texture(c->args[1], env->textsprite, env);
+				printf("%d \n", env->countsprite);
+
+				while (env->jsprite < env->countsprite)
+				{
+					load_sprite(c->args[1], env->sprites[env->jsprite], env);
+					env->jsprite++;;
+				}
 				c->found_sprite = 1;
 			}
 			else if (ft_strcmp(c->args[0], "F") == 0)
@@ -214,6 +214,9 @@ int parse(char *filepath, t_env *env)
 		c->i = 0;
 		free(*c->line);
 	}
+	int w = -1;
+	while (env->sprites[++w])
+		printf("%d : x %d, y %d, bpp %d, %d\n", w, env->sprites[w]->posx, env->sprites[w]->posy, env->sprites[w]->bpp, env->sprites[w]->size_line);
 	has_found_all(c);
 	free(c);
 	env->textF->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/floor.xpm", &env->textF->width, &env->textF->height);

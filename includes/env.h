@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 16:24:36 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/15 16:24:20 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,19 @@ typedef struct s_text
 	int			height;
 	char		*data;
 }				t_text;
+
+typedef struct s_sprite
+{
+	void		*ptr;
+	int			bpp;
+	int			size_line;
+	int			endian;
+	int			width;
+	int			height;
+	char		*data;
+	int			posx;
+	int			posy;
+}				t_sprite;
 
 typedef	struct	s_env
 {
@@ -125,6 +138,9 @@ typedef	struct	s_env
 	int			ty;
 	/* sprites */
 	int			countsprite;
+	int			isprite;
+	int			jsprite;
+	t_sprite	**sprites;
 	/* mlx prop */
 	int			bpp;
 	int			size_line;
@@ -148,10 +164,11 @@ typedef	struct	s_env
 	t_text		*textC;
 }				t_env;
 
-char	**init_map(int width, int height);
-void	show_map(t_env *env);
-void	error(char* message);
-void	get_lum_value(t_env *env);
-void	sprite_casting(t_env *env);
+char		**init_map(int width, int height);
+t_sprite	**init_sprite(int i);
+void		show_map(t_env *env);
+void		error(char* message);
+void		get_lum_value(t_env *env);
+void		sprite_casting(t_env *env);
 
 #endif
