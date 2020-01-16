@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/16 16:23:47 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 17:35:25 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ typedef	struct	s_env
 	int			jsprite;
 	t_sprite	**sprites;
 	double		*zbuffer;
-	int			*sprite_order;
+	int			*s_order;
 	double		*sprite_distance;
 	double		spritex;
 	double		spritey;

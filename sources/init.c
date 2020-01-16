@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/16 15:34:22 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 17:34:16 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,8 +142,8 @@ t_sprite **init_sprite(int i, t_env *env)
 	printf("%d sprites\n", i);
 	if (!(sprites = malloc(sizeof(*sprites) * (i + 1))))
 		error("Malloc of **sprites has failed");
-	if (!(env->sprite_order = malloc(sizeof(int) * i)))
-		error("Malloc of *sprite_order has failed");
+	if (!(env->s_order = malloc(sizeof(int) * i)))
+		error("Malloc of *s_order has failed");
 	if (!(env->sprite_distance = malloc(sizeof(double) * i)))
 		error("Malloc of *sprite_distance has failed");
 	while(j < i)
