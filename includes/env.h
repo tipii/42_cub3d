@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/15 16:24:20 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:23:47 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,6 +141,24 @@ typedef	struct	s_env
 	int			isprite;
 	int			jsprite;
 	t_sprite	**sprites;
+	double		*zbuffer;
+	int			*sprite_order;
+	double		*sprite_distance;
+	double		spritex;
+	double		spritey;
+	double		invdet;
+	double		transformx;
+	double		transformy;
+	int			spritescreenx;
+	int			spriteheight;
+	int			drawstarty;
+	int			drawendy;
+	int			drawstartx;
+	int			drawendx;
+	int			spritewidth;
+	int			stripe;
+	int			d;
+	int			color;
 	/* mlx prop */
 	int			bpp;
 	int			size_line;
@@ -165,7 +183,7 @@ typedef	struct	s_env
 }				t_env;
 
 char		**init_map(int width, int height);
-t_sprite	**init_sprite(int i);
+t_sprite	**init_sprite(int i, t_env *env);
 void		show_map(t_env *env);
 void		error(char* message);
 void		get_lum_value(t_env *env);

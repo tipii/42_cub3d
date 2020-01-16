@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/15 16:24:05 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 15:30:44 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,7 @@ int parse(char *filepath, t_env *env)
 		error("Checks init error");
 	first_pass(filepath, env);
 	env->map = init_map(env->mapWidth, env->mapHeight);
-	env->sprites = init_sprite(env->countsprite);
+	env->sprites = init_sprite(env->countsprite, env);
 	c->line = malloc(sizeof(*c->line));
 	c->fd = open(filepath, O_RDONLY);
 	while(get_next_line(c->fd, c->line) > 0)
@@ -168,6 +168,8 @@ int parse(char *filepath, t_env *env)
 				env->resY = ft_atoi(c->args[2]);
 				if (env->resY > 1440)
 					env->resY = 1440;
+				if(!(env->zbuffer = malloc(sizeof(double) * env->resX)))
+					error("Malloc of zbuf has failed");
 				c->found_res = 1;
 			}
 			else if (ft_strcmp(c->args[0], "NO") == 0)

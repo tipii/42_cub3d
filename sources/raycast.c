@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 16:35:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:27:14 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	floor_casting(t_env *env)
 void	render(t_env *env)
 {
 	//TO DO -> malloc de zbuf
-	double zbuffer[env->resX];
+	// double zbuffer[env->resX];
 	mlx_destroy_image(env->mlx, env->img);
 	env->img = mlx_new_image(env->mlx, env->resX, env->resY);
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
@@ -162,16 +162,69 @@ void	render(t_env *env)
         		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textN), env);
 			env->y++;
       	}
-		zbuffer[env->x] = env->perpWallDist;
+		env->zbuffer[env->x] = env->perpWallDist;
 		env->y = 0;
 		env->x++;
-
 	}
+
 	sprite_casting(env);
 	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);
 }
 
 void	sprite_casting(t_env *env)
 {
-	(void)env;
+	int i;
+
+	i = 0;
+	while (i < env->countsprite)
+	{
+		env->sprite_order[i] = i;
+		env->sprite_distance[i] = ((env->posX - env->sprites[i]->posx) * (env->posX - env->sprites[i]->posx) + (env->posY - env->sprites[i]->posy) * (env->posY - env->sprites[i]->posy));
+		i++;
+	}
+	i = 0;
+	while (i < env->countsprite)
+	{
+		env->spritex = env->sprites[env->sprite_order[i]]->posx - env->posX + 0.5;
+		env->spritey = env->sprites[env->sprite_order[i]]->posy - env->posY + 0.5;
+		env->invdet = 1.0 / (env->planeX * env->dirY - env->dirX * env->planeY);
+		env->transformx = env->invdet * (env->dirY * env->spritex - env->dirX * env->spritey);
+    	env->transformy = env->invdet * (-env->planeY * env->spritex + env->planeX * env->spritey);
+		env->spritescreenx = (int)((env->resX / 2) * (1 + env->transformx / env->transformy));
+		env->spriteheight = abs((int)(env->resY / (env->transformy)));
+		env->drawstarty = -env->spriteheight / 2 + env->resY / 2;
+      	if(env->drawstarty < 0) 
+			env->drawstarty = 0;
+      	env->drawendy = env->spriteheight / 2 + env->resY / 2;
+      	if(env->drawendy >= env->resY) 
+			env->drawendy = env->resY - 1;
+		env->spritewidth = abs((int)(env->resY / (env->transformy)));
+      	env->drawstartx = -env->spritewidth / 2 + env->spritescreenx;
+      	if(env->drawstartx < 0) 
+		  	env->drawstartx = 0;
+      	env->drawendx = env->spritewidth / 2 + env->spritescreenx;
+      	if(env->drawendx >= env->resX) 
+		  	env->drawendx = env->resX - 1;
+
+		env->stripe = env->drawstartx;
+		while (env->stripe < env->drawendx)
+     	{
+        	env->texX = (int)(256 * (env->stripe - (-env->spritewidth / 2 + env->spritescreenx)) * env->sprites[i]->width / env->spritewidth) / 256;
+			if(env->transformy > 0 && env->stripe > 0 && env->stripe < env->resX && env->transformy < env->zbuffer[env->stripe])
+			{
+				env->y = env->drawstarty;
+				while (env->y < env->drawendy) //for every pixel of the current stripe
+				{
+					env->d = (env->y) * 256 - env->resY * 128 + env->spriteheight * 128; //256 and 128 factors to avoid floats
+					env->texY = ((env->d * env->sprites[i]->height) / env->spriteheight) / 256;
+					env->color = get_pxl_sprite_value(env->texX, env->texY, env->sprites[i]);
+					if(env->color)
+						put_pxl_clr(env->stripe, env->y, env->color, env);
+					env->y++;
+				}
+			}
+			env->stripe++;
+      	}
+	  	i++;
+	}
 }
