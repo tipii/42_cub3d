@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/10 15:47:56 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 15:54:55 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,20 @@
 // }
 
 int get_pxl_clr_value(int x, int y, t_text *text)
+{
+
+	int		color;
+	char	*clr;
+	
+	clr = (char*)&color;
+	clr[0] = text->data[(y * text->size_line) + x * (text->bpp / 8) + 0];
+	clr[1] = text->data[(y * text->size_line) + x * (text->bpp / 8) + 1];
+	clr[2] = text->data[(y * text->size_line) + x * (text->bpp / 8) + 2];
+	clr[3] = 0;
+	return (color);
+}
+
+int get_pxl_sprite_value(int x, int y, t_sprite *text)
 {
 
 	int		color;

@@ -1,6 +1,6 @@
-R 720 576
+R 1280 720
 NO ./textures/wood.xpm
-SO ./textures/eagle.xpm
+SO ./textures/oak.xpm
 WE ./textures/redbrick.xpm
 EA ./textures/greystone.xpm
 S ./textures/barrel.xpm

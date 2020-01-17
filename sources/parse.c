@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/15 16:24:05 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 17:32:51 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,13 +104,10 @@ void load_sprite(char *filepath, t_sprite *text, t_env *env)
 
 void	has_found_all(t_checks *c)
 {
-	if	(!c->found_res || !c->found_player || !c->found_map || !c->found_textS ||
-	 !c->found_textN || !c->found_textW || !c->found_textE || !c->found_sprite ||
-	 !c->found_ceiling || !c->found_floor)
-	{
-		printf("|  %d | %d | %d | %d | %d | %d | %d | %d | %d | %d  |", c->found_res, c->found_player, c->found_map, c->found_textS, c->found_textN, c->found_textW, c->found_textE, c->found_sprite, c->found_ceiling, c->found_floor);
+	if	(!c->found_res || !c->found_player || !c->found_map ||
+	!c->found_textS || !c->found_textN || !c->found_textW || !c->found_textE ||
+	!c->found_sprite || !c->found_ceiling || !c->found_floor)
 		error("Map error - An argument is missing");
-	}
 }
 
 int parse(char *filepath, t_env *env)
@@ -121,7 +118,7 @@ int parse(char *filepath, t_env *env)
 		error("Checks init error");
 	first_pass(filepath, env);
 	env->map = init_map(env->mapWidth, env->mapHeight);
-	env->sprites = init_sprite(env->countsprite);
+	env->sprites = init_sprite(env->countsprite, env);
 	c->line = malloc(sizeof(*c->line));
 	c->fd = open(filepath, O_RDONLY);
 	while(get_next_line(c->fd, c->line) > 0)
@@ -132,7 +129,8 @@ int parse(char *filepath, t_env *env)
 			c->found_map = 1;
 			while (c->args[c->i])
 			{
-				if(c->args[c->i][0] == 'N' || c->args[c->i][0] == 'S' || c->args[c->i][0] == 'W' || c->args[c->i][0] == 'E')
+				if(c->args[c->i][0] == 'N' || c->args[c->i][0] == 'S'
+				|| c->args[c->i][0] == 'W' || c->args[c->i][0] == 'E')
 				{
 					env->posX = c->k + 0.5;
 					env->posY = c->j + 0.5;
@@ -168,6 +166,8 @@ int parse(char *filepath, t_env *env)
 				env->resY = ft_atoi(c->args[2]);
 				if (env->resY > 1440)
 					env->resY = 1440;
+				if(!(env->zbuffer = malloc(sizeof(double) * env->resX)))
+					error("Malloc of zbuf has failed");
 				c->found_res = 1;
 			}
 			else if (ft_strcmp(c->args[0], "NO") == 0)

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 16:35:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/16 16:30:25 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	floor_casting(t_env *env)
 void	render(t_env *env)
 {
 	//TO DO -> malloc de zbuf
-	double zbuffer[env->resX];
+	// double zbuffer[env->resX];
 	mlx_destroy_image(env->mlx, env->img);
 	env->img = mlx_new_image(env->mlx, env->resX, env->resY);
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
@@ -162,16 +162,11 @@ void	render(t_env *env)
         		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textN), env);
 			env->y++;
       	}
-		zbuffer[env->x] = env->perpWallDist;
+		env->zbuffer[env->x] = env->perpWallDist;
 		env->y = 0;
 		env->x++;
-
 	}
+
 	sprite_casting(env);
 	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);
-}
-
-void	sprite_casting(t_env *env)
-{
-	(void)env;
 }

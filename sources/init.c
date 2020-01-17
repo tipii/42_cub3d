@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/15 17:21:13 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/17 15:30:13 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,6 @@ t_checks	*init_checks()
 t_env *init_env()
 {
 	t_env	*env;
-	int res_x = 720;
-	int res_y = 576;
-	float pos_X = 1.1;
-	float pos_Y = 1.1;
 
 	if(!(env = malloc(sizeof(t_env))))
 		return (NULL);	
@@ -59,14 +55,14 @@ t_env *init_env()
 		return (NULL);
 	if(!(env->textsprite = malloc(sizeof(t_text))))
 		return (NULL);
-	env->posX = pos_X;
-	env->posY = pos_Y;
+	env->posX = 0;
+	env->posY = 0;
 	env->dirX = 0;
 	env->dirY = -1;
 	env->r_speed = 0.1;
 	env->t_speed = 0.1;
-	env->resX = res_x;
-	env->resY = res_y;
+	env->resX = 0;
+	env->resY = 0;
 	env->fov = FOV;
 	env->mapWidth = 0;
 	env->mapHeight = 0;
@@ -97,6 +93,7 @@ t_env *init_env()
 	env->countsprite = 0;
 	env->isprite = 0;
 	env->jsprite = 0;
+	env->zbuffer = NULL;
 	env->bpp = 0;
 	env->size_line = 0;
 	env->endian = 0;
@@ -136,15 +133,19 @@ char	**init_map(int width, int height)
 }
 
 
-t_sprite **init_sprite(int i)
+t_sprite **init_sprite(int i, t_env *env)
 {
 	int j;
 	t_sprite **sprites;
 
 	j = 0;	
 	printf("%d sprites\n", i);
-	sprites = malloc(sizeof(*sprites) * (i + 1));
-		// error("Malloc of **sprites has failed");
+	if (!(sprites = malloc(sizeof(*sprites) * (i + 1))))
+		error("Malloc of **sprites has failed");
+	if (!(env->s_order = malloc(sizeof(int) * i)))
+		error("Malloc of *s_order has failed");
+	if (!(env->sprite_distance = malloc(sizeof(double) * i)))
+		error("Malloc of *sprite_distance has failed");
 	while(j < i)
 	{
 		if(!(sprites[j] = malloc(sizeof(t_sprite))))
