@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/15 16:24:57 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/15 17:21:13 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,10 +159,3 @@ t_sprite **init_sprite(int i)
 	sprites[j] = 0;
 	return (sprites);
 }
-// void		init_all(t_env *env, t_env *env)
-// {
-// 	env = init_env();
-
-// 	env = init_env(env);
-// 	printf("%d", env->resX);
-// }
