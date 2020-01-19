@@ -6,11 +6,12 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/16 16:30:25 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 14:30:18 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
 void	floor_print(t_env *env)
 {
 	env->cellX = (int)env->floorX;
