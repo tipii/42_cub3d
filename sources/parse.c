@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 15:39:37 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 16:33:03 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	first_pass(char *filepath, t_env *env)
 	i = 0;
 	width = 0;
 	height = 0;
-	line = malloc(sizeof(*line));
+	if(!(line = malloc(sizeof(*line))))
+		error("Malloc of line has failed");
 	fd = open(filepath, O_RDONLY);
 	while(get_next_line(fd, line) > 0)
 	{
@@ -116,8 +117,9 @@ int parse(char *filepath, t_env *env)
 {
 	t_checks *c;
 	
-	if (!(c = init_checks()))
-		error("Checks init error");
+	if(!(c = malloc(sizeof(t_checks))))
+		error("Malloc of checks has failed");
+	init_checks(c);
 	first_pass(filepath, env);
 	init_map(env->mapWidth, env->mapHeight, env);
 	init_sprite(env->countsprite, env);
@@ -194,8 +196,6 @@ int parse(char *filepath, t_env *env)
 			}
 			else if (ft_strcmp(c->args[0], "S") == 0)
 			{
-				printf("%d \n", env->countsprite);
-
 				while (env->jsprite < env->countsprite)
 				{
 					load_sprite(c->args[1], env->sprites[env->jsprite], env);

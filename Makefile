@@ -12,7 +12,7 @@ OBJS = $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
 			$(COMPIL) $(FLAG) -g3 -fsanitize=address $(LIB) $(HEADER) $(OBJS) -o $(NAME)
-			./$(NAME)
+			# ./$(NAME)
 
 %.o: %.c
 			$(COMPIL) $(FLAG) $(HEADER) -c $< -o $@

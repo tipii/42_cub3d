@@ -6,33 +6,28 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 15:42:49 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 16:32:22 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-t_checks	*init_checks()
+void	init_checks(t_checks *c)
 {
-	t_checks *checks;
-
-	if(!(checks = malloc(sizeof(t_checks))))
-		error("Malloc of checks has failed");
-	checks->found_res = 0;
-	checks->found_map = 0;
-	checks->found_player = 0;
-	checks->found_sprite = 0;
-	checks->found_textN = 0;
-	checks->found_textS = 0;
-	checks->found_textE = 0;
-	checks->found_textW = 0;
-	checks->found_floor = 0;
-	checks->found_ceiling = 0;
-	checks->line = malloc(sizeof(*checks->line));
-	checks->i = 0;
-	checks->j = 0;
-	checks->k = 0;
-	return (checks);
+	c->found_res = 0;
+	c->found_map = 0;
+	c->found_player = 0;
+	c->found_sprite = 0;
+	c->found_textN = 0;
+	c->found_textS = 0;
+	c->found_textE = 0;
+	c->found_textW = 0;
+	c->found_floor = 0;
+	c->found_ceiling = 0;
+	c->line = malloc(sizeof(*c->line));
+	c->i = 0;
+	c->j = 0;
+	c->k = 0;
 }
 
 t_env *init_env()
@@ -135,8 +130,7 @@ void	init_sprite(int i, t_env *env)
 {
 	int j;
 
-	j = 0;	
-	printf("%d sprites\n", i);
+	j = 0;
 	if (!(env->sprites = malloc(sizeof(*env->sprites) * (i + 1))))
 		error("Malloc of **sprites has failed");
 	if (!(env->s_order = malloc(sizeof(int) * i)))

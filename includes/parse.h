@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:26:57 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/14 15:41:38 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 16:26:32 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char		**ft_split(char const *s, char c);
 int			ft_atoi(char *s);
 void		ft_freetab(char **tab);
 int			ft_strcmp(const char *s1, const char *s2);
-t_checks	*init_checks();
+void		init_checks(t_checks *c);
 
 
 #endif

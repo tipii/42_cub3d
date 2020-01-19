@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:30:05 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 15:56:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:57:07 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,7 @@ void	sort_sprite(t_env *env)
 	int tmp;
 
 	i = 0;
-	j = 0; 
-
+	j = 0;
 	while (i < (env->countsprite - 1))
 	{
 		while (j < env->countsprite - 1 - i)
