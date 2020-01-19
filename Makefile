@@ -11,8 +11,8 @@ SRCS = $(wildcard $(SOURCES_DIR)*.c)
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
-			$(COMPIL) $(FLAG) -g3 -fsanitize=address $(LIB) $(HEADER) $(OBJS) -o $(NAME).o 
-			./$(NAME).o
+			$(COMPIL) $(FLAG) -g3 -fsanitize=address $(LIB) $(HEADER) $(OBJS) -o $(NAME)
+			./$(NAME)
 
 %.o: %.c
 			$(COMPIL) $(FLAG) $(HEADER) -c $< -o $@
@@ -23,7 +23,7 @@ clean :
 			rm -f $(OBJS)
 
 fclean :	clean
-			rm -f ./$(NAME).o
+			rm -f ./$(NAME)
 
 re:			fclean all
 

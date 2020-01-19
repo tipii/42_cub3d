@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/16 17:32:51 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:39:37 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,14 @@ int	first_pass(char *filepath, t_env *env)
 		{
 			while ((*line)[i])
 			{
-				if((*line)[i] != ' ')
+				if((*line)[i] != ' ' && i % 2 == 0)
 					width++;
 				if ((*line)[i] == '2')
 					env->countsprite++;
 				i++;
 			}
+			if (env->mapWidth != 0 && width != 0 && width != env->mapWidth)
+				error("Map is not correctly define");
 			env->mapWidth = width;
 			height++;
 		}
@@ -117,8 +119,8 @@ int parse(char *filepath, t_env *env)
 	if (!(c = init_checks()))
 		error("Checks init error");
 	first_pass(filepath, env);
-	env->map = init_map(env->mapWidth, env->mapHeight);
-	env->sprites = init_sprite(env->countsprite, env);
+	init_map(env->mapWidth, env->mapHeight, env);
+	init_sprite(env->countsprite, env);
 	c->line = malloc(sizeof(*c->line));
 	c->fd = open(filepath, O_RDONLY);
 	while(get_next_line(c->fd, c->line) > 0)
@@ -214,9 +216,6 @@ int parse(char *filepath, t_env *env)
 		c->i = 0;
 		free(*c->line);
 	}
-	int w = -1;
-	while (env->sprites[++w])
-		printf("%d : x %d, y %d, bpp %d, %d\n", w, env->sprites[w]->posx, env->sprites[w]->posy, env->sprites[w]->bpp, env->sprites[w]->size_line);
 	has_found_all(c);
 	free(c);
 	env->textF->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/floor.xpm", &env->textF->width, &env->textF->height);

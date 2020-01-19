@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 14:30:18 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:20:11 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,6 @@ void	render(t_env *env)
 		env->y = 0;
 		env->x++;
 	}
-
 	sprite_casting(env);
 	mlx_put_image_to_window(env->mlx, env->window, env->img, 0, 0);
 }

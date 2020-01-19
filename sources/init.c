@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/17 15:30:13 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:42:49 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,32 +115,29 @@ t_env *init_env()
 }
 
 
-char	**init_map(int width, int height)
+void		init_map(int width, int height, t_env *env)
 {
-	char **map;
 	int i;
 	
 	i = 0;
-	map = (char **)malloc(sizeof(*map) * (height + 1));
+	env->map = (char **)malloc(sizeof(*env->map) * (height + 1));
 	while (i < height)
 	{
-		map[i] = (char *)malloc(sizeof(char) * (width + 1));
-		map[i][width] = 0;
+		env->map[i] = (char *)malloc(sizeof(char) * (width + 1));
+		env->map[i][width] = 0;
 		i++;
 	}
-	map[height] = 0;
-	return (map);
+	env->map[height] = 0;
 }
 
 
-t_sprite **init_sprite(int i, t_env *env)
+void	init_sprite(int i, t_env *env)
 {
 	int j;
-	t_sprite **sprites;
 
 	j = 0;	
 	printf("%d sprites\n", i);
-	if (!(sprites = malloc(sizeof(*sprites) * (i + 1))))
+	if (!(env->sprites = malloc(sizeof(*env->sprites) * (i + 1))))
 		error("Malloc of **sprites has failed");
 	if (!(env->s_order = malloc(sizeof(int) * i)))
 		error("Malloc of *s_order has failed");
@@ -148,15 +145,14 @@ t_sprite **init_sprite(int i, t_env *env)
 		error("Malloc of *sprite_distance has failed");
 	while(j < i)
 	{
-		if(!(sprites[j] = malloc(sizeof(t_sprite))))
+		if(!(env->sprites[j] = malloc(sizeof(t_sprite))))
 			exit(1);
-		sprites[j]->bpp = 0;
-		sprites[j]->size_line = 0;
-		sprites[j]->endian = 0;
-		sprites[j]->width = 0;
-		sprites[j]->height = 0;
+		env->sprites[j]->bpp = 0;
+		env->sprites[j]->size_line = 0;
+		env->sprites[j]->endian = 0;
+		env->sprites[j]->width = 0;
+		env->sprites[j]->height = 0;
 		j++;
 	}
-	sprites[j] = 0;
-	return (sprites);
+	env->sprites[j] = 0;
 }

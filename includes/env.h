@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/17 15:30:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:39:58 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -182,8 +182,8 @@ typedef	struct	s_env
 	t_text		*textC;
 }				t_env;
 
-char		**init_map(int width, int height);
-t_sprite	**init_sprite(int i, t_env *env);
+void		init_map(int width, int height, t_env *env);
+void		init_sprite(int i, t_env *env);
 void		show_map(t_env *env);
 void		error(char* message);
 void		get_lum_value(t_env *env);

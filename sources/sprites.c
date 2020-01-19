@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:30:05 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 14:27:57 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 15:56:32 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,26 @@
 void	sort_sprite(t_env *env)
 {
 	int j;
+	int i;
 	int tmp;
 
+	i = 0;
 	j = 0; 
-	while (j < env->countsprite - 1)
+
+	while (i < (env->countsprite - 1))
 	{
-		/* Si les 2 éléments sont mal triés */
-		if(env->sprite_distance[j] < env->sprite_distance[j+1])
+		while (j < env->countsprite - 1 - i)
 		{
-			/* Inversion des 2 éléments */
-			tmp = env->s_order[j+1];
-			env->s_order[j+1] = env->s_order[j];
-			env->s_order[j] = tmp;
+			if(env->sprite_distance[j] < env->sprite_distance[j+1])
+			{
+				tmp = env->s_order[j+1];
+				env->s_order[j+1] = env->s_order[j];
+				env->s_order[j] = tmp;
+			}
+			j++;
 		}
-		j++;
+		i++;
+		j = 0;
 	}
 }
 
