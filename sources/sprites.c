@@ -6,11 +6,31 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:30:05 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/16 17:34:16 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 14:27:57 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	sort_sprite(t_env *env)
+{
+	int j;
+	int tmp;
+
+	j = 0; 
+	while (j < env->countsprite - 1)
+	{
+		/* Si les 2 éléments sont mal triés */
+		if(env->sprite_distance[j] < env->sprite_distance[j+1])
+		{
+			/* Inversion des 2 éléments */
+			tmp = env->s_order[j+1];
+			env->s_order[j+1] = env->s_order[j];
+			env->s_order[j] = tmp;
+		}
+		j++;
+	}
+}
 
 void	sprite_casting(t_env *env)
 {
@@ -24,6 +44,7 @@ void	sprite_casting(t_env *env)
 		env->sprite_distance[i] += pow((env->posY - env->sprites[i]->posy), 2);
 		i++;
 	}
+	sort_sprite(env);
 	i = 0;
 	while (i < env->countsprite)
 	{

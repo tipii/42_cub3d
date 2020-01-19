@@ -1,4 +1,4 @@
-R 1280 720
+R 720 576
 NO ./textures/wood.xpm
 SO ./textures/oak.xpm
 WE ./textures/redbrick.xpm
