@@ -1,8 +1,8 @@
 R 1080 720
 NO ./textures/wood.xpm
-SO ./textures/oak.xpm
-WE ./textures/redbrick.xpm
-EA ./textures/funny.xpm
+SO ./textures/funny.xpm
+WE ./textures/funny.xpm
+EA ./textures/wall2.xpm
 S ./textures/barrel.xpm
 F 220,100,0
 C 225,30,0
@@ -17,6 +17,6 @@ C 225,30,0
 1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 1 1 1 0 0 0 0 0 0 1 0 0 0 1
 1 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 1
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 0 1 0 0 1 0 0 0 1
-1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 N 0 1
+1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 E 0 1
 1 1 1 1 0 1 1 1 1 1 1 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 0 0 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1

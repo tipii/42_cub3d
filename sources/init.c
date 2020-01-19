@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 16:32:22 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 19:14:59 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,15 @@ t_env *init_env()
 
 	if(!(env = malloc(sizeof(t_env))))
 		return (NULL);	
-	if(!(env->textS = malloc(sizeof(t_text))))
+	if(!(env->text = malloc(sizeof(*env->text) * 4)))
 		return (NULL);
-	if(!(env->textN = malloc(sizeof(t_text))))
-		return (NULL);
-	if(!(env->textE = malloc(sizeof(t_text))))
-		return (NULL);
-	if(!(env->textW = malloc(sizeof(t_text))))
-		return (NULL);
+	int i = 0;
+	while (i < 4)
+	{
+		if(!(env->text[i] = malloc(sizeof(t_text))))
+			return (NULL);
+		i++;
+	}
 	if(!(env->textF = malloc(sizeof(t_text))))
 		return (NULL);
 	if(!(env->textC = malloc(sizeof(t_text))))
@@ -101,11 +102,6 @@ t_env *init_env()
 	env->lineHeight = 0;
 	env->drawStart = 0;
 	env->drawEnd = 0;
-
-	env->textS->width = 0;
-	env->textS->height = 0;
-
-
 	return (env);
 }
 

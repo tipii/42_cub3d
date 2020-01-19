@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/16 15:54:55 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 19:37:26 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,9 @@ int get_pxl_clr_value(int x, int y, t_text *text)
 	char	*clr;
 	
 	clr = (char*)&color;
-	clr[0] = text->data[(y * text->size_line) + x * (text->bpp / 8) + 0];
-	clr[1] = text->data[(y * text->size_line) + x * (text->bpp / 8) + 1];
-	clr[2] = text->data[(y * text->size_line) + x * (text->bpp / 8) + 2];
+	clr[0] = text->data[(y * text->width * 4) + x * 4 + 0];
+	clr[1] = text->data[(y * text->width * 4) + x * 4 + 1];
+	clr[2] = text->data[(y * text->width * 4) + x * 4 + 2];
 	clr[3] = 0;
 	return (color);
 }
@@ -75,10 +75,10 @@ void put_pxl_clr(int x, int y, unsigned int color, t_env *env)
 	char	*clr;
 	
 	clr = (char*)&color;
-	env->img_data[(y * env->size_line) + x * (env->bpp / 8) + 0] = clr[0];
-	env->img_data[(y * env->size_line) + x * (env->bpp / 8) + 1] = clr[1];
-	env->img_data[(y * env->size_line) + x * (env->bpp / 8) + 2] = clr[2];
-	env->img_data[(y * env->size_line) + x * (env->bpp / 8) + 3] = 0;
+	env->img_data[(y * env->resX * 4) + x * 4 + 0] = clr[0];
+	env->img_data[(y * env->resX * 4) + x * 4 + 1] = clr[1];
+	env->img_data[(y * env->resX * 4) + x * 4 + 2] = clr[2];
+	env->img_data[(y * env->resX * 4) + x * 4 + 3] = 0;
 }
 
 // void	draw_column(t_env *env)

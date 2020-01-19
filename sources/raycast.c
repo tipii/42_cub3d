@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 19:01:56 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 19:52:58 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,14 @@ void try_floor(t_env *env)
         double currentFloorX = weight * floorXWall + (1.0 - weight) * env->posX;
         double currentFloorY = weight * floorYWall + (1.0 - weight) * env->posY;
 
-        int floorTexX, floorTexY;
+        int floorTexX, floorTexY, ceilingTextX, ceilingTextY;
+		ceilingTextX = (int)(currentFloorX * env->textC->width) % env->textC->width;
+		ceilingTextY = (int)(currentFloorY * env->textC->height) % env->textC->height;
         floorTexX = (int)(currentFloorX * env->textF->width) % env->textF->width;
         floorTexY = (int)(currentFloorY * env->textF->height) % env->textF->height;
 
 		put_pxl_clr(env->x, env->y, get_pxl_clr_value(floorTexX, floorTexY, env->textF), env);
-		put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(floorTexX, floorTexY, env->textC), env);
-        // //floor
-        // buffer[y][x] = (texture[3][texWidth * floorTexY + floorTexX] >> 1) & 8355711;
-        // //ceiling (symmetrical!)
-        // buffer[h - y][x] = texture[6][texWidth * floorTexY + floorTexX];
+		put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(ceilingTextX, ceilingTextY, env->textC), env);
       }
 }
 // void	floor_print(t_env *env)
@@ -193,14 +191,14 @@ void	load_draw_values(t_env *env)
 		env->wallX = env->posX + env->perpWallDist * env->rayDirX;
 	env->wallX -= floor(env->wallX);
 	//x coordinate on the texture
-	env->texX = (int)(env->wallX * (double)env->textE->width);
+	env->texX = (int)(env->wallX * (double)env->text[env->side]->width);
 
 	if((env->side == 0 || env->side == 2) && env->rayDirX > 0) 
-		env->texX = env->textE->width - env->texX - 1;
+		env->texX = env->text[env->side]->width - env->texX - 1;
 	if((env->side == 1 || env->side == 3) && env->rayDirY < 0)
-		env->texX = env->textE->width - env->texX - 1;
+		env->texX = env->text[env->side]->width - env->texX - 1;
 
-	env->step = 1.0 * env->textE->height / env->lineHeight;
+	env->step = 1.0 * env->text[env->side]->height / env->lineHeight;
 	env->texPos = (env->drawStart - env->resY / 2 + env->lineHeight / 2) * env->step;
 }
 
@@ -229,16 +227,9 @@ void	render(t_env *env)
 		env->y = env->drawStart;
       	while (env->y < env->drawEnd)
       	{
-        	env->texY = (int)env->texPos & (env->textE->height - 1);
+        	env->texY = (int)env->texPos;
         	env->texPos += env->step;
-			if (env->side == 0)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textE), env);
-			else if (env->side == 1)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textS), env);
-			else if (env->side == 2)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textW), env);
-			else if (env->side == 3)
-        		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->texX, env->texY, env->textN), env);
+        	put_pxl_clr(env->x, env->y, get_pxl_clr_value(-env->texX, env->texY, env->text[env->side]), env);
 			env->y++;
       	}
 		try_floor(env);

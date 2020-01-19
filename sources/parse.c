@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 16:33:03 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 19:42:12 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,22 +176,23 @@ int parse(char *filepath, t_env *env)
 			}
 			else if (ft_strcmp(c->args[0], "NO") == 0)
 			{
-				load_texture(c->args[1], env->textN, env);
+				load_texture(c->args[1], env->text[3], env);
 				c->found_textN = 1;
 			}
 			else if (ft_strcmp(c->args[0], "SO") == 0)
 			{
-				load_texture(c->args[1], env->textS, env);
+				load_texture(c->args[1], env->text[1], env);
 				c->found_textS = 1;
 			}
 			else if (ft_strcmp(c->args[0], "WE") == 0)
 			{
-				load_texture(c->args[1], env->textW, env);
+				load_texture(c->args[1], env->text[2], env);
 				c->found_textW = 1;
 			}
 			else if (ft_strcmp(c->args[0], "EA") == 0)
 			{
-				load_texture(c->args[1], env->textE, env);
+				load_texture(c->args[1], env->text[0], env);
+				printf("w %d h %d\n\n", env->text[0]->width, env->text[0]->height);
 				c->found_textE = 1;
 			}
 			else if (ft_strcmp(c->args[0], "S") == 0)
@@ -218,7 +219,7 @@ int parse(char *filepath, t_env *env)
 	}
 	has_found_all(c);
 	free(c);
-	env->textF->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/floor.xpm", &env->textF->width, &env->textF->height);
+	env->textF->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/woodfloor.xpm", &env->textF->width, &env->textF->height);
 	env->textF->data = mlx_get_data_addr(env->textF->ptr, &env->textF->bpp, &env->textF->size_line, &env->textF->endian);
 	env->textC->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/ceiling.xpm", &env->textC->width, &env->textC->height);
 	env->textC->data = mlx_get_data_addr(env->textC->ptr, &env->textC->bpp, &env->textC->size_line, &env->textC->endian);

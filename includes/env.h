@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 19:05:14 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/19 19:06:01 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,10 +173,7 @@ typedef	struct	s_env
 	int			lineHeight;
 	int			drawStart;
 	int			drawEnd;
-	t_text		*textS;
-	t_text		*textN;
-	t_text		*textE;
-	t_text		*textW;
+	t_text		**text;
 	t_text		*textsprite;
 	t_text		*textF;
 	t_text		*textC;
