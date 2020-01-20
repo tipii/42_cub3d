@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 16:39:29 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 16:49:01 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ int	first_pass(char *filepath, t_env *env)
 		{
 			while ((*line)[i])
 			{
+				if(!is_charset((*line)[i]))
+					error("A char in map is not in charset", env);
 				if((*line)[i] != ' ' && i % 2 == 0)
 					width++;
 				if ((*line)[i] == '2')
