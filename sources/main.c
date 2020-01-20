@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 17:05:35 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 19:06:23 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,9 @@ void			show_map(t_env *env)
 	printf("\n");
 }
 
-void			loop(t_env *env)
-{
-	mlx_loop(env->mlx);
-}
+// void			loop(t_env *env)
+// {
+// }
 
 // MAIN TEST //
 int				main()
@@ -67,10 +66,11 @@ int				main()
 		env->size_line, env->endian);
 	show_map(env);
 	//
-	render(env);
 	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
-	loop(env);
-
+	mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
+	render(env);
+	mlx_loop(env->mlx);
+	// loop(env);
 	return (0);
 }
 

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:47:16 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 17:37:42 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 18:58:29 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,5 @@ int		hook_keydown(int key, t_env *env)
 		move_forward(env);
 	if (key == KEY_DOWN)
 		move_backward(env);
-	render(env);
 	return (0);
 }
