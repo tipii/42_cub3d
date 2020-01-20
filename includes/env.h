@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 14:34:44 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 16:13:20 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -171,20 +171,30 @@ typedef	struct	s_env
 	int			drawStart;
 	int			drawEnd;
 	t_text		**text;
-	t_text		*textsprite;
 	t_text		*textF;
 	t_text		*textC;
 	int			has_text_floor;
 	int			has_text_ceiling;
 	int			color_floor;
 	int			color_ceiling;
+	t_checks	*c;
+	/* is_init */
+	int			malloc_check;
+	int			malloc_map;
+	int			malloc_sprites;
+	int			malloc_textures;
+	int			malloc_textures_floor;
+	int			malloc_textures_ceiling;
+
 }				t_env;
 
 void		init_map(int width, int height, t_env *env);
 void		init_sprite(int i, t_env *env);
 void		show_map(t_env *env);
-void		error(char* message);
 void		get_lum_value(t_env *env);
 void		sprite_casting(t_env *env);
-
+void		set_player_value(char c, t_env *env);
+void		load_texture(char *filepath, t_text *text, t_env *env);
+void		load_sprite(char *filepath, t_sprite *text, t_env *env);
+void		load_floor_or_ceil(char* arg1, char*arg2, t_env *env);
 #endif

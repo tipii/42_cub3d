@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 14:52:31 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 16:18:51 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,28 +30,35 @@ void	init_checks(t_checks *c)
 	c->k = 0;
 }
 
-t_env *init_env()
+void	init_env(t_env *env)
 {
-	t_env	*env;
 	int		i;
 
 	i = 0;
-	if(!(env = malloc(sizeof(t_env))))
-		return (NULL);	
+	env->malloc_check = 0;
+	env->malloc_map = 0;
+	env->malloc_sprites = 0;
+	env->malloc_textures = 0;
+	env->malloc_textures_ceiling = 0;
+	env->malloc_textures_floor = 0;
 	if(!(env->text = malloc(sizeof(*env->text) * 4)))
-		return (NULL);
+		error("Malloc has failed", env);
 	while (i < 4)
 	{
 		if(!(env->text[i] = malloc(sizeof(t_text))))
-			return (NULL);
+			error("Malloc has failed", env);
 		i++;
 	}
+	env->malloc_textures = 1;
 	if(!(env->textF = malloc(sizeof(t_text))))
-		return (NULL);
+		error("Malloc has failed", env);
+	env->malloc_textures_floor = 1;
 	if(!(env->textC = malloc(sizeof(t_text))))
-		return (NULL);
-	if(!(env->textsprite = malloc(sizeof(t_text))))
-		return (NULL);
+		error("Malloc has failed", env);
+	env->malloc_textures_ceiling = 1;
+	if(!(env->c = malloc(sizeof(t_checks))))
+		error("Malloc has failed", env);
+	env->malloc_check = 1;
 	env->posX = 0;
 	env->posY = 0;
 	env->dirX = 0;
@@ -99,7 +106,7 @@ t_env *init_env()
 	env->lineHeight = 0;
 	env->drawStart = 0;
 	env->drawEnd = 0;
-	return (env);
+	env->mlx = mlx_init();
 }
 
 
@@ -116,6 +123,7 @@ void		init_map(int width, int height, t_env *env)
 		i++;
 	}
 	env->map[height] = 0;
+	env->malloc_map = 1;
 }
 
 
@@ -125,11 +133,11 @@ void	init_sprite(int i, t_env *env)
 
 	j = 0;
 	if (!(env->sprites = malloc(sizeof(*env->sprites) * (i + 1))))
-		error("Malloc of **sprites has failed");
+		error("Malloc of **sprites has failed", env);
 	if (!(env->s_order = malloc(sizeof(int) * i)))
-		error("Malloc of *s_order has failed");
+		error("Malloc of *s_order has failed", env);
 	if (!(env->sprite_distance = malloc(sizeof(double) * i)))
-		error("Malloc of *sprite_distance has failed");
+		error("Malloc of *sprite_distance has failed", env);
 	while(j < i)
 	{
 		if(!(env->sprites[j] = malloc(sizeof(t_sprite))))
@@ -142,4 +150,5 @@ void	init_sprite(int i, t_env *env)
 		j++;
 	}
 	env->sprites[j] = 0;
+	env->malloc_sprites = 1;
 }

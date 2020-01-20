@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 16:56:49 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 15:29:06 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 //parse
 int parse(char *filepath, t_env *env);
 
-t_env		*init_env();
+void		init_env(t_env *env);
 void		draw_column(t_env *env);
 void		render(t_env *env);
 void		calc_dist(t_env *env);

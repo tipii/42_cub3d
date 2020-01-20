@@ -6,19 +6,11 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 14:46:28 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 16:39:29 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-void	error(char* message)
-{
-	write(1, "Error\n", 6);
-	write(1, message, ft_strlen(message));
-	write(1, "\n" ,1);
-	exit(1);
-}
 
 int	first_pass(char *filepath, t_env *env)
 {
@@ -32,7 +24,7 @@ int	first_pass(char *filepath, t_env *env)
 	width = 0;
 	height = 0;
 	if(!(line = malloc(sizeof(*line))))
-		error("Malloc of line has failed");
+		error("Malloc of line has failed", env);
 	fd = open(filepath, O_RDONLY);
 	while(get_next_line(fd, line) > 0)
 	{
@@ -47,7 +39,7 @@ int	first_pass(char *filepath, t_env *env)
 				i++;
 			}
 			if (env->mapWidth != 0 && width != 0 && width != env->mapWidth)
-				error("Map is not correctly define");
+				error("Map is not correctly define", env);
 			env->mapWidth = width;
 			height++;
 		}
@@ -61,109 +53,22 @@ int	first_pass(char *filepath, t_env *env)
 	return (1);
 }
 
-void	set_player_value(char c, t_env *env)
+void	has_found_all(t_env *env)
 {
-	if (c == 'N')
-	{
-		env->dirX = 0;
-		env->dirY = -1;
-		env->planeX = 0.66;
-		env->planeY = 0;
-	}
-	if (c == 'S')
-	{
-		env->dirX = 0;
-		env->dirY = 1;
-		env->planeX = -0.66;
-		env->planeY = 0;
-	}
-	if (c == 'E')
-	{
-		env->dirX = 1;
-		env->dirY = 0;
-		env->planeX = 0;
-		env->planeY = 0.66;
-	}
-	if (c == 'W')
-	{
-		env->dirX = -1;
-		env->dirY = 0;
-		env->planeX = 0;
-		env->planeY = -0.66;
-	}
-}
+	t_checks	*c;
 
-void load_texture(char *filepath, t_text *text, t_env *env)
-{
-	text->ptr = mlx_xpm_file_to_image(env->mlx, filepath, &text->width, &text->height);
-	text->data = mlx_get_data_addr(text->ptr, &text->bpp, &text->size_line, &text->endian);
-}
-
-void load_sprite(char *filepath, t_sprite *text, t_env *env)
-{
-	text->ptr = mlx_xpm_file_to_image(env->mlx, filepath, &text->width, &text->height);
-	text->data = mlx_get_data_addr(text->ptr, &text->bpp, &text->size_line, &text->endian);
-}
-
-void	has_found_all(t_checks *c)
-{
+	c = env->c;
 	if	(!c->found_res || !c->found_player || !c->found_map ||
 	!c->found_textS || !c->found_textN || !c->found_textW || !c->found_textE ||
 	!c->found_sprite || !c->found_ceiling || !c->found_floor)
-		error("Map error - An argument is missing");
-}
-
-int		is_rgb(char *arg)
-{
-	char **args;
-
-	args = ft_split(arg, ',');
-	if (ft_tablen(args) == 3)
-		return (generate_color(ft_atoi(args[0]), ft_atoi(args[1]), ft_atoi(args[2])));
-	else
-		return (0);
-}
-
-void	load_floor_or_ceil(char* arg1, char*arg2, t_env *env)
-{
-	int color;
-
-	color = 0;
-	if (ft_strcmp(arg1, "F") == 0)
-	{
-		if((color = is_rgb(arg2)))
-		{
-			env->has_text_floor = 0;
-			env->color_floor = color;
-		}
-		else
-		{
-			env->has_text_floor = 1;
-			load_texture(arg2, env->textF, env);
-		}
-	}
-	else
-	{
-		if((color = is_rgb(arg2)))
-		{
-			env->has_text_ceiling = 0;
-			env->color_ceiling = color;
-		}
-		else
-		{
-			env->has_text_ceiling = 1;
-			load_texture(arg2, env->textC, env);
-		}
-	}
-	
+		error("Map error - An argument is missing", env);
 }
 
 int parse(char *filepath, t_env *env)
 {
 	t_checks *c;
-	
-	if(!(c = malloc(sizeof(t_checks))))
-		error("Malloc of checks has failed");
+
+	c = env->c; 
 	init_checks(c);
 	first_pass(filepath, env);
 	init_map(env->mapWidth, env->mapHeight, env);
@@ -208,7 +113,7 @@ int parse(char *filepath, t_env *env)
 			if (ft_strcmp(c->args[0], "R") == 0)
 			{
 				if (ft_tablen(c->args) != 3)
-					error("Wrong number of args for RES\n");
+					error("Wrong number of args for RES", env);
 				env->resX = ft_atoi(c->args[1]);
 				if (env->resX > 2560)
 					env->resX = 2560;
@@ -216,32 +121,36 @@ int parse(char *filepath, t_env *env)
 				if (env->resY > 1440)
 					env->resY = 1440;
 				if(!(env->zbuffer = malloc(sizeof(double) * env->resX)))
-					error("Malloc of zbuf has failed");
+					error("Malloc of zbuf has failed", env);
 				c->found_res = 1;
 			}
 			else if (ft_strcmp(c->args[0], "NO") == 0)
 			{
+				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[3], env);
 				c->found_textN = 1;
 			}
 			else if (ft_strcmp(c->args[0], "SO") == 0)
 			{
+				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[1], env);
 				c->found_textS = 1;
 			}
 			else if (ft_strcmp(c->args[0], "WE") == 0)
 			{
+				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[2], env);
 				c->found_textW = 1;
 			}
 			else if (ft_strcmp(c->args[0], "EA") == 0)
 			{
+				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[0], env);
-				printf("w %d h %d\n\n", env->text[0]->width, env->text[0]->height);
 				c->found_textE = 1;
 			}
 			else if (ft_strcmp(c->args[0], "S") == 0)
 			{
+				try_filepath(c->args[1], env);
 				while (env->jsprite < env->countsprite)
 				{
 					load_sprite(c->args[1], env->sprites[env->jsprite], env);
@@ -264,8 +173,8 @@ int parse(char *filepath, t_env *env)
 		c->i = 0;
 		free(*c->line);
 	}
-	has_found_all(c);
-	free(c);
+	has_found_all(env);
 	close(c->fd);
+	free(c);
 	return (1);
 }

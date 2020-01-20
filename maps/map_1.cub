@@ -1,11 +1,11 @@
-R 720 576
+R 1080 720
 NO ./textures/hd/rocks.xpm
 SO ./textures/hd/stone_wall.xpm
 WE ./textures/hd/wall_root.xpm
 EA ./textures/hd/old_wood.xpm
 S ./textures/sprite/gnome_sprite.xpm
-F ./textures/hd/grass.xpm
-C ./textures/hd/brick_wall.xpm
+F ./textures/hd/lava.xpm
+C 255,255,255
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 2 0 0 0 0 0 1 0 2 0 1 
@@ -17,6 +17,6 @@ C ./textures/hd/brick_wall.xpm
 1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 1 1 1 0 0 0 0 0 0 1 0 0 0 1
 1 0 0 0 2 0 0 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 1 0 0 0 1
 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1 1 0 1 0 1 0 0 1 0 0 0 1
-1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 E 0 1
+1 1 0 0 0 0 0 0 1 1 0 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 N 0 1
 1 1 1 1 0 1 1 1 1 1 1 1 0 1 0 1 1 1 1 1 0 1 1 1 1 0 0 0 1
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
