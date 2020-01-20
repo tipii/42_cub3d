@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 13:01:04 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:39:37 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@ void	load_draw_values(t_env *env)
 {
 	env->lineHeight = (int)(env->resY / env->perpWallDist);
 	env->drawStart = env->resY / 2 - env->lineHeight / 2;
-	if(env->drawStart < 0)
+	if (env->drawStart < 0)
 		env->drawStart = 0;
 	env->drawEnd = (env->lineHeight / 2) + (env->resY / 2);
-	if(env->drawEnd >= env->resY)
+	if (env->drawEnd >= env->resY)
 		env->drawEnd = env->resY - 1;
 	if (env->side == 0 || env->side == 2) 
 		env->wallX = env->posY + env->perpWallDist * env->rayDirY;
@@ -138,11 +138,10 @@ void	load_draw_values(t_env *env)
 		env->wallX = env->posX + env->perpWallDist * env->rayDirX;
 	env->wallX -= floor(env->wallX);
 	env->texX = (int)(env->wallX * (double)env->text[env->side]->width);
-	if((env->side == 0 || env->side == 2) && env->rayDirX > 0) 
+	if ((env->side == 0 || env->side == 2) && env->rayDirX > 0) 
 		env->texX = env->text[env->side]->width - env->texX - 1;
-	if((env->side == 1 || env->side == 3) && env->rayDirY < 0)
+	if ((env->side == 1 || env->side == 3) && env->rayDirY < 0)
 		env->texX = env->text[env->side]->width - env->texX - 1;
-
 	env->step = 1.0 * env->text[env->side]->height / env->lineHeight;
 	env->texPos = (env->drawStart - env->resY / 2 + env->lineHeight / 2) * env->step;
 }
@@ -166,7 +165,7 @@ void	render(t_env *env)
       	{
         	env->texY = (int)env->texPos;
         	env->texPos += env->step;
-        	put_pxl_clr(env->x, env->y, get_pxl_clr_value(-env->texX, env->texY, env->text[env->side]), env);
+        	put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->text[env->side]->width - env->texX, env->texY, env->text[env->side]), env);
 			env->y++;
       	}
 		draw_floor(env);

@@ -1,6 +1,6 @@
 R 1080 720
 NO ./textures/wood.xpm
-SO ./textures/funny.xpm
+SO ./textures/greystone.xpm
 WE ./textures/funny.xpm
 EA ./textures/wall2.xpm
 S ./textures/barrel.xpm
