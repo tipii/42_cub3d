@@ -1,11 +1,11 @@
-R 1080 720
-NO ./textures/wood.xpm
-SO ./textures/greystone.xpm
-WE ./textures/funny.xpm
-EA ./textures/wall2.xpm
-S ./textures/barrel.xpm
-F 220,100,0
-C 225,30,0
+R 720 576
+NO ./textures/hd/rocks.xpm
+SO ./textures/hd/stone_wall.xpm
+WE ./textures/hd/wall_root.xpm
+EA ./textures/hd/old_wood.xpm
+S ./textures/sprite/gnome_sprite.xpm
+F ./textures/hd/grass.xpm
+C ./textures/hd/brick_wall.xpm
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 2 0 0 0 0 0 1 0 2 0 1 

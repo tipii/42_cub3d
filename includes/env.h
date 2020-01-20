@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 13:00:06 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 14:34:44 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,10 @@ typedef	struct	s_env
 	t_text		*textsprite;
 	t_text		*textF;
 	t_text		*textC;
+	int			has_text_floor;
+	int			has_text_ceiling;
+	int			color_floor;
+	int			color_ceiling;
 }				t_env;
 
 void		init_map(int width, int height, t_env *env);

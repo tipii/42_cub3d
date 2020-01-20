@@ -6,25 +6,25 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 19:37:26 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 14:40:54 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-// int generate_color(int r, int g, int b)
-// {
-// 	int		color;
-// 	char	*clr;
+int generate_color(int r, int g, int b)
+{
+	int		color;
+	char	*clr;
 
-// 	clr = (char*)&color;
-// 	clr[0] = b;
-// 	clr[1] = g;
-// 	clr[2] = r;
+	clr = (char*)&color;
+	clr[0] = b;
+	clr[1] = g;
+	clr[2] = r;
 
-// 	// printf("%d\n", color);
-// 	return (color);
-// }
+	// printf("%d\n", color);
+	return (color);
+}
 
 
 // void	get_lum_value(t_env *env)

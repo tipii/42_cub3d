@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 19:42:12 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 14:46:28 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,51 @@ void	has_found_all(t_checks *c)
 		error("Map error - An argument is missing");
 }
 
+int		is_rgb(char *arg)
+{
+	char **args;
+
+	args = ft_split(arg, ',');
+	if (ft_tablen(args) == 3)
+		return (generate_color(ft_atoi(args[0]), ft_atoi(args[1]), ft_atoi(args[2])));
+	else
+		return (0);
+}
+
+void	load_floor_or_ceil(char* arg1, char*arg2, t_env *env)
+{
+	int color;
+
+	color = 0;
+	if (ft_strcmp(arg1, "F") == 0)
+	{
+		if((color = is_rgb(arg2)))
+		{
+			env->has_text_floor = 0;
+			env->color_floor = color;
+		}
+		else
+		{
+			env->has_text_floor = 1;
+			load_texture(arg2, env->textF, env);
+		}
+	}
+	else
+	{
+		if((color = is_rgb(arg2)))
+		{
+			env->has_text_ceiling = 0;
+			env->color_ceiling = color;
+		}
+		else
+		{
+			env->has_text_ceiling = 1;
+			load_texture(arg2, env->textC, env);
+		}
+	}
+	
+}
+
 int parse(char *filepath, t_env *env)
 {
 	t_checks *c;
@@ -206,10 +251,12 @@ int parse(char *filepath, t_env *env)
 			}
 			else if (ft_strcmp(c->args[0], "F") == 0)
 			{
+				load_floor_or_ceil(c->args[0], c->args[1], env);
 				c->found_floor = 1;
 			}
 			else if (ft_strcmp(c->args[0], "C") == 0)
 			{
+				load_floor_or_ceil(c->args[0], c->args[1], env);
 				c->found_ceiling = 1;
 			}
 		}
@@ -219,10 +266,6 @@ int parse(char *filepath, t_env *env)
 	}
 	has_found_all(c);
 	free(c);
-	env->textF->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/woodfloor.xpm", &env->textF->width, &env->textF->height);
-	env->textF->data = mlx_get_data_addr(env->textF->ptr, &env->textF->bpp, &env->textF->size_line, &env->textF->endian);
-	env->textC->ptr = mlx_xpm_file_to_image(env->mlx, "./textures/ceiling.xpm", &env->textC->width, &env->textC->height);
-	env->textC->data = mlx_get_data_addr(env->textC->ptr, &env->textC->bpp, &env->textC->size_line, &env->textC->endian);
 	close(c->fd);
 	return (1);
 }

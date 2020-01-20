@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 13:39:37 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 14:50:34 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,14 @@ void draw_floor(t_env *env)
 		env->ceil_texty = (int)(env->current_floory * env->textC->height) % env->textC->height;
 		env->floor_textx = (int)(env->current_floorx * env->textF->width) % env->textF->width;
 		env->floor_texty = (int)(env->current_floory * env->textF->height) % env->textF->height;
-		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->floor_textx, env->floor_texty, env->textF), env);
-		put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(env->ceil_textx, env->ceil_texty, env->textC), env);
+		if (env->has_text_floor)
+			put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->floor_textx, env->floor_texty, env->textF), env);
+		else
+			put_pxl_clr(env->x, env->y, env->color_floor, env);
+		if (env->has_text_ceiling)
+			put_pxl_clr(env->x, env->resY - env->y - 1, get_pxl_clr_value(env->ceil_textx, env->ceil_texty, env->textC), env);
+		else
+			put_pxl_clr(env->x, env->resY - env->y - 1, env->color_ceiling, env);
 		env->y++;
 	}
 }

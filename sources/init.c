@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 12:49:25 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 14:52:31 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,13 @@ void	init_checks(t_checks *c)
 t_env *init_env()
 {
 	t_env	*env;
+	int		i;
 
+	i = 0;
 	if(!(env = malloc(sizeof(t_env))))
 		return (NULL);	
 	if(!(env->text = malloc(sizeof(*env->text) * 4)))
 		return (NULL);
-	int i = 0;
 	while (i < 4)
 	{
 		if(!(env->text[i] = malloc(sizeof(t_text))))
