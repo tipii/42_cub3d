@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 16:49:01 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 17:56:10 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,7 @@ int parse(char *filepath, t_env *env)
 	}
 	has_found_all(env);
 	close(c->fd);
+	free(c->line);
 	free(c);
 	return (1);
 }

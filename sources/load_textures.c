@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:42:26 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 16:40:12 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 18:20:47 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,25 @@
 
 int		is_rgb(char *arg)
 {
-	char **args;
+	char	**args;
+	int		r;
+	int		g;
+	int		b;
 
 	args = ft_split(arg, ',');
 	if (ft_tablen(args) == 3)
-		return (generate_color(ft_atoi(args[0]), ft_atoi(args[1]),
-			ft_atoi(args[2])));
+	{
+		r = ft_atoi(args[0]);
+		g = ft_atoi(args[1]);
+		b = ft_atoi(args[2]);
+		ft_freetab(args);
+		return (generate_color(r, g, b));
+	}
 	else
-		return (0);
+	{
+		ft_freetab(args);
+		return (-1);
+	}
 }
 
 void	load_texture(char *filepath, t_text *text, t_env *env)
@@ -47,7 +58,7 @@ void	load_floor_or_ceil(char* arg1, char*arg2, t_env *env)
 
 	if (ft_strcmp(arg1, "F") == 0)
 	{
-		if((color = is_rgb(arg2)))
+		if((color = is_rgb(arg2)) != -1)
 		{
 			env->has_text_floor = 0;
 			env->color_floor = color;
@@ -61,7 +72,7 @@ void	load_floor_or_ceil(char* arg1, char*arg2, t_env *env)
 	}
 	else
 	{
-		if((color = is_rgb(arg2)))
+		if((color = is_rgb(arg2)) != -1)
 		{
 			env->has_text_ceiling = 0;
 			env->color_ceiling = color;

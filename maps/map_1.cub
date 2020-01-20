@@ -5,7 +5,7 @@ WE ./textures/hd/wall_root.xpm
 EA ./textures/hd/old_wood.xpm
 S ./textures/sprite/gnome_sprite.xpm
 F ./textures/hd/lava.xpm
-C 255,255,255
+C ./textures/hd/brick_wall.xpm
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 1 0 0 0 0 0 0 0 0 0 1 1 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 1
 1 0 1 1 0 0 0 0 0 1 1 1 0 0 0 0 0 0 2 0 0 0 0 0 1 0 2 0 1 

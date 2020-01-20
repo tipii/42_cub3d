@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:35:22 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/12/06 15:30:50 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 18:06:26 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,10 @@ char		*ft_cpy(char const *s, char c, char *tab, int i)
 
 char		**free_all(char **tab, int i)
 {
-	while (--i >= 0)
+	while (i >= 0)
 	{
 		free(tab[i]);
+		i--;
 	}
 	free(tab);
 	return (NULL);
