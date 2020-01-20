@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/19 19:06:01 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/20 13:00:06 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,21 +121,18 @@ typedef	struct	s_env
 	double		texPos;
 	int			texY;
 	/* wall and floor variables */
-	double		rayDirX0;
-	double		rayDirY0;
-	double		rayDirX1;
-	double		rayDirY1;
-	int			p;
-	double		posZ;
-	double		rowDistance;
-	double		floorStepX;
-	double		floorStepY;
-	double		floorX;
-	double		floorY;
-	int			cellX;
-	int			cellY;
-	int			tx;
-	int			ty;
+	double		floorx_wall;
+	double		floory_wall;
+	double		dist_wall;
+	double		dist_player;
+	double		current_dist;
+	double		weight;
+	double		current_floorx;
+	double		current_floory;
+	int			floor_textx;
+	int			floor_texty;
+	int			ceil_textx;
+	int			ceil_texty;
 	/* sprites */
 	int			countsprite;
 	int			isprite;
