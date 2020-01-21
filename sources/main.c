@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:21:53 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:02:43 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,44 +34,30 @@ void			show_map(t_env *env)
 	printf("\n");
 }
 
-// void			loop(t_env *env)
-// {
-// }
+void			init_mlx(t_env *env)
+{
+	env->window = mlx_new_window(env->mlx, env->resx, env->resy,
+		"AWESOME RAYCASTING SHIT V0.0000001beta");
+	env->img = mlx_new_image(env->mlx, env->resx, env->resy);
+	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line,
+		&env->endian);
+}
 
-// MAIN TEST //
-int				main()
+int				main(int argc, char **argv)
 {
 	t_env		*env;
 
-	if(!(env = malloc(sizeof(t_env))))
-		error("Malloc has failed", env);	
+	(void)argc;
+	(void)argv;
+	if (!(env = malloc(sizeof(t_env))))
+		error("Malloc has failed", env);
 	init_env(env);
 	parse("./maps/map_1.cub", env);
-
-	//to delete
-	printf("\n\x1b[33mParsing...\x1b[39m\n\n");
-	printf("MAP : Width : %d, Height : %d \n", env->mapwidth, env->mapheight);
-	printf("PLAYER : Pos x %f, Pos y %f\n", env->posx, env->posy);
-	printf("\n\x1b[33mInitializing...\x1b[39m\n\n");
-	printf("RES : x %d, y %d\n", env->resx, env->resy);
-	//
-	env->window = mlx_new_window(env->mlx, env->resx, env->resy,
-		"AWESOME RAYCASTING SHIT V0.0000001beta");
-	env->img = mlx_new_image (env->mlx, env->resx, env->resy);
-	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line,
-		&env->endian);
-
-	//to delete
-	printf("MLX INFOS : bpp : %d, size_line : %d, endian : %d \n\n", env->bpp,
-		env->size_line, env->endian);
-	show_map(env);
-	//
+	init_mlx(env);
 	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
 	mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
 	render(env);
 	mlx_loop_hook(env->mlx, calc_player_pos, env);
 	mlx_loop(env->mlx);
-	// loop(env);
 	return (0);
 }
-

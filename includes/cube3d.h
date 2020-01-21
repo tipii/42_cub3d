@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:37:16 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:54:50 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 void		init_env(t_env *env);
 void		draw_column(t_env *env);
+void		draw_wall(t_env *env);
+void		load_draw_values(t_env *env);
 void		render(t_env *env);
 void		calc_dist(t_env *env);
 void		sprite_casting(t_env *env);
