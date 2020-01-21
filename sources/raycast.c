@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:56:06 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:31:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,38 +16,38 @@ void		print_floor(t_env *env)
 {
 	if (env->has_text_floor)
 		put_pxl_clr(env->x, env->y, get_pxl_clr_value(env->floor_textx,
-			env->floor_texty, env->textF), env);
+			env->floor_texty, env->textf), env);
 	else
 		put_pxl_clr(env->x, env->y, env->color_floor, env);
 	if (env->has_text_ceiling)
-		put_pxl_clr(env->x, env->resY - env->y - 1,
+		put_pxl_clr(env->x, env->resy - env->y - 1,
 			get_pxl_clr_value(env->ceil_textx, env->ceil_texty,
-				env->textC), env);
+				env->textc), env);
 	else
-		put_pxl_clr(env->x, env->resY - env->y - 1,
+		put_pxl_clr(env->x, env->resy - env->y - 1,
 			env->color_ceiling, env);
 }
 
 void		load_and_print_floor(t_env *env)
 {
-	env->y = env->drawEnd;
-	while (env->y < env->resY)
+	env->y = env->drawend;
+	while (env->y < env->resy)
 	{
-		env->current_dist = env->resY / (2.0 * env->y - env->resY);
+		env->current_dist = env->resy / (2.0 * env->y - env->resy);
 		env->weight = (env->current_dist - env->dist_player) /
 			(env->dist_wall - env->dist_player);
 		env->current_floorx = env->weight * env->floorx_wall +
-			(1.0 - env->weight) * env->posX;
+			(1.0 - env->weight) * env->posx;
 		env->current_floory = env->weight * env->floory_wall +
-			(1.0 - env->weight) * env->posY;
-		env->ceil_textx = (int)(env->current_floorx * env->textC->width)
-			% env->textC->width;
-		env->ceil_texty = (int)(env->current_floory * env->textC->height)
-			% env->textC->height;
-		env->floor_textx = (int)(env->current_floorx * env->textF->width)
-			% env->textF->width;
-		env->floor_texty = (int)(env->current_floory * env->textF->height)
-			% env->textF->height;
+			(1.0 - env->weight) * env->posy;
+		env->ceil_textx = (int)(env->current_floorx * env->textc->width)
+			% env->textc->width;
+		env->ceil_texty = (int)(env->current_floory * env->textc->height)
+			% env->textc->height;
+		env->floor_textx = (int)(env->current_floorx * env->textf->width)
+			% env->textf->width;
+		env->floor_texty = (int)(env->current_floory * env->textf->height)
+			% env->textf->height;
 		print_floor(env);
 		env->y++;
 	}
@@ -57,64 +57,64 @@ void		draw_floor(t_env *env)
 {
 	if (env->side == 0)
 	{
-		env->floorx_wall = env->mapX;
-		env->floory_wall = env->mapY + env->wallX;
+		env->floorx_wall = env->mapx;
+		env->floory_wall = env->mapy + env->wallx;
 	}
 	else if (env->side == 2)
 	{
-		env->floorx_wall = env->mapX + 1.0;
-		env->floory_wall = env->mapY + env->wallX;
+		env->floorx_wall = env->mapx + 1.0;
+		env->floory_wall = env->mapy + env->wallx;
 	}
 	else if (env->side == 1)
 	{
-		env->floorx_wall = env->mapX + env->wallX;
-		env->floory_wall = env->mapY;
+		env->floorx_wall = env->mapx + env->wallx;
+		env->floory_wall = env->mapy;
 	}
 	else
 	{
-		env->floorx_wall = env->mapX + env->wallX;
-		env->floory_wall = env->mapY + 1.0;
+		env->floorx_wall = env->mapx + env->wallx;
+		env->floory_wall = env->mapy + 1.0;
 	}
-	env->dist_wall = env->perpWallDist;
+	env->dist_wall = env->perpwalldist;
 	env->dist_player = 0.0;
-	if (env->drawEnd < 0)
-		env->drawEnd = env->resY;
+	if (env->drawend < 0)
+		env->drawend = env->resy;
 	load_and_print_floor(env);
 }
 
 void		load_calc_ray_values(t_env *env)
 {
-	env->cameraX = (2 * env->x) / (double)env->resX - 1;
-	env->rayDirX = env->dirX + env->planeX * env->cameraX;
-	env->rayDirY = env->dirY + env->planeY * env->cameraX;
-	env->deltaDistX = fabs(1 / env->rayDirX);
-	env->deltaDistY = fabs(1 / env->rayDirY);
-	env->mapX = (int)env->posX;
-	env->mapY = (int)env->posY;
+	env->camerax = (2 * env->x) / (double)env->resx - 1;
+	env->raydirx = env->dirx + env->planex * env->camerax;
+	env->raydiry = env->diry + env->planey * env->camerax;
+	env->deltadistx = fabs(1 / env->raydirx);
+	env->deltadisty = fabs(1 / env->raydiry);
+	env->mapx = (int)env->posx;
+	env->mapy = (int)env->posy;
 }
 
 void		calc_ray(t_env *env)
 {
 	load_calc_ray_values(env);
-	if (env->rayDirX < 0)
+	if (env->raydirx < 0)
 	{
-		env->stepX = -1;
-		env->sideDistX = (env->posX - env->mapX) * env->deltaDistX;
+		env->stepx = -1;
+		env->sidedistx = (env->posx - env->mapx) * env->deltadistx;
 	}
 	else
 	{
-		env->stepX = 1;
-		env->sideDistX = (env->mapX + 1.0 - env->posX) * env->deltaDistX;
+		env->stepx = 1;
+		env->sidedistx = (env->mapx + 1.0 - env->posx) * env->deltadistx;
 	}
-	if (env->rayDirY < 0)
+	if (env->raydiry < 0)
 	{
-		env->stepY = -1;
-		env->sideDistY = (env->posY - env->mapY) * env->deltaDistY;
+		env->stepy = -1;
+		env->sidedisty = (env->posy - env->mapy) * env->deltadisty;
 	}
 	else
 	{
-		env->stepY = 1;
-		env->sideDistY = (env->mapY + 1.0 - env->posY) * env->deltaDistY;
+		env->stepy = 1;
+		env->sidedisty = (env->mapy + 1.0 - env->posy) * env->deltadisty;
 	}
 }
 
@@ -122,25 +122,25 @@ void		find_hit(t_env *env)
 {
 	while (env->hit == 0)
 	{
-		if (env->sideDistX < env->sideDistY)
+		if (env->sidedistx < env->sidedisty)
 		{
-			env->sideDistX += env->deltaDistX;
-			env->mapX += env->stepX;
-			if (env->rayDirX >= 0)
+			env->sidedistx += env->deltadistx;
+			env->mapx += env->stepx;
+			if (env->raydirx >= 0)
 				env->side = 0;
 			else
 				env->side = 2;
 		}
 		else
 		{
-			env->sideDistY += env->deltaDistY;
-			env->mapY += env->stepY;
-			if (env->rayDirY >= 0)
+			env->sidedisty += env->deltadisty;
+			env->mapy += env->stepy;
+			if (env->raydiry >= 0)
 				env->side = 1;
 			else
 				env->side = 3;
 		}
-		if (env->map[env->mapY][env->mapX] == '1')
+		if (env->map[env->mapy][env->mapx] == '1')
 			env->hit = 1;
 	}
 	calc_dist(env);
@@ -149,47 +149,47 @@ void		find_hit(t_env *env)
 void		calc_dist(t_env *env)
 {
 	if (env->side == 0 || env->side == 2)
-		env->perpWallDist = (env->mapX - env->posX + (1 - env->stepX) / 2)
-		/ env->rayDirX;
+		env->perpwalldist = (env->mapx - env->posx + (1 - env->stepx) / 2)
+		/ env->raydirx;
 	else
-		env->perpWallDist = (env->mapY - env->posY + (1 - env->stepY) / 2)
-		/ env->rayDirY;
+		env->perpwalldist = (env->mapy - env->posy + (1 - env->stepy) / 2)
+		/ env->raydiry;
 }
 
 void		load_draw_values(t_env *env)
 {
-	env->lineHeight = (int)(env->resY / env->perpWallDist);
-	env->drawStart = env->resY / 2 - env->lineHeight / 2;
-	if (env->drawStart < 0)
-		env->drawStart = 0;
-	env->drawEnd = (env->lineHeight / 2) + (env->resY / 2);
-	if (env->drawEnd >= env->resY)
-		env->drawEnd = env->resY - 1;
+	env->lineheight = (int)(env->resy / env->perpwalldist);
+	env->drawstart = env->resy / 2 - env->lineheight / 2;
+	if (env->drawstart < 0)
+		env->drawstart = 0;
+	env->drawend = (env->lineheight / 2) + (env->resy / 2);
+	if (env->drawend >= env->resy)
+		env->drawend = env->resy - 1;
 	if (env->side == 0 || env->side == 2)
-		env->wallX = env->posY + env->perpWallDist * env->rayDirY;
+		env->wallx = env->posy + env->perpwalldist * env->raydiry;
 	else
-		env->wallX = env->posX + env->perpWallDist * env->rayDirX;
-	env->wallX -= floor(env->wallX);
-	env->texX = (int)(env->wallX * (double)env->text[env->side]->width);
-	if ((env->side == 0 || env->side == 2) && env->rayDirX > 0)
-		env->texX = env->text[env->side]->width - env->texX - 1;
-	if ((env->side == 1 || env->side == 3) && env->rayDirY < 0)
-		env->texX = env->text[env->side]->width - env->texX - 1;
-	env->step = 1.0 * env->text[env->side]->height / env->lineHeight;
-	env->texPos = (env->drawStart - env->resY / 2 + env->lineHeight / 2)
+		env->wallx = env->posx + env->perpwalldist * env->raydirx;
+	env->wallx -= floor(env->wallx);
+	env->texx = (int)(env->wallx * (double)env->text[env->side]->width);
+	if ((env->side == 0 || env->side == 2) && env->raydirx > 0)
+		env->texx = env->text[env->side]->width - env->texx - 1;
+	if ((env->side == 1 || env->side == 3) && env->raydiry < 0)
+		env->texx = env->text[env->side]->width - env->texx - 1;
+	env->step = 1.0 * env->text[env->side]->height / env->lineheight;
+	env->texpos = (env->drawstart - env->resy / 2 + env->lineheight / 2)
 		* env->step;
 }
 
 void		draw_wall(t_env *env)
 {
-	env->y = env->drawStart;
-	while (env->y < env->drawEnd)
+	env->y = env->drawstart;
+	while (env->y < env->drawend)
 	{
-		env->texY = (int)env->texPos;
-		env->texPos += env->step;
+		env->texy = (int)env->texpos;
+		env->texpos += env->step;
 		put_pxl_clr(env->x, env->y,
-			get_pxl_clr_value(env->text[env->side]->width - env->texX,
-				env->texY, env->text[env->side]), env);
+			get_pxl_clr_value(env->text[env->side]->width - env->texx,
+				env->texy, env->text[env->side]), env);
 		env->y++;
 	}
 }
@@ -197,12 +197,12 @@ void		draw_wall(t_env *env)
 void		render(t_env *env)
 {
 	mlx_destroy_image(env->mlx, env->img);
-	env->img = mlx_new_image(env->mlx, env->resX, env->resY);
+	env->img = mlx_new_image(env->mlx, env->resx, env->resy);
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp,
 		&env->size_line, &env->endian);
 	env->x = 0;
 	env->y = 0;
-	while (env->x < env->resX)
+	while (env->x < env->resx)
 	{
 		env->hit = 0;
 		calc_ray(env);
@@ -211,7 +211,7 @@ void		render(t_env *env)
 		load_draw_values(env);
 		draw_wall(env);
 		draw_floor(env);
-		env->zbuffer[env->x] = env->perpWallDist;
+		env->zbuffer[env->x] = env->perpwalldist;
 		env->y = 0;
 		env->x++;
 	}

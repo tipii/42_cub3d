@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:36:01 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:26:35 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:31:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ void	free_env(t_env *env)
 	if (env->malloc_check)
 		free(env->c);
 	if (env->malloc_textures_floor)
-		free(env->textF);
+		free(env->textf);
 	if (env->malloc_textures_ceiling)
-		free(env->textC);
+		free(env->textc);
 	if (env->malloc_map)
 	{
 		while (env->map[++i])

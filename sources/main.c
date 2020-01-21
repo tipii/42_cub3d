@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 14:19:48 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:21:53 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,14 @@ int				main()
 
 	//to delete
 	printf("\n\x1b[33mParsing...\x1b[39m\n\n");
-	printf("MAP : Width : %d, Height : %d \n", env->mapWidth, env->mapHeight);
-	printf("PLAYER : Pos x %f, Pos y %f\n", env->posX, env->posY);
+	printf("MAP : Width : %d, Height : %d \n", env->mapwidth, env->mapheight);
+	printf("PLAYER : Pos x %f, Pos y %f\n", env->posx, env->posy);
 	printf("\n\x1b[33mInitializing...\x1b[39m\n\n");
-	printf("RES : x %d, y %d\n", env->resX, env->resY);
+	printf("RES : x %d, y %d\n", env->resx, env->resy);
 	//
-	env->window = mlx_new_window(env->mlx, env->resX, env->resY,
+	env->window = mlx_new_window(env->mlx, env->resx, env->resy,
 		"AWESOME RAYCASTING SHIT V0.0000001beta");
-	env->img = mlx_new_image (env->mlx, env->resX, env->resY);
+	env->img = mlx_new_image (env->mlx, env->resx, env->resy);
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line,
 		&env->endian);
 

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:11:42 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:31:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,10 @@ void	init_checks(t_checks *c)
 	c->found_map = 0;
 	c->found_player = 0;
 	c->found_sprite = 0;
-	c->found_textN = 0;
-	c->found_textS = 0;
-	c->found_textE = 0;
-	c->found_textW = 0;
+	c->found_textn = 0;
+	c->found_texts = 0;
+	c->found_texte = 0;
+	c->found_textw = 0;
 	c->found_floor = 0;
 	c->found_ceiling = 0;
 	c->line = malloc(sizeof(*c->line));
@@ -50,44 +50,41 @@ void	init_env(t_env *env)
 		i++;
 	}
 	env->malloc_textures = 1;
-	if(!(env->textF = malloc(sizeof(t_text))))
+	if(!(env->textf = malloc(sizeof(t_text))))
 		error("Malloc has failed", env);
 	env->malloc_textures_floor = 1;
-	if(!(env->textC = malloc(sizeof(t_text))))
+	if(!(env->textc = malloc(sizeof(t_text))))
 		error("Malloc has failed", env);
 	env->malloc_textures_ceiling = 1;
 	if(!(env->c = malloc(sizeof(t_checks))))
 		error("Malloc has failed", env);
 	env->malloc_check = 1;
-	env->posX = 0;
-	env->posY = 0;
-	env->dirX = 0;
-	env->dirY = -1;
+	env->posx = 0;
+	env->posy = 0;
+	env->dirx = 0;
+	env->diry = -1;
 	env->r_speed = 0.1;
 	env->t_speed = 0.1;
-	env->resX = 0;
-	env->resY = 0;
-	env->fov = FOV;
-	env->mapWidth = 0;
-	env->mapHeight = 0;
-	env->mapX = 1;
-	env->mapY = 1;
-	env->planeX = 0.66;
-	env->planeY = 0;
-	env->oldPlaneY = 0;
-	env->oldPlaneY = 0;
+	env->resx = 0;
+	env->resy = 0;
+	env->mapwidth = 0;
+	env->mapheight = 0;
+	env->mapx = 1;
+	env->mapy = 1;
+	env->planex = 0.66;
+	env->planey = 0;
 	env->x = 0;
 	env->y = 0;
-	env->cameraX = 0;
-	env->rayDirX = 0;
-	env->rayDirY = 0;
-	env->sideDistX = 0;
-	env->sideDistY = 0;
-	env->deltaDistX = 0;
-	env->deltaDistY = 0;
-	env->perpWallDist = 0;
-	env->stepX = 0;
-	env->stepY = 0;
+	env->camerax = 0;
+	env->raydirx = 0;
+	env->raydiry = 0;
+	env->sidedistx = 0;
+	env->sidedisty = 0;
+	env->deltadistx = 0;
+	env->deltadisty = 0;
+	env->perpwalldist = 0;
+	env->stepx = 0;
+	env->stepy = 0;
 	env->hit = 0;
 	env->side = 0;
 	env->countsprite = 0;
@@ -103,9 +100,9 @@ void	init_env(t_env *env)
 	env->img_data = NULL;
 	env->lumvalue = 1;
 	env->lum = 1;
-	env->lineHeight = 0;
-	env->drawStart = 0;
-	env->drawEnd = 0;
+	env->lineheight = 0;
+	env->drawstart = 0;
+	env->drawend = 0;
 	env->mlx = mlx_init();
 	env->current_floorx = 0;
 	env->current_floory = 0;

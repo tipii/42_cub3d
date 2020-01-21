@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/26 17:51:33 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 14:55:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:19:05 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,8 +55,8 @@ void		put_pxl_clr(int x, int y, unsigned int color, t_env *env)
 	char	*clr;
 
 	clr = (char*)&color;
-	env->img_data[(y * env->resX * 4) + x * 4 + 0] = clr[0];
-	env->img_data[(y * env->resX * 4) + x * 4 + 1] = clr[1];
-	env->img_data[(y * env->resX * 4) + x * 4 + 2] = clr[2];
-	env->img_data[(y * env->resX * 4) + x * 4 + 3] = 0;
+	env->img_data[(y * env->resx * 4) + x * 4 + 0] = clr[0];
+	env->img_data[(y * env->resx * 4) + x * 4 + 1] = clr[1];
+	env->img_data[(y * env->resx * 4) + x * 4 + 2] = clr[2];
+	env->img_data[(y * env->resx * 4) + x * 4 + 3] = 0;
 }

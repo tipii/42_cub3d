@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 17:56:10 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:22:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ int	first_pass(char *filepath, t_env *env)
 					env->countsprite++;
 				i++;
 			}
-			if (env->mapWidth != 0 && width != 0 && width != env->mapWidth)
+			if (env->mapwidth != 0 && width != 0 && width != env->mapwidth)
 				error("Map is not correctly define", env);
-			env->mapWidth = width;
+			env->mapwidth = width;
 			height++;
 		}
 		width = 0;
 		i = 0;
 		free(*line);
 	}
-	env->mapHeight = height;
+	env->mapheight = height;
 	free(line);
 	close(fd);
 	return (1);
@@ -61,7 +61,7 @@ void	has_found_all(t_env *env)
 
 	c = env->c;
 	if	(!c->found_res || !c->found_player || !c->found_map ||
-	!c->found_textS || !c->found_textN || !c->found_textW || !c->found_textE ||
+	!c->found_texts || !c->found_textn || !c->found_textw || !c->found_texte ||
 	!c->found_sprite || !c->found_ceiling || !c->found_floor)
 		error("Map error - An argument is missing", env);
 }
@@ -73,7 +73,7 @@ int parse(char *filepath, t_env *env)
 	c = env->c; 
 	init_checks(c);
 	first_pass(filepath, env);
-	init_map(env->mapWidth, env->mapHeight, env);
+	init_map(env->mapwidth, env->mapheight, env);
 	init_sprite(env->countsprite, env);
 	c->line = malloc(sizeof(*c->line));
 	c->fd = open(filepath, O_RDONLY);
@@ -88,18 +88,18 @@ int parse(char *filepath, t_env *env)
 				if(c->args[c->i][0] == 'N' || c->args[c->i][0] == 'S'
 				|| c->args[c->i][0] == 'W' || c->args[c->i][0] == 'E')
 				{
-					env->posX = c->k + 0.5;
-					env->posY = c->j + 0.5;
-					env->mapX = c->k;
-					env->mapY = c->j;
+					env->posx = c->k + 0.5;
+					env->posy = c->j + 0.5;
+					env->mapx = c->k;
+					env->mapy = c->j;
 					set_player_value(c->args[c->i][0], env);
 					env->map[c->j][c->k++] = '0';
 					c->found_player = 1;
 				}
 				else if (c->args[c->i][0] == '2')
 				{
-					env->sprites[env->isprite]->posx = c->k;
-					env->sprites[env->isprite]->posy = c->j;
+					env->sprites[env->isprite]->spos_x = c->k;
+					env->sprites[env->isprite]->spos_y = c->j;
 					env->isprite++;
 					env->map[c->j][c->k++] = c->args[c->i][0];
 				}
@@ -116,13 +116,13 @@ int parse(char *filepath, t_env *env)
 			{
 				if (ft_tablen(c->args) != 3)
 					error("Wrong number of args for RES", env);
-				env->resX = ft_atoi(c->args[1]);
-				if (env->resX > 2560)
-					env->resX = 2560;
-				env->resY = ft_atoi(c->args[2]);
-				if (env->resY > 1440)
-					env->resY = 1440;
-				if(!(env->zbuffer = malloc(sizeof(double) * env->resX)))
+				env->resx = ft_atoi(c->args[1]);
+				if (env->resx > 2560)
+					env->resx = 2560;
+				env->resy = ft_atoi(c->args[2]);
+				if (env->resy > 1440)
+					env->resy = 1440;
+				if(!(env->zbuffer = malloc(sizeof(double) * env->resx)))
 					error("Malloc of zbuf has failed", env);
 				c->found_res = 1;
 			}
@@ -130,25 +130,25 @@ int parse(char *filepath, t_env *env)
 			{
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[3], env);
-				c->found_textN = 1;
+				c->found_textn = 1;
 			}
 			else if (ft_strcmp(c->args[0], "SO") == 0)
 			{
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[1], env);
-				c->found_textS = 1;
+				c->found_texts = 1;
 			}
 			else if (ft_strcmp(c->args[0], "WE") == 0)
 			{
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[2], env);
-				c->found_textW = 1;
+				c->found_textw = 1;
 			}
 			else if (ft_strcmp(c->args[0], "EA") == 0)
 			{
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[0], env);
-				c->found_textE = 1;
+				c->found_texte = 1;
 			}
 			else if (ft_strcmp(c->args[0], "S") == 0)
 			{

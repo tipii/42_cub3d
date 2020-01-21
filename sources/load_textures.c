@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:42:26 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:34:34 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:31:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	load_floor(char *arg2, t_env *env)
 	{
 		try_filepath(arg2, env);
 		env->has_text_floor = 1;
-		load_texture(arg2, env->textF, env);
+		load_texture(arg2, env->textf, env);
 	}
 }
 
@@ -62,7 +62,7 @@ void	load_floor_or_ceil(char *arg1, char *arg2, t_env *env)
 		{
 			try_filepath(arg2, env);
 			env->has_text_ceiling = 1;
-			load_texture(arg2, env->textC, env);
+			load_texture(arg2, env->textc, env);
 		}
 	}
 }

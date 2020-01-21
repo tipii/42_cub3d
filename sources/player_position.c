@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 13:38:47 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:18:51 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:27:56 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,30 @@
 
 void	rotate_left(t_env *env)
 {
-	env->oldDirX = env->dirX;
-	env->dirX = env->dirX * cos(-env->r_speed);
-	env->dirX -= env->dirY * sin(-env->r_speed);
-	env->dirY = env->dirY * cos(-env->r_speed);
-	env->dirY += env->oldDirX * sin(-env->r_speed);
-	env->oldPlaneX = env->planeX;
-	env->planeX = env->planeX * cos(-env->r_speed);
-	env->planeX -= env->planeY * sin(-env->r_speed);
-	env->planeY = env->planeY * cos(-env->r_speed);
-	env->planeY += env->oldPlaneX * sin(-env->r_speed);
+	env->olddirx = env->dirx;
+	env->dirx = env->dirx * cos(-env->r_speed);
+	env->dirx -= env->diry * sin(-env->r_speed);
+	env->diry = env->diry * cos(-env->r_speed);
+	env->diry += env->olddirx * sin(-env->r_speed);
+	env->oldplanex = env->planex;
+	env->planex = env->planex * cos(-env->r_speed);
+	env->planex -= env->planey * sin(-env->r_speed);
+	env->planey = env->planey * cos(-env->r_speed);
+	env->planey += env->oldplanex * sin(-env->r_speed);
 }
 
 void	rotate_right(t_env *env)
 {
-	env->oldDirX = env->dirX;
-	env->dirX = env->dirX * cos(env->r_speed);
-	env->dirX -= env->dirY * sin(env->r_speed);
-	env->dirY = env->dirY * cos(env->r_speed);
-	env->dirY += env->oldDirX * sin(env->r_speed);
-	env->oldPlaneX = env->planeX;
-	env->planeX = env->planeX * cos(env->r_speed);
-	env->planeX -= env->planeY * sin(env->r_speed);
-	env->planeY = env->planeY * cos(env->r_speed);
-	env->planeY += env->oldPlaneX * sin(env->r_speed);
+	env->olddirx = env->dirx;
+	env->dirx = env->dirx * cos(env->r_speed);
+	env->dirx -= env->diry * sin(env->r_speed);
+	env->diry = env->diry * cos(env->r_speed);
+	env->diry += env->olddirx * sin(env->r_speed);
+	env->oldplanex = env->planex;
+	env->planex = env->planex * cos(env->r_speed);
+	env->planex -= env->planey * sin(env->r_speed);
+	env->planey = env->planey * cos(env->r_speed);
+	env->planey += env->oldplanex * sin(env->r_speed);
 }
 
 int		calc_player_pos(t_env *env)
