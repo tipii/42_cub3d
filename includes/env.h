@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 16:13:20 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 13:37:43 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -185,7 +185,13 @@ typedef	struct	s_env
 	int			malloc_textures;
 	int			malloc_textures_floor;
 	int			malloc_textures_ceiling;
-
+	/* move */
+	int			rotate_left;
+	int			rotate_right;
+	int			move_up;
+	int			move_down;
+	int			move_left;
+	int			move_right;
 }				t_env;
 
 void		init_map(int width, int height, t_env *env);

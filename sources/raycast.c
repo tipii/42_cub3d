@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 17:23:36 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 14:23:39 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void draw_floor(t_env *env)
     env->dist_player = 0.0;
     if (env->drawEnd < 0)
 		env->drawEnd = env->resY; 
-	env->y = env->drawEnd;
+	// env->y = env->drawEnd;
     while (env->y < env->resY)
 	{
 		env->current_dist = env->resY / (2.0 * env->y - env->resY);
@@ -159,6 +159,7 @@ void	render(t_env *env)
 	env->img_data = mlx_get_data_addr(env->img, &env->bpp, &env->size_line, &env->endian);
 	env->x = 0;
 	env->y = 0;
+	// calc_player_pos(env);
 	while(env->x < env->resX)
 	{
 		env->hit = 0;

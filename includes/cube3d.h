@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 15:29:06 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 13:53:18 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ void		sprite_casting(t_env *env);
 int			generate_color(int r, int g, int b);
 double		deg_to_radian(double deg);
 int			hook_keydown(int key, t_env *env);
+int			hook_keyup(int key, t_env *env);
+int			calc_player_pos(t_env *env);
 int			get_pxl_clr_value(int x, int y, t_text *text);
 int			get_pxl_sprite_value(int x, int y, t_sprite *text);
 void		put_pxl_clr(int x, int y, unsigned int color, t_env *env);

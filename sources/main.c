@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 19:06:23 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 14:19:48 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int				main()
 	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
 	mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
 	render(env);
+	mlx_loop_hook(env->mlx, calc_player_pos, env);
 	mlx_loop(env->mlx);
 	// loop(env);
 	return (0);

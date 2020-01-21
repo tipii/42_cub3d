@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 17:16:24 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 14:20:05 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,6 +111,12 @@ void	init_env(t_env *env)
 	env->current_floory = 0;
 	env->ceil_textx = 0;
 	env->ceil_texty = 0;
+	env->rotate_left = 0;
+	env->rotate_right = 0;
+	env->move_up = 0;
+	env->move_down = 0;
+	env->move_left = 0;
+	env->move_right = 0;
 }
 
 
