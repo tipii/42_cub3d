@@ -6,13 +6,14 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:26:57 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 16:48:13 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 16:38:06 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PARSE_H
 # define PARSE_H
 
+int			parse(char *filepath, t_env *env);
 int			ft_strlen(char *str);
 int			ft_tablen(char **tab);
 int			nbr_of_words(char const *s, char c);
