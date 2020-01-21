@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:37:44 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 15:40:42 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:39:26 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,18 @@ void	set_player_north(t_env *env)
 
 void	set_player_south(t_env *env)
 {
-		env->dirX = 0;
-		env->dirY = 1;
-		env->planeX = -0.66;
-		env->planeY = 0;
+	env->dirX = 0;
+	env->dirY = 1;
+	env->planeX = -0.66;
+	env->planeY = 0;
 }
 
 void	set_player_east(t_env *env)
 {
 	env->dirX = 1;
-		env->dirY = 0;
-		env->planeX = 0;
-		env->planeY = 0.66;
+	env->dirY = 0;
+	env->planeX = 0;
+	env->planeY = 0.66;
 }
 
 void	set_player_west(t_env *env)

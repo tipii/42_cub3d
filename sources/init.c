@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 14:20:05 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:11:42 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	init_env(t_env *env)
 	env->mapY = 1;
 	env->planeX = 0.66;
 	env->planeY = 0;
-	env->oldPlaneX = 0;
+	env->oldPlaneY = 0;
 	env->oldPlaneY = 0;
 	env->x = 0;
 	env->y = 0;

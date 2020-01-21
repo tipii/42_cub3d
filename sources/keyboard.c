@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:47:16 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 14:20:53 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:29:10 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,33 +15,33 @@
 int		hook_keydown(int key, t_env *env)
 {
 	if (key == KEY_A)
-	 	env->move_left = 1;
+		env->move_left = 1;
 	else if (key == KEY_D)
-	 	env->move_right = 1;
+		env->move_right = 1;
 	else if (key == KEY_W)
-	 	env->move_up = 1;
+		env->move_up = 1;
 	else if (key == KEY_S)
-	 	env->move_down = 1;
+		env->move_down = 1;
 	else if (key == KEY_LEFT)
-	 	env->rotate_left = 1;
+		env->rotate_left = 1;
 	else if (key == KEY_RIGHT)
-	 	env->rotate_right = 1;
+		env->rotate_right = 1;
 	return (0);
 }
 
 int		hook_keyup(int key, t_env *env)
 {
 	if (key == KEY_A)
-	 	env->move_left = 0;
+		env->move_left = 0;
 	else if (key == KEY_D)
-	 	env->move_right = 0;
+		env->move_right = 0;
 	else if (key == KEY_W)
-	 	env->move_up = 0;
+		env->move_up = 0;
 	else if (key == KEY_S)
-	 	env->move_down = 0;
+		env->move_down = 0;
 	else if (key == KEY_LEFT)
-	 	env->rotate_left = 0;
+		env->rotate_left = 0;
 	else if (key == KEY_RIGHT)
-	 	env->rotate_right = 0;
+		env->rotate_right = 0;
 	return (0);
 }

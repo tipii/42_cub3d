@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:35:22 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 18:06:26 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:27:23 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int			nbr_of_words(char const *s, char c)
 {
-	int 	i;
+	int		i;
 	int		count;
 	int		lens;
 

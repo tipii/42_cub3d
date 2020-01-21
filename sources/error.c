@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:36:01 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/20 16:43:04 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:26:35 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	try_filepath(char *filepath, t_env *env)
 {
 	int	fd;
+
 	fd = open(filepath, O_DIRECTORY);
 	if (fd != -1)
 		error("A filepath is a directory", env);
@@ -34,7 +35,7 @@ void	free_env(t_env *env)
 		free(env->textF);
 	if (env->malloc_textures_ceiling)
 		free(env->textC);
-	if	(env->malloc_map)
+	if (env->malloc_map)
 	{
 		while (env->map[++i])
 			free(env->map[i]);
@@ -48,11 +49,12 @@ void	free_env(t_env *env)
 		free(env->sprites);
 	}
 }
-void	error(char* message, t_env *env)
+
+void	error(char *message, t_env *env)
 {
 	write(1, "Error\n", 6);
 	write(1, message, ft_strlen(message));
-	write(1, "\n" ,1);
+	write(1, "\n", 1);
 	free_env(env);
 	free(env);
 	exit(1);

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 13:37:43 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 15:33:58 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,4 +203,10 @@ void		set_player_value(char c, t_env *env);
 void		load_texture(char *filepath, t_text *text, t_env *env);
 void		load_sprite(char *filepath, t_sprite *text, t_env *env);
 void		load_floor_or_ceil(char* arg1, char*arg2, t_env *env);
+void		move_forward(t_env *env);
+void		move_backward(t_env *env);
+void		move_left(t_env *env);
+void		move_right(t_env *env);
+int			is_rgb(char *arg);
+
 #endif
