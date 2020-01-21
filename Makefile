@@ -11,7 +11,7 @@ SRCS = $(wildcard $(SOURCES_DIR)*.c)
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
-			$(COMPIL) $(FLAG) $(LIB) $(HEADER) $(OBJS) -o $(NAME)
+			$(COMPIL) $(FLAG) $(G3) $(LIB) $(HEADER) $(OBJS) -o $(NAME)
 			# ./$(NAME)
 
 %.o: %.c

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:36:01 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:31:17 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:55:32 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,29 @@ void	try_filepath(char *filepath, t_env *env)
 		error("A filepath is wrong", env);
 }
 
+void	try_filepath_map(char *filepath, t_env *env)
+{
+	int	fd;
+
+	fd = open(filepath, O_DIRECTORY);
+	if (fd != -1)
+		error("Map filepath is a directory", env);
+	fd = open(filepath, O_RDONLY);
+	if (fd == -1)
+		error("Map does not exist", env);
+}
+
 void	free_env(t_env *env)
 {
 	int i;
 
 	i = -1;
 	if (env->malloc_check)
+	{
+		if (env->malloc_line)
+			free(env->c->line);
 		free(env->c);
+	}
 	if (env->malloc_textures_floor)
 		free(env->textf);
 	if (env->malloc_textures_ceiling)

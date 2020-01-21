@@ -6,13 +6,13 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:22:17 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 19:19:18 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int	first_pass(char *filepath, t_env *env)
+void	first_pass(char *filepath, t_env *env)
 {
 	int fd;
 	char **line;
@@ -41,7 +41,7 @@ int	first_pass(char *filepath, t_env *env)
 				i++;
 			}
 			if (env->mapwidth != 0 && width != 0 && width != env->mapwidth)
-				error("Map is not correctly define", env);
+				error("Map has various size of lines", env);
 			env->mapwidth = width;
 			height++;
 		}
@@ -50,9 +50,7 @@ int	first_pass(char *filepath, t_env *env)
 		free(*line);
 	}
 	env->mapheight = height;
-	free(line);
 	close(fd);
-	return (1);
 }
 
 void	has_found_all(t_env *env)
@@ -60,58 +58,118 @@ void	has_found_all(t_env *env)
 	t_checks	*c;
 
 	c = env->c;
+	printf("%d %d %d %d %d %d %d %d %d %d", c->found_res, c->found_player, c->found_map, c->found_texts, c->found_textn, c->found_textw, c->found_texte , c->found_sprite, c->found_ceiling, c->found_floor);
 	if	(!c->found_res || !c->found_player || !c->found_map ||
 	!c->found_texts || !c->found_textn || !c->found_textw || !c->found_texte ||
 	!c->found_sprite || !c->found_ceiling || !c->found_floor)
 		error("Map error - An argument is missing", env);
 }
 
-int parse(char *filepath, t_env *env)
+void	found_player(t_env *env, t_checks *c)
 {
-	t_checks *c;
+	if (c->found_player)
+		error("More than one player position is define in the map", env);
+	env->posx = c->i + 0.5;
+	env->posy = c->j + 0.5;
+	env->mapx = c->i;
+	env->mapy = c->j;
+	set_player_value(c->args[c->i][0], env);
+	env->map[c->j][c->i] = '0';
+	c->found_player = 1;
+}
 
-	c = env->c; 
-	init_checks(c);
-	first_pass(filepath, env);
-	init_map(env->mapwidth, env->mapheight, env);
-	init_sprite(env->countsprite, env);
-	c->line = malloc(sizeof(*c->line));
-	c->fd = open(filepath, O_RDONLY);
-	while(get_next_line(c->fd, c->line) > 0)
+void	found_sprite(t_env *env, t_checks *c)
+{
+	env->sprites[env->isprite]->spos_x = c->i;
+	env->sprites[env->isprite]->spos_y = c->j;
+	env->isprite++;
+	env->map[c->j][c->i] = c->args[c->i][0];
+}
+
+void	add_line_to_map(t_env *env, t_checks *c)
+{
+	c->i = 0;
+	while (c->args[c->i])
 	{
-		c->args = ft_split(*c->line, ' ');
-		if (c->args[0][0] >= '0' && c->args[0][0] <= '9')
+		if(c->args[c->i][0] == 'N' || c->args[c->i][0] == 'S'
+		|| c->args[c->i][0] == 'W' || c->args[c->i][0] == 'E')
+			found_player(env, c);
+		else if (c->args[c->i][0] == '2')
+			found_sprite(env, c);
+		else
 		{
-			c->found_map = 1;
-			while (c->args[c->i])
+			env->map[c->j][c->i] = c->args[c->i][0];
+		}
+		// printf("%d %d \n", c->i, c->j);		
+		c->i++;
+	}
+	c->j++;
+}
+
+void	parse_map(t_env *env, t_checks *c)
+{
+	if(c->found_map)
+		error("Map not in one block or not last argument", env);
+	c->found_map = 1;
+
+	c->args = ft_split(*c->line, ' ');
+	add_line_to_map(env, c);
+	ft_freetab(c->args);
+
+	while(get_next_line(c->fd, c->line) > 0 && (*c->line[0] >= '0' && *c->line[0] <= '9'))
+	{
+		// printf("%s\n", *c->line);
+		c->args = ft_split(*c->line, ' ');
+		add_line_to_map(env, c);
+		ft_freetab(c->args);
+	}
+
+}
+
+void	check_map_is_close(t_env *env)
+{
+	int i;
+	int k;
+
+	i = 0;
+	k = 0;
+	while (k < env->mapheight)
+	{
+		if (k == 0 || k == env->mapheight - 1)
+		{
+			while(env->map[k][i])
 			{
-				if(c->args[c->i][0] == 'N' || c->args[c->i][0] == 'S'
-				|| c->args[c->i][0] == 'W' || c->args[c->i][0] == 'E')
-				{
-					env->posx = c->k + 0.5;
-					env->posy = c->j + 0.5;
-					env->mapx = c->k;
-					env->mapy = c->j;
-					set_player_value(c->args[c->i][0], env);
-					env->map[c->j][c->k++] = '0';
-					c->found_player = 1;
-				}
-				else if (c->args[c->i][0] == '2')
-				{
-					env->sprites[env->isprite]->spos_x = c->k;
-					env->sprites[env->isprite]->spos_y = c->j;
-					env->isprite++;
-					env->map[c->j][c->k++] = c->args[c->i][0];
-				}
-				else
-					env->map[c->j][c->k++] = c->args[c->i][0];
-				c->i++;
+				if(env->map[k][i] != '1')
+					error("Map is not closed", env);
+				i++;
 			}
-			c->k = 0;
-			c->j++;
+			i = 0;
 		}
 		else
 		{
+			if(env->map[k][0] != '1' || env->map[k][env->mapwidth -1] != '1')
+					error("Map is not closed", env);
+		}
+		k++;
+	}
+	
+}
+
+void second_pass(char *filepath, t_env *env)
+{
+	t_checks *c;
+	c = env->c;
+	c->fd = open(filepath, O_RDONLY);
+	while((get_next_line(c->fd, c->line)) > 0)
+	{
+		if (*c->line[0] >= '0' && *c->line[0] <= '9')
+		{
+			parse_map(env, c);
+			check_map_is_close(env);
+		}
+		else
+		{
+			c->args = ft_split(*c->line, ' ');
 			if (ft_strcmp(c->args[0], "R") == 0)
 			{
 				if (ft_tablen(c->args) != 3)
@@ -170,14 +228,20 @@ int parse(char *filepath, t_env *env)
 				load_floor_or_ceil(c->args[0], c->args[1], env);
 				c->found_ceiling = 1;
 			}
+			ft_freetab(c->args);
 		}
-		ft_freetab(c->args);
-		c->i = 0;
 		free(*c->line);
 	}
-	has_found_all(env);
 	close(c->fd);
-	free(c->line);
-	free(c);
+}
+
+int parse(char *filepath, t_env *env)
+{
+	try_filepath_map(filepath, env);
+	first_pass(filepath, env);
+	init_map(env->mapwidth, env->mapheight, env);
+	init_sprite(env->countsprite, env);
+	second_pass(filepath, env);
+	has_found_all(env);
 	return (1);
 }

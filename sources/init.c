@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:31:17 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:58:11 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,29 +36,33 @@ void	init_env(t_env *env)
 
 	i = 0;
 	env->malloc_check = 0;
+	env->malloc_line = 0;
 	env->malloc_map = 0;
 	env->malloc_sprites = 0;
 	env->malloc_textures = 0;
 	env->malloc_textures_ceiling = 0;
 	env->malloc_textures_floor = 0;
 	if(!(env->text = malloc(sizeof(*env->text) * 4)))
-		error("Malloc has failed", env);
+		error("Malloc of texture array has failed", env);
 	while (i < 4)
 	{
 		if(!(env->text[i] = malloc(sizeof(t_text))))
-			error("Malloc has failed", env);
+			error("Malloc of a texture has failed", env);
 		i++;
 	}
 	env->malloc_textures = 1;
 	if(!(env->textf = malloc(sizeof(t_text))))
-		error("Malloc has failed", env);
+		error("Malloc of textf failed", env);
 	env->malloc_textures_floor = 1;
 	if(!(env->textc = malloc(sizeof(t_text))))
-		error("Malloc has failed", env);
+		error("Malloc of textc failed", env);
 	env->malloc_textures_ceiling = 1;
 	if(!(env->c = malloc(sizeof(t_checks))))
 		error("Malloc has failed", env);
+	init_checks(env->c);
+	env->malloc_line = 1;
 	env->malloc_check = 1;
+	env->finish_map = 0;
 	env->posx = 0;
 	env->posy = 0;
 	env->dirx = 0;

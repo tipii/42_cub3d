@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:54:50 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 17:26:35 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,5 +40,6 @@ int			get_pxl_sprite_value(int x, int y, t_sprite *text);
 void		put_pxl_clr(int x, int y, unsigned int color, t_env *env);
 void		error(char *message, t_env *env);
 void		try_filepath(char *filepath, t_env *env);
+void		try_filepath_map(char *filepath, t_env *env);
 
 #endif

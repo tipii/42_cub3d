@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 17:02:43 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/21 19:00:29 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,14 @@ int				main(int argc, char **argv)
 		error("Malloc has failed", env);
 	init_env(env);
 	parse("./maps/map_1.cub", env);
+	
+	printf("\n\x1b[33mParsing...\x1b[39m\n\n");
+	printf("MAP : Width : %d, Height : %d \n", env->mapwidth, env->mapheight);
+	printf("PLAYER : Pos x %f, Pos y %f\n", env->posx, env->posy);
+	printf("\n\x1b[33mInitializing...\x1b[39m\n\n");
+	printf("RES : x %d, y %d\n", env->resx, env->resy);
+	
+	show_map(env);
 	init_mlx(env);
 	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
 	mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
