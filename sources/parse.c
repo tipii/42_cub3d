@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:13:18 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 17:55:17 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void		first_pass(char *filepath, t_env *env)
 		{
 			while ((*line)[i])
 			{
-				if (!is_charset((*line)[i]))
+				if (!is_charset((*line)[i], "012NSEW "))
 					error("A char in map is not in charset", env);
 				if ((*line)[i] != ' ' && i % 2 == 0)
 					width++;
@@ -53,6 +53,28 @@ void		first_pass(char *filepath, t_env *env)
 	close(fd);
 }
 
+void		look_for_elem(t_env *env, t_checks *c)
+{
+	if (c->args[0] && !is_charset(c->args[0][0], "RNSWEFCR"))
+		error("An unknown element is define", env);
+	if (ft_strcmp(c->args[0], "R") == 0)
+		found_res(env, c);
+	else if (ft_strcmp(c->args[0], "NO") == 0)
+		found_textn(env, c);
+	else if (ft_strcmp(c->args[0], "SO") == 0)
+		found_texts(env, c);
+	else if (ft_strcmp(c->args[0], "WE") == 0)
+		found_textw(env, c);
+	else if (ft_strcmp(c->args[0], "EA") == 0)
+		found_texte(env, c);
+	else if (ft_strcmp(c->args[0], "S") == 0)
+		found_textsprites(env, c);
+	else if (ft_strcmp(c->args[0], "F") == 0)
+		found_floor(env, c);
+	else if (ft_strcmp(c->args[0], "C") == 0)
+		found_ceiling(env, c);
+}
+
 void		second_pass(char *filepath, t_env *env)
 {
 	t_checks *c;
@@ -69,34 +91,7 @@ void		second_pass(char *filepath, t_env *env)
 		else
 		{
 			c->args = ft_split(*c->line, " \t");
-			if (ft_strcmp(c->args[0], "R") == 0)
-				found_res(env, c);
-			else if (ft_strcmp(c->args[0], "NO") == 0)
-				found_textn(env, c);
-			else if (ft_strcmp(c->args[0], "SO") == 0)
-				found_texts(env, c);
-			else if (ft_strcmp(c->args[0], "WE") == 0)
-				found_textw(env, c);
-			else if (ft_strcmp(c->args[0], "EA") == 0)
-				found_texte(env, c);
-			else if (ft_strcmp(c->args[0], "S") == 0)
-				found_textsprites(env, c);
-			else if (ft_strcmp(c->args[0], "F") == 0)
-			{
-				if (c->found_floor)
-					error("Floor is defined multiple times", env);
-				check_args_number(ft_tablen(c->args), 2, env);
-				load_floor_or_ceil(c->args[0], c->args[1], env);
-				c->found_floor = 1;
-			}
-			else if (ft_strcmp(c->args[0], "C") == 0)
-			{
-				if (c->found_ceiling)
-					error("Ceiling is defined multiple times", env);
-				check_args_number(ft_tablen(c->args), 2, env);
-				load_floor_or_ceil(c->args[0], c->args[1], env);
-				c->found_ceiling = 1;
-			}
+			look_for_elem(env, c);
 			ft_freetab(c->args);
 		}
 		free(*c->line);

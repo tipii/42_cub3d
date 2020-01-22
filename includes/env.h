@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 15:01:01 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 17:47:06 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,7 +157,7 @@ typedef	struct	s_env
 	int			malloc_textures_floor;
 	int			malloc_textures_ceiling;
 	int			malloc_line;
-	int			finish_map; 
+	int			finish_map;
 	int			rotate_left;
 	int			rotate_right;
 	int			move_up;

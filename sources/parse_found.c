@@ -6,22 +6,11 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 17:00:50 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:04:23 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 17:54:49 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
-
-void		has_found_all(t_env *env)
-{
-	t_checks	*c;
-
-	c = env->c;
-	if (!c->found_res || !c->found_player || !c->found_map ||
-	!c->found_texts || !c->found_textn || !c->found_textw || !c->found_texte ||
-	!c->found_sprite || !c->found_ceiling || !c->found_floor)
-		error("Map error - An argument is missing", env);
-}
 
 void		found_player(t_env *env, t_checks *c)
 {
@@ -57,8 +46,25 @@ void		found_res(t_env *env, t_checks *c)
 		env->resx = 2560;
 	if (env->resy > 1440)
 		env->resy = 1440;
-	printf("%d %d\n", env->resx, env->resy);
 	if (!(env->zbuffer = malloc(sizeof(double) * env->resx)))
 		error("Malloc of zbuf has failed", env);
 	c->found_res = 1;
+}
+
+void		found_floor(t_env *env, t_checks *c)
+{
+	if (c->found_floor)
+		error("Floor is defined multiple times", env);
+	check_args_number(ft_tablen(c->args), 2, env);
+	load_floor_or_ceil(c->args[0], c->args[1], env);
+	c->found_floor = 1;
+}
+
+void		found_ceiling(t_env *env, t_checks *c)
+{
+	if (c->found_ceiling)
+		error("Ceiling is defined multiple times", env);
+	check_args_number(ft_tablen(c->args), 2, env);
+	load_floor_or_ceil(c->args[0], c->args[1], env);
+	c->found_ceiling = 1;
 }

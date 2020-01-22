@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:36:01 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 17:55:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 17:46:31 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,19 @@ void	try_filepath_map(char *filepath, t_env *env)
 		error("Map does not exist", env);
 }
 
+void	free_env_suite(t_env *env)
+{
+	int i;
+
+	i = -1;
+	if (env->malloc_sprites)
+	{
+		while (env->sprites[++i])
+			free(env->sprites[i]);
+		free(env->sprites);
+	}
+}
+
 void	free_env(t_env *env)
 {
 	int i;
@@ -56,13 +69,6 @@ void	free_env(t_env *env)
 		while (env->map[++i])
 			free(env->map[i]);
 		free(env->map);
-	}
-	i = -1;
-	if (env->malloc_sprites)
-	{
-		while (env->sprites[++i])
-			free(env->sprites[i]);
-		free(env->sprites);
 	}
 }
 

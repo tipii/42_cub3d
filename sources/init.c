@@ -6,13 +6,13 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 17:58:11 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 17:26:12 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-void	init_checks(t_checks *c)
+void		init_checks(t_checks *c)
 {
 	c->found_res = 0;
 	c->found_map = 0;
@@ -30,7 +30,7 @@ void	init_checks(t_checks *c)
 	c->k = 0;
 }
 
-void	init_env(t_env *env)
+void		init_env(t_env *env)
 {
 	int		i;
 
@@ -42,22 +42,22 @@ void	init_env(t_env *env)
 	env->malloc_textures = 0;
 	env->malloc_textures_ceiling = 0;
 	env->malloc_textures_floor = 0;
-	if(!(env->text = malloc(sizeof(*env->text) * 4)))
+	if (!(env->text = malloc(sizeof(*env->text) * 4)))
 		error("Malloc of texture array has failed", env);
 	while (i < 4)
 	{
-		if(!(env->text[i] = malloc(sizeof(t_text))))
+		if (!(env->text[i] = malloc(sizeof(t_text))))
 			error("Malloc of a texture has failed", env);
 		i++;
 	}
 	env->malloc_textures = 1;
-	if(!(env->textf = malloc(sizeof(t_text))))
+	if (!(env->textf = malloc(sizeof(t_text))))
 		error("Malloc of textf failed", env);
 	env->malloc_textures_floor = 1;
-	if(!(env->textc = malloc(sizeof(t_text))))
+	if (!(env->textc = malloc(sizeof(t_text))))
 		error("Malloc of textc failed", env);
 	env->malloc_textures_ceiling = 1;
-	if(!(env->c = malloc(sizeof(t_checks))))
+	if (!(env->c = malloc(sizeof(t_checks))))
 		error("Malloc has failed", env);
 	init_checks(env->c);
 	env->malloc_line = 1;
@@ -120,11 +120,10 @@ void	init_env(t_env *env)
 	env->move_right = 0;
 }
 
-
 void		init_map(int width, int height, t_env *env)
 {
 	int i;
-	
+
 	i = 0;
 	env->map = (char **)malloc(sizeof(*env->map) * (height + 1));
 	while (i < height)
@@ -137,8 +136,7 @@ void		init_map(int width, int height, t_env *env)
 	env->malloc_map = 1;
 }
 
-
-void	init_sprite(int i, t_env *env)
+void		init_sprite(int i, t_env *env)
 {
 	int j;
 
@@ -149,9 +147,9 @@ void	init_sprite(int i, t_env *env)
 		error("Malloc of *s_order has failed", env);
 	if (!(env->sprite_distance = malloc(sizeof(double) * i)))
 		error("Malloc of *sprite_distance has failed", env);
-	while(j < i)
+	while (j < i)
 	{
-		if(!(env->sprites[j] = malloc(sizeof(t_sprite))))
+		if (!(env->sprites[j] = malloc(sizeof(t_sprite))))
 			exit(1);
 		env->sprites[j]->bpp = 0;
 		env->sprites[j]->size_line = 0;
