@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:27:40 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:37:47 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 16:25:19 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,18 +32,33 @@ int		ft_tablen(char **tab)
 	return (i);
 }
 
-int		ft_atoi(char *s)
+int		ft_atoi(char *str)
 {
-	int	atoi;
-	int	i;
+	long	atoi;
+	int		neg;
+	int		i;
 
 	atoi = 0;
+	neg = 1;
 	i = 0;
-	while (s[i] && s[i] >= '0' && s[i] <= '9')
+	while (str[i] && (str[i] == ' ' || str[i] == '\t' ||
+				str[i] == '\v' || str[i] == '\n' ||
+				str[i] == '\r' || str[i] == '\f'))
+		i++;
+	while (str[i] == '-' || str[i] == '+')
 	{
-		atoi = atoi * 10 + (s[i] - 48);
+		if (str[i] == '-')
+			neg = neg * (-1);
 		i++;
 	}
+	while (str[i] >= '0' && str[i] <= '9')
+	{
+		atoi = (atoi * 10) + (str[i] - 48);
+		i++;
+	}
+	if (atoi > 2147483647)
+		atoi = 2147483647;
+	atoi = atoi * neg;
 	return (atoi);
 }
 
@@ -65,7 +80,9 @@ int		ft_strcmp(const char *s1, const char *s2)
 	unsigned int	i;
 
 	i = 0;
-	while (s1[i] == s2[i] && s1[i] != '\0' && s2[i] != '\0')
+	if(!s1 || (s1[i] == 0 || s2[i] == 0))
+		return (-1);
+	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
 	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }

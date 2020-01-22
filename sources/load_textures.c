@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:42:26 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:31:17 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 15:01:25 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	load_floor(char *arg2, t_env *env)
 {
 	int color;
 
-	if ((color = is_rgb(arg2)) != -1)
+	if ((color = is_rgb(arg2, env)) != -1)
 	{
 		env->has_text_floor = 0;
 		env->color_floor = color;
@@ -53,7 +53,7 @@ void	load_floor_or_ceil(char *arg1, char *arg2, t_env *env)
 		load_floor(arg2, env);
 	else
 	{
-		if ((color = is_rgb(arg2)) != -1)
+		if ((color = is_rgb(arg2, env)) != -1)
 		{
 			env->has_text_ceiling = 0;
 			env->color_ceiling = color;

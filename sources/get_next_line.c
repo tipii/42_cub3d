@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/24 10:04:24 by tpalhol           #+#    #+#             */
-/*   Updated: 2019/11/28 17:03:27 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 15:41:03 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,14 +75,14 @@ int			get_next_line(int fd, char **line)
 	tmp[fd] = fill_tmp(tmp[fd], fd, buf);
 	while (tmp[fd][i] && tmp[fd][i] != '\n')
 		i++;
-	if (ft_strchr(tmp[fd], '\n') != -1)
+	if (tmp[fd][0])
 	{
 		tmp[fd] = ft_substrandfree(tmp[fd], i, line, 1);
 		return (1);
 	}
 	else
 	{
-		tmp[fd] = ft_substrandfree(tmp[fd], i, line, 0);
+		tmp[fd] = ft_substrandfree(tmp[fd], i, line, 1);
 		return (0);
 	}
 }

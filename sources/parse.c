@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 19:19:18 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 16:28:34 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,15 +115,14 @@ void	parse_map(t_env *env, t_checks *c)
 	c->args = ft_split(*c->line, ' ');
 	add_line_to_map(env, c);
 	ft_freetab(c->args);
-
+	free(*c->line);
 	while(get_next_line(c->fd, c->line) > 0 && (*c->line[0] >= '0' && *c->line[0] <= '9'))
 	{
-		// printf("%s\n", *c->line);
 		c->args = ft_split(*c->line, ' ');
 		add_line_to_map(env, c);
 		ft_freetab(c->args);
+		free(*c->line);
 	}
-
 }
 
 void	check_map_is_close(t_env *env)
@@ -155,9 +154,18 @@ void	check_map_is_close(t_env *env)
 	
 }
 
+void	check_args_number(int nbr, int expected, t_env *env)
+{
+	if (nbr > expected)
+		error("A definition has too many args", env);
+	if (nbr < expected)
+		error("A definition has not enough args", env);
+}
+
 void second_pass(char *filepath, t_env *env)
 {
 	t_checks *c;
+	
 	c = env->c;
 	c->fd = open(filepath, O_RDONLY);
 	while((get_next_line(c->fd, c->line)) > 0)
@@ -172,44 +180,63 @@ void second_pass(char *filepath, t_env *env)
 			c->args = ft_split(*c->line, ' ');
 			if (ft_strcmp(c->args[0], "R") == 0)
 			{
-				if (ft_tablen(c->args) != 3)
-					error("Wrong number of args for RES", env);
+				if (c->found_res)
+					error("Resolution is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 3, env);
 				env->resx = ft_atoi(c->args[1]);
+				env->resy = ft_atoi(c->args[2]);
+				if (env->resy <= 0 || env->resx <= 0)
+					error("Resolution should be positive and > 0", env);
 				if (env->resx > 2560)
 					env->resx = 2560;
-				env->resy = ft_atoi(c->args[2]);
 				if (env->resy > 1440)
 					env->resy = 1440;
+				printf("%d %d\n", env->resx, env->resy);
 				if(!(env->zbuffer = malloc(sizeof(double) * env->resx)))
 					error("Malloc of zbuf has failed", env);
 				c->found_res = 1;
 			}
 			else if (ft_strcmp(c->args[0], "NO") == 0)
 			{
+				if (c->found_textn)
+					error("NO texture is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 2, env);				
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[3], env);
 				c->found_textn = 1;
 			}
 			else if (ft_strcmp(c->args[0], "SO") == 0)
 			{
+				if (c->found_texts)
+					error("SO texture is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 2, env);								
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[1], env);
 				c->found_texts = 1;
 			}
 			else if (ft_strcmp(c->args[0], "WE") == 0)
 			{
+				if (c->found_textw)
+					error("WE texture is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 2, env);								
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[2], env);
 				c->found_textw = 1;
 			}
 			else if (ft_strcmp(c->args[0], "EA") == 0)
 			{
+				if (c->found_texte)
+					error("EA texture is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 2, env);				
 				try_filepath(c->args[1], env);
 				load_texture(c->args[1], env->text[0], env);
 				c->found_texte = 1;
 			}
 			else if (ft_strcmp(c->args[0], "S") == 0)
 			{
+				if (c->found_sprite)
+					error("Sprite texture is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 2, env);				
 				try_filepath(c->args[1], env);
 				while (env->jsprite < env->countsprite)
 				{
@@ -220,11 +247,17 @@ void second_pass(char *filepath, t_env *env)
 			}
 			else if (ft_strcmp(c->args[0], "F") == 0)
 			{
+				if (c->found_floor)
+					error("Floor is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 2, env);				
 				load_floor_or_ceil(c->args[0], c->args[1], env);
 				c->found_floor = 1;
 			}
 			else if (ft_strcmp(c->args[0], "C") == 0)
 			{
+				if (c->found_ceiling)
+					error("Ceiling is defined multiple times", env);
+				check_args_number(ft_tablen(c->args), 2, env);				
 				load_floor_or_ceil(c->args[0], c->args[1], env);
 				c->found_ceiling = 1;
 			}
