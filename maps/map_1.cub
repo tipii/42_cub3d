@@ -1,12 +1,8 @@
 R 1080 720
 NO ./textures/hd/rocks.xpm
-
-
-
 SO ./textures/hd/stone_wall.xpm
 WE ./textures/hd/wall_root.xpm
 EA ./textures/hd/old_wood.xpm
-
 S ./textures/sprite/gnome_sprite.xpm
 
 F 0,0,0

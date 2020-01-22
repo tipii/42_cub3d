@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:37:26 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:38:11 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 16:59:56 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,12 @@ int		is_charset(char c)
 		i++;
 	}
 	return (0);
+}
+
+void		check_args_number(int nbr, int expected, t_env *env)
+{
+	if (nbr > expected)
+		error("A definition has too many args", env);
+	if (nbr < expected)
+		error("A definition has not enough args", env);
 }

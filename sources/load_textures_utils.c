@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 15:31:20 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 15:00:49 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 16:37:02 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int		is_rgb(char *arg, t_env *env)
 	int		g;
 	int		b;
 
-	args = ft_split(arg, ',');
+	args = ft_split(arg, ",");
 	if (ft_tablen(args) == 3)
 	{
 		r = ft_atoi(args[0]);

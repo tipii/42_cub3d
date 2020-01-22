@@ -6,91 +6,100 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/09 14:35:22 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:27:23 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 16:34:15 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int			nbr_of_words(char const *s, char c)
+int				is_c(char c, char *charset)
 {
-	int		i;
-	int		count;
-	int		lens;
+	int			count;
 
-	lens = ft_strlen((char*)s);
+	count = 0;
+	while (charset[count])
+	{
+		if (charset[count] == c)
+			return (1);
+		count++;
+	}
+	return (0);
+}
+
+int				count_words(char *str, char *charset)
+{
+	int			count;
+	int			i;
+
 	count = 1;
 	i = 0;
-	while (s && i < lens)
-	{
-		if (s[i] == c && s[i + 1] != 0 && s[i + 1] != c)
-			count++;
+	while (str[i] && is_c(str[i], charset))
 		i++;
+	while (str[i])
+	{
+		if (is_c(str[i], charset) && !(is_c(str[i - 1], charset)))
+		{
+			while (is_c(str[i], charset))
+				i++;
+			count++;
+		}
+		else
+			i++;
 	}
+	if (is_c(str[i - 1], charset))
+		count--;
 	return (count);
 }
 
-char		*ft_cpy(char const *s, char c, char *tab, int i)
+char			*ft_cpy(char *str, char *tab, int i, char *charset)
 {
-	int		j;
-	int		k;
+	int j;
+	int k;
+	int l;
 
-	j = i;
-	k = 0;
-	while (s[i] && s[i] != c)
-		i++;
-	if (!(tab = malloc(sizeof(char) * (i - j + 1))))
-		return (NULL);
-	while (k < i - j)
+	k = i;
+	j = 0;
+	l = 0;
+	while (str[i] && !(is_c(str[i], charset)))
 	{
-		tab[k] = s[j + k];
-		k++;
+		i++;
 	}
-	tab[k] = 0;
+	if (!(tab = malloc(sizeof(char) * (i - k + 1))))
+		return (NULL);
+	while (l < i - k)
+	{
+		tab[l] = str[k + l];
+		l++;
+	}
+	tab[l] = 0;
 	return (tab);
 }
 
-char		**free_all(char **tab, int i)
+char			**ft_split(char *str, char *charset)
 {
-	while (i >= 0)
+	char		**res;
+	int			it[3];
+
+	it[0] = 0;
+	it[1] = 0;
+	it[2] = 0;
+	str[0] != 0 ? it[1] = count_words(str, charset) : it[1];
+	res = malloc(sizeof(char *) * (it[1] + 1));
+	if (str[0] != 0)
 	{
-		free(tab[i]);
-		i--;
-	}
-	free(tab);
-	return (NULL);
-}
-
-char		**no_str(char **tab)
-{
-	tab[0] = NULL;
-	return (tab);
-}
-
-char		**ft_split(char const *s, char c)
-{
-	char	**tab;
-	int		i;
-	int		it_words;
-
-	i = 0;
-	it_words = 0;
-	if (!(tab = malloc(sizeof(char*) * (nbr_of_words(s, c) + 1))))
-		return (NULL);
-	while (s && s[i] && s[i] == c)
-		i++;
-	while (s && s[i])
-	{
-		if (s[i] != c && (i == 0 || s[i - 1] == c) &&
-		it_words < nbr_of_words(s, c))
+		while (str[it[0]] && is_c(str[it[0]], charset))
+			it[0]++;
+		while (str[it[0]])
 		{
-			tab[it_words] = ft_cpy(s, c, tab[it_words], i);
-			if (tab[it_words] == NULL)
-				return (free_all(tab, i));
-			it_words++;
+			if (!(is_c(str[it[0]], charset)) && (is_c(str[it[0] - 1], charset)
+						|| it[0] < 1) && it[2] < it[1])
+			{
+				res[it[2]] = ft_cpy(str, res[it[2]], it[0], charset);
+				it[2]++;
+			}
+			it[0]++;
 		}
-		i++;
 	}
-	tab[it_words] = NULL;
-	return (tab);
+	res[it[1]] = 0;
+	return (res);
 }

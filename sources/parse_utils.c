@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 15:27:40 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 16:25:19 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 16:50:26 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ int		ft_atoi(char *str)
 		atoi = (atoi * 10) + (str[i] - 48);
 		i++;
 	}
-	if (atoi > 2147483647)
-		atoi = 2147483647;
+	atoi = atoi > 2147483647 ? 2147483647 : atoi;
 	atoi = atoi * neg;
 	return (atoi);
 }
@@ -80,7 +79,7 @@ int		ft_strcmp(const char *s1, const char *s2)
 	unsigned int	i;
 
 	i = 0;
-	if(!s1 || (s1[i] == 0 || s2[i] == 0))
+	if (!s1 || (s1[i] == 0 || s2[i] == 0))
 		return (-1);
 	while (s1[i] != '\0' && s2[i] != '\0' && s1[i] == s2[i])
 		i++;
