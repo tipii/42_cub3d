@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:52:34 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:26:12 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 18:00:21 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,6 +118,9 @@ void		init_env(t_env *env)
 	env->move_down = 0;
 	env->move_left = 0;
 	env->move_right = 0;
+	env->fp_i = 0;
+	env->fp_width = 0;
+	env->fp_height = 0;
 }
 
 void		init_map(int width, int height, t_env *env)

@@ -4,7 +4,6 @@ SO ./textures/hd/stone_wall.xpm
 WE ./textures/hd/wall_root.xpm
 EA ./textures/hd/old_wood.xpm
 S ./textures/sprite/gnome_sprite.xpm
-Y 245,255,366
 F 0,0,0
 C 1,255,255
 

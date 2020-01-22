@@ -6,51 +6,47 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:55:17 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 18:02:50 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
+void		first_pass_core(t_env *env)
+{
+	if (!is_charset((*env->fp_line)[env->fp_i], "012NSEW "))
+		error("A char in map is not in charset", env);
+	if ((*env->fp_line)[env->fp_i] != ' ' && env->fp_i % 2 == 0)
+		env->fp_width++;
+	if ((*env->fp_line)[env->fp_i] == '2')
+		env->countsprite++;
+	env->fp_i++;
+}
+
 void		first_pass(char *filepath, t_env *env)
 {
-	int		fd;
-	char	**line;
-	int		i;
-	int		height;
-	int		width;
-
-	i = 0;
-	width = 0;
-	height = 0;
-	if (!(line = malloc(sizeof(*line))))
+	if (!(env->fp_line = malloc(sizeof(*env->fp_line))))
 		error("Malloc of line has failed", env);
-	fd = open(filepath, O_RDONLY);
-	while (get_next_line(fd, line) > 0)
+	env->fp_fd = open(filepath, O_RDONLY);
+	while (get_next_line(env->fp_fd, env->fp_line) > 0)
 	{
-		if (*line[0] >= '0' && *line[0] <= '9')
+		if (*env->fp_line[0] >= '0' && *env->fp_line[0] <= '9')
 		{
-			while ((*line)[i])
-			{
-				if (!is_charset((*line)[i], "012NSEW "))
-					error("A char in map is not in charset", env);
-				if ((*line)[i] != ' ' && i % 2 == 0)
-					width++;
-				if ((*line)[i] == '2')
-					env->countsprite++;
-				i++;
-			}
-			if (env->mapwidth != 0 && width != 0 && width != env->mapwidth)
+			while ((*env->fp_line)[env->fp_i])
+				first_pass_core(env);
+			if (env->mapwidth != 0 && env->fp_width != 0
+				&& env->fp_width != env->mapwidth)
 				error("Map has various size of lines", env);
-			env->mapwidth = width;
-			height++;
+			env->mapwidth = env->fp_width;
+			env->fp_height++;
 		}
-		width = 0;
-		i = 0;
-		free(*line);
+		env->fp_width = 0;
+		env->fp_i = 0;
+		free(*env->fp_line);
 	}
-	env->mapheight = height;
-	close(fd);
+	free(env->fp_line);
+	env->mapheight = env->fp_height;
+	close(env->fp_fd);
 }
 
 void		look_for_elem(t_env *env, t_checks *c)

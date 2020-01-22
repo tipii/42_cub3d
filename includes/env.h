@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:47:06 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/22 17:57:57 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,6 +164,11 @@ typedef	struct	s_env
 	int			move_down;
 	int			move_left;
 	int			move_right;
+	int			fp_fd;
+	char		**fp_line;
+	int			fp_i;
+	int			fp_height;
+	int			fp_width;
 }				t_env;
 
 void			init_map(int width, int height, t_env *env);
