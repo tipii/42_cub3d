@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:36:01 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 16:13:16 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:26:45 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,10 @@ void	error(char *message, t_env *env)
 	write(1, "Error\n", 6);
 	write(1, message, ft_strlen(message));
 	write(1, "\n", 1);
-	free_env(env);
-	free(env);
+	if (env)
+	{
+		free_env(env);
+		free(env);
+	}
 	exit(1);
 }
