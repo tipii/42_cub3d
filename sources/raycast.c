@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 09:10:49 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 14:39:03 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:44:35 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ void		find_hit(t_env *env)
 			else
 				env->side = 3;
 		}
-		if (env->map[env->mapy][env->mapx] == '1')
+		if (env->map[env->mapy][env->mapx] == '1' ||
+			env->map[env->mapy][env->mapx] == '4')
 			env->hit = 1;
 	}
 	calc_dist(env);

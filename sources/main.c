@@ -6,13 +6,13 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 16:20:55 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:45:04 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
 
-int			quit_program(t_env *env)
+int				quit_program(t_env *env)
 {
 	mlx_clear_window(env->mlx, env->window);
 	mlx_destroy_image(env->mlx, env->img);

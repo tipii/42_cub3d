@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:30:05 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 15:48:46 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:44:14 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,8 @@ void	sprite_casting(t_env *env)
 	{
 		env->s_order[i] = i;
 		env->sprite_distance[i] = pow((env->posx - env->sprites[i]->spos_x), 2);
-		env->sprite_distance[i] += pow((env->posy - env->sprites[i]->spos_y), 2);
+		env->sprite_distance[i] += pow((env->posy -
+		env->sprites[i]->spos_y), 2);
 		i++;
 	}
 	i = 0;

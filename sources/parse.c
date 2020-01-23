@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 14:29:39 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:33:50 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void		first_pass_core(t_env *env)
 {
-	if (!is_charset((*env->fp_line)[env->fp_i], "012NSEW "))
+	if (!is_charset((*env->fp_line)[env->fp_i], "0124NSEW "))
 		error("A char in map is not in charset", env);
 	if ((*env->fp_line)[env->fp_i] != ' ' && env->fp_i % 2 == 0)
 		env->fp_width++;
