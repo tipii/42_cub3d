@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 16:45:04 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:11:00 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,6 @@ int				quit_program(t_env *env)
 	free_env(env);
 	exit(0);
 	return (0);
-}
-
-void			show_map(t_env *env)
-{
-	int x;
-	int y;
-
-	x = 0;
-	y = 0;
-	printf("\x1b[33mMap...\x1b[39m\n\n");
-	while (env->map[y])
-	{
-		while (env->map[y][x])
-		{
-			printf("%c ", env->map[y][x]);
-			x++;
-		}
-		printf("\n");
-		y++;
-		x = 0;
-	}
-	printf("\n");
 }
 
 void			init_mlx(t_env *env)
@@ -63,12 +41,6 @@ int				main(int argc, char **argv)
 		error("Malloc has failed", env);
 	init_env(env);
 	parse("./maps/map_1.cub", env);
-	printf("\n\x1b[33mParsing...\x1b[39m\n\n");
-	printf("MAP : Width : %d, Height : %d \n", env->mapwidth, env->mapheight);
-	printf("PLAYER : Pos x %f, Pos y %f\n", env->posx, env->posy);
-	printf("\n\x1b[33mInitializing...\x1b[39m\n\n");
-	printf("RES : x %d, y %d\n", env->resx, env->resy);
-	show_map(env);
 	init_mlx(env);
 	mlx_hook(env->window, 17, 1L << 0, quit_program, env);
 	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);

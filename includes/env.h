@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 16:06:15 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 17:10:46 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,6 @@ typedef	struct	s_env
 
 void			init_map(int width, int height, t_env *env);
 void			init_sprite(int i, t_env *env);
-void			show_map(t_env *env);
 void			get_lum_value(t_env *env);
 void			sprite_casting(t_env *env);
 void			set_player_value(char c, t_env *env);

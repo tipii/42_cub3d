@@ -1,4 +1,4 @@
-NAME = cub3D
+NAME = Cub3D
 SOURCES_DIR = ./sources/
 INCLUDES_DIR = ./includes
 
@@ -18,6 +18,8 @@ $(NAME):	$(OBJS)
 			$(COMPIL) $(FLAG) $(HEADER) -c $< -o $@
 			
 all:		$(NAME)
+
+bonus:		$(NAME)
 			
 clean :
 			rm -f $(OBJS)
