@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/16 16:30:05 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:44:41 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 15:48:46 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,11 +24,12 @@ void	sort_sprite(t_env *env)
 	{
 		while (j < env->countsprite - 1 - i)
 		{
-			if (env->sprite_distance[j] < env->sprite_distance[j + 1])
+			if (env->sprite_distance[env->s_order[j]] <
+				env->sprite_distance[env->s_order[j + 1]])
 			{
-				tmp = env->s_order[j + 1];
-				env->s_order[j + 1] = env->s_order[j];
-				env->s_order[j] = tmp;
+				tmp = env->s_order[j];
+				env->s_order[j] = env->s_order[j + 1];
+				env->s_order[j + 1] = tmp;
 			}
 			j++;
 		}
@@ -65,8 +66,8 @@ void	draw_sprite(t_env *env, int i)
 
 void	load_draw_sprite_values(t_env *env, int i)
 {
-	env->spritex = env->sprites[env->s_order[i]]->spos_x - env->posx + 0.5;
-	env->spritey = env->sprites[env->s_order[i]]->spos_y - env->posy + 0.5;
+	env->spritex = env->sprites[i]->spos_x - env->posx + 0.5;
+	env->spritey = env->sprites[i]->spos_y - env->posy + 0.5;
 	env->invdet = 1.0 / (env->planex * env->diry - env->dirx * env->planey);
 	env->transformx = env->diry * env->spritex - env->dirx * env->spritey;
 	env->transformx *= env->invdet;
@@ -101,17 +102,17 @@ void	sprite_casting(t_env *env)
 	{
 		env->s_order[i] = i;
 		env->sprite_distance[i] = pow((env->posx - env->sprites[i]->spos_x), 2);
-		env->sprite_distance[i] += pow((env->posy -
-			env->sprites[i]->spos_y), 2);
+		env->sprite_distance[i] += pow((env->posy - env->sprites[i]->spos_y), 2);
 		i++;
 	}
+	i = 0;
 	sort_sprite(env);
 	i = 0;
 	while (i < env->countsprite)
 	{
-		load_draw_sprite_values(env, i);
+		load_draw_sprite_values(env, env->s_order[i]);
 		while (env->stripe < env->drawendx)
-			draw_sprite(env, i);
+			draw_sprite(env, env->s_order[i]);
 		i++;
 	}
 }

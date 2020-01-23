@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 18:02:50 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 14:29:39 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void		first_pass(char *filepath, t_env *env)
 		env->fp_i = 0;
 		free(*env->fp_line);
 	}
+	free(*env->fp_line);
 	free(env->fp_line);
 	env->mapheight = env->fp_height;
 	close(env->fp_fd);

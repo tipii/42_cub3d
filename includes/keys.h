@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 13:25:54 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:37:43 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 15:58:46 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@
 # define KEY_RIGHT 124
 # define KEY_DOWN 125
 # define KEY_UP 126
+# define KEY_ESC 53
 
 typedef struct	s_keys
 {

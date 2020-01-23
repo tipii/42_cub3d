@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:47:16 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 15:29:10 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 15:59:06 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int		hook_keydown(int key, t_env *env)
 		env->rotate_left = 1;
 	else if (key == KEY_RIGHT)
 		env->rotate_right = 1;
+	else if (key == KEY_ESC)
+		quit_program(env);
 	return (0);
 }
 

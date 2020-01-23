@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:52:00 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/21 16:55:32 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 13:44:35 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void		print_floor(t_env *env)
 
 void		load_and_print_floor(t_env *env)
 {
-	env->y = env->drawend;
+	env->y = env->drawend + 1;
 	while (env->y < env->resy)
 	{
 		env->current_dist = env->resy / (2.0 * env->y - env->resy);

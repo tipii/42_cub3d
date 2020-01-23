@@ -6,11 +6,21 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:17:34 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:20:55 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+int			quit_program(t_env *env)
+{
+	mlx_clear_window(env->mlx, env->window);
+	mlx_destroy_image(env->mlx, env->img);
+	mlx_destroy_window(env->mlx, env->window);
+	free_env(env);
+	exit(0);
+	return (0);
+}
 
 void			show_map(t_env *env)
 {
@@ -60,6 +70,7 @@ int				main(int argc, char **argv)
 	printf("RES : x %d, y %d\n", env->resx, env->resy);
 	show_map(env);
 	init_mlx(env);
+	mlx_hook(env->window, 17, 1L << 0, quit_program, env);
 	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
 	mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
 	render(env);

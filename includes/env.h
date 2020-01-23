@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:57:57 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/23 16:06:15 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -186,5 +186,7 @@ void			move_backward(t_env *env);
 void			move_left(t_env *env);
 void			move_right(t_env *env);
 int				is_rgb(char *arg, t_env *env);
+void			free_env(t_env *env);
+int				quit_program(t_env *env);
 
 #endif
