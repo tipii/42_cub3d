@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 17:29:38 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/24 14:14:02 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,16 @@ int				main(int argc, char **argv)
 		if (!(env = malloc(sizeof(t_env))))
 			error("Malloc has failed", env);
 		init_env(env);
-		if (parse(argv[1], env))
-		{
-			init_mlx(env);
-			mlx_hook(env->window, 17, 1L << 0, quit_program, env);
-			mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
-			mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
-			render(env);
-			mlx_loop_hook(env->mlx, calc_player_pos, env);
-			mlx_loop(env->mlx);
-		}
+		parse(argv[1], env);
+		init_mlx(env);
+		mlx_hook(env->window, 17, 1L << 0, quit_program, env);
+		mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
+		mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
+		render(env);
+		mlx_loop_hook(env->mlx, calc_player_pos, env);
+		mlx_loop(env->mlx);
 	}
 	else if (argc > 3)
 		error("Too many args", env);
-	
-
 	return (0);
 }
