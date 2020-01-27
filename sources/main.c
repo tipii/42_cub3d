@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/24 14:14:02 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/27 15:47:55 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,32 @@ void			init_mlx(t_env *env)
 		&env->endian);
 }
 
+void			run(t_env *env, char **argv)
+{
+	if (!(env = malloc(sizeof(t_env))))
+		error("Malloc has failed", env);
+	init_env(env);
+	parse(argv[1], env);
+	init_mlx(env);
+	mlx_hook(env->window, 17, 1L << 0, quit_program, env);
+	mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
+	mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
+	render(env);
+	mlx_loop_hook(env->mlx, calc_player_pos, env);
+	mlx_loop(env->mlx);
+}
+
+void			save_bmp(t_env *env, char **argv)
+{
+	if (!(env = malloc(sizeof(t_env))))
+		error("Malloc has failed", env);
+	init_env(env);
+	parse(argv[1], env);
+	init_mlx(env);
+	render(env);
+	bmp_generate(env, "test.bmp");
+	quit_program(env);
+}
 
 int				main(int argc, char **argv)
 {
@@ -39,19 +65,14 @@ int				main(int argc, char **argv)
 	env = NULL;
 	if (argc < 2)
 		error("You need at least one arg", env);
-	else if (argc == 3 || argc == 2)
+	else if (argc == 2)
+		run(env, argv);
+	else if (argc == 3)
 	{
-		if (!(env = malloc(sizeof(t_env))))
-			error("Malloc has failed", env);
-		init_env(env);
-		parse(argv[1], env);
-		init_mlx(env);
-		mlx_hook(env->window, 17, 1L << 0, quit_program, env);
-		mlx_hook(env->window, 2, 1L << 0, hook_keydown, env);
-		mlx_hook(env->window, 3, 1L << 1, hook_keyup, env);
-		render(env);
-		mlx_loop_hook(env->mlx, calc_player_pos, env);
-		mlx_loop(env->mlx);
+		if (ft_strcmp(argv[2], "-save") == 0)
+			save_bmp(env, argv);
+		else
+			error("Unknow second argument", env);
 	}
 	else if (argc > 3)
 		error("Too many args", env);

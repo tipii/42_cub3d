@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:37:21 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/24 14:24:02 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/27 14:40:34 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,5 +42,6 @@ void		put_pxl_clr(int x, int y, unsigned int color, t_env *env);
 void		error(char *message, t_env *env);
 void		try_filepath(char *filepath, t_env *env);
 void		try_filepath_map(char *filepath, t_env *env);
+int			bmp_generate(t_env *env, char *filename);
 
 #endif

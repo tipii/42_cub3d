@@ -12,6 +12,7 @@
 		"utility": "c",
 		"vector": "c",
 		"cube3d.h": "c",
-		"parse.h": "c"
+		"parse.h": "c",
+		"ios": "c"
 	}
 }
