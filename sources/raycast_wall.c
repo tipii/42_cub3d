@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:53:42 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 13:44:10 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/27 15:57:30 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void		draw_wall(t_env *env)
 		env->texy = (int)env->texpos;
 		env->texpos += env->step;
 		put_pxl_clr(env->x, env->y,
-			get_pxl_clr_value(env->text[env->side]->width - env->texx,
+			get_pxl_clr_value(env->text[env->side]->width - env->texx - 1,
 				env->texy, env->text[env->side]), env);
 		env->y++;
 	}
