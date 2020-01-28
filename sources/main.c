@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/27 15:47:55 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 17:40:37 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void			save_bmp(t_env *env, char **argv)
 	parse(argv[1], env);
 	init_mlx(env);
 	render(env);
-	bmp_generate(env, "test.bmp");
+	bmp_generate(env, "bitmap.bmp");
 	quit_program(env);
 }
 
@@ -69,7 +69,7 @@ int				main(int argc, char **argv)
 		run(env, argv);
 	else if (argc == 3)
 	{
-		if (ft_strcmp(argv[2], "-save") == 0)
+		if (ft_strcmp(argv[2], "--save") == 0)
 			save_bmp(env, argv);
 		else
 			error("Unknow second argument", env);

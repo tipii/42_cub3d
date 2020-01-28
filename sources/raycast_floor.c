@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/21 16:52:00 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/27 15:56:11 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:02:59 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,24 @@ void		print_floor(t_env *env)
 			env->color_ceiling, env);
 }
 
+void		prevent_error_no_text(t_env *env)
+{
+	if (env->has_text_ceiling)
+	{
+		env->ceil_textx = (int)(env->current_floorx * env->textc->width)
+			% env->textc->width;
+		env->ceil_texty = (int)(env->current_floory * env->textc->height)
+			% env->textc->height;
+	}
+	if (env->has_text_floor)
+	{
+		env->floor_textx = (int)(env->current_floorx * env->textf->width)
+			% env->textf->width;
+		env->floor_texty = (int)(env->current_floory * env->textf->height)
+			% env->textf->height;
+	}
+}
+
 void		load_and_print_floor(t_env *env)
 {
 	env->y = env->drawend;
@@ -40,14 +58,7 @@ void		load_and_print_floor(t_env *env)
 			(1.0 - env->weight) * env->posx;
 		env->current_floory = env->weight * env->floory_wall +
 			(1.0 - env->weight) * env->posy;
-		env->ceil_textx = (int)(env->current_floorx * env->textc->width)
-			% env->textc->width;
-		env->ceil_texty = (int)(env->current_floory * env->textc->height)
-			% env->textc->height;
-		env->floor_textx = (int)(env->current_floorx * env->textf->width)
-			% env->textf->width;
-		env->floor_texty = (int)(env->current_floory * env->textf->height)
-			% env->textf->height;
+		prevent_error_no_text(env);
 		print_floor(env);
 		env->y++;
 	}

@@ -4,8 +4,8 @@ SO ./textures/south.xpm
 WE ./textures/west.xpm
 EA ./textures/east.xpm
 S ./textures/sprite/barrel.xpm
-F 0,45,54
-C 255,128,128
+F 255,145,0
+C 128,255,144
 
 
 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1

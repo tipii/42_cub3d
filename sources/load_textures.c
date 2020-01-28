@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:42:26 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 15:01:25 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:07:38 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ void	load_texture(char *filepath, t_text *text, t_env *env)
 {
 	text->ptr = mlx_xpm_file_to_image(env->mlx, filepath, &text->width,
 		&text->height);
+	if(!text->ptr)
+		error("A texture file is invalid", env);
 	text->data = mlx_get_data_addr(text->ptr, &text->bpp, &text->size_line,
 		&text->endian);
 }
