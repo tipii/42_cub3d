@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 17:00:50 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:54:49 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 18:45:24 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void		found_player(t_env *env, t_checks *c)
 	env->posy = c->j + 0.5;
 	env->mapx = c->i;
 	env->mapy = c->j;
-	set_player_value(c->args[c->i][0], env);
+	set_player_value((*c->line)[c->i], env);
 	env->map[c->j][c->i] = '0';
 	c->found_player = 1;
 }
@@ -30,7 +30,7 @@ void		found_sprite(t_env *env, t_checks *c)
 	env->sprites[env->isprite]->spos_x = c->i;
 	env->sprites[env->isprite]->spos_y = c->j;
 	env->isprite++;
-	env->map[c->j][c->i] = c->args[c->i][0];
+	env->map[c->j][c->i] = (*c->line)[c->i];
 }
 
 void		found_res(t_env *env, t_checks *c)

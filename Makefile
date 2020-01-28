@@ -3,6 +3,7 @@ SOURCES_DIR = ./sources
 OBJECTS_DIR = ./obj
 INCLUDES_DIR = ./includes
 
+G3 =  -g3 -fsanitize=address
 COMPIL = gcc
 FLAG = -Wall -Wextra -Werror
 HEADER = -I $(INCLUDES_DIR)
@@ -17,7 +18,7 @@ SRCS = $(addprefix $(SOURCES_DIR)/,$(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
-			$(COMPIL) $(FLAG) $(LIB) $(HEADER) $(OBJS) -o $(NAME)
+			$(COMPIL) $(FLAG) $(G3) $(LIB) $(HEADER) $(OBJS) -o $(NAME)
 
 %.o: %.c
 			$(COMPIL) $(FLAG) $(HEADER) -c $< -o $@

@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:57:52 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/22 17:00:47 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 19:10:41 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,48 @@ void		check_map_is_close(t_env *env)
 	}
 }
 
+void		format_line(t_checks *c)
+{
+	int	i;
+	int j;
+	int k;
+
+	j = 0;
+	i = 0;
+	k = 1;
+	while ((*c->line)[i])
+	{
+		if ((*c->line)[i] == ' ')
+		{
+			while ((*c->line)[i + k] && (*c->line)[i + k] == ' ')
+				k++;
+			j = i;
+			while ((*c->line)[j + k])
+			{
+				(*c->line)[j] = (*c->line)[j + k];
+				(*c->line)[j + k] = 0;
+				j++;
+			}
+		}
+		k = 1;
+		i++;
+	}
+}
+
 void		parse_map(t_env *env, t_checks *c)
 {
 	if (c->found_map)
 		error("Map not in one block or not last argument", env);
 	c->found_map = 1;
-	c->args = ft_split(*c->line, " \t");
+	format_line(c);
 	add_line_to_map(env, c);
-	ft_freetab(c->args);
 	free(*c->line);
 	while (get_next_line(c->fd, c->line) > 0 &&
 		(*c->line[0] >= '0' && *c->line[0] <= '9'))
 	{
-		c->args = ft_split(*c->line, " \t");
+		format_line(c);
 		add_line_to_map(env, c);
-		ft_freetab(c->args);
+		printf("%s\n", *c->line);
 		free(*c->line);
 	}
 }
@@ -62,15 +89,15 @@ void		parse_map(t_env *env, t_checks *c)
 void		add_line_to_map(t_env *env, t_checks *c)
 {
 	c->i = 0;
-	while (c->args[c->i])
+	while ((*c->line)[c->i])
 	{
-		if (c->args[c->i][0] == 'N' || c->args[c->i][0] == 'S'
-		|| c->args[c->i][0] == 'W' || c->args[c->i][0] == 'E')
+		if ((*c->line)[c->i] == 'N' || (*c->line)[c->i] == 'S'
+		|| (*c->line)[c->i] == 'W' || (*c->line)[c->i] == 'E')
 			found_player(env, c);
-		else if (c->args[c->i][0] == '2')
+		else if ((*c->line)[c->i] == '2')
 			found_sprite(env, c);
 		else
-			env->map[c->j][c->i] = c->args[c->i][0];
+			env->map[c->j][c->i] = (*c->line)[c->i];
 		c->i++;
 	}
 	c->j++;
