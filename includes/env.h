@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 16:26:53 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 17:10:46 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 13:51:47 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,8 @@ typedef	struct	s_env
 	t_text		**text;
 	t_text		*textf;
 	t_text		*textc;
+	t_text		*texthud;
+	int			print_hud;
 	int			has_text_floor;
 	int			has_text_ceiling;
 	int			color_floor;
@@ -156,6 +158,7 @@ typedef	struct	s_env
 	int			malloc_textures;
 	int			malloc_textures_floor;
 	int			malloc_textures_ceiling;
+	int			malloc_hud;
 	int			malloc_line;
 	int			finish_map;
 	int			rotate_left;
@@ -187,5 +190,7 @@ void			move_right(t_env *env);
 int				is_rgb(char *arg, t_env *env);
 void			free_env(t_env *env);
 int				quit_program(t_env *env);
+void			init_hud(t_env *env);
+void			print_hud(t_env *env);
 
 #endif

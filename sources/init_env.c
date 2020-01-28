@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:57:19 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 17:01:40 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 13:59:12 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void		init_env_3(t_env *env)
 	env->mlx = mlx_init();
 	env->current_floorx = 0;
 	env->current_floory = 0;
+	env->print_hud = 0;
 }
 
 void		init_env_2(t_env *env)
@@ -117,6 +118,9 @@ void		init_env(t_env *env)
 	if (!(env->textc = malloc(sizeof(t_text))))
 		error("Malloc of textc failed", env);
 	env->malloc_textures_ceiling = 1;
+	if (!(env->texthud = malloc(sizeof(t_text))))
+		error("Malloc of texthud failed", env);
+	env->malloc_hud = 1;
 	if (!(env->c = malloc(sizeof(t_checks))))
 		error("Malloc has failed", env);
 	init_checks(env->c);

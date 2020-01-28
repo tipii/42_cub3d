@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/20 15:36:01 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 17:26:45 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 13:40:16 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	free_env_suite(t_env *env)
 			free(env->sprites[i]);
 		free(env->sprites);
 	}
+	if(env->malloc_hud)
+		free(env->texthud);
 }
 
 void	free_env(t_env *env)

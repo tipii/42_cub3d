@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 17:59:27 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 16:33:50 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 13:35:51 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int			parse(char *filepath, t_env *env)
 	first_pass(filepath, env);
 	init_map(env->mapwidth, env->mapheight, env);
 	init_sprite(env->countsprite, env);
+	init_hud(env);
 	second_pass(filepath, env);
 	has_found_all(env);
 	return (1);

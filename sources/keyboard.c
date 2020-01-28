@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:47:16 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/23 15:59:06 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 14:04:44 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,18 @@ int		hook_keydown(int key, t_env *env)
 		env->rotate_left = 1;
 	else if (key == KEY_RIGHT)
 		env->rotate_right = 1;
+	else if (key == KEY_H)
+	{
+		if (env->print_hud)
+			env->print_hud = 0;
+		else
+			env->print_hud = 1;
+	}
+	else if (key == 257)
+	{
+		env->r_speed = 0.15;
+		env->t_speed = 0.15;
+	}
 	else if (key == KEY_ESC)
 		quit_program(env);
 	return (0);
@@ -45,5 +57,10 @@ int		hook_keyup(int key, t_env *env)
 		env->rotate_left = 0;
 	else if (key == KEY_RIGHT)
 		env->rotate_right = 0;
+	else if (key == 257)
+	{
+		env->r_speed = 0.1;
+		env->t_speed = 0.1;
+	}
 	return (0);
 }
