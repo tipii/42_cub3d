@@ -6,11 +6,19 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/27 13:47:16 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/28 14:04:44 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 14:16:23 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cube3d.h"
+
+void	hook_key_h(t_env *env)
+{
+	if (env->print_hud)
+		env->print_hud = 0;
+	else
+		env->print_hud = 1;
+}
 
 int		hook_keydown(int key, t_env *env)
 {
@@ -27,12 +35,7 @@ int		hook_keydown(int key, t_env *env)
 	else if (key == KEY_RIGHT)
 		env->rotate_right = 1;
 	else if (key == KEY_H)
-	{
-		if (env->print_hud)
-			env->print_hud = 0;
-		else
-			env->print_hud = 1;
-	}
+		hook_key_h(env);
 	else if (key == 257)
 	{
 		env->r_speed = 0.15;

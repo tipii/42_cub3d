@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/23 16:57:19 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/28 13:59:12 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 14:14:05 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,9 @@ void		init_env_2(t_env *env)
 
 void		init_env_start(t_env *env)
 {
+	int		i;
+
+	i = 0;
 	env->malloc_check = 0;
 	env->malloc_line = 0;
 	env->malloc_map = 0;
@@ -95,14 +98,6 @@ void		init_env_start(t_env *env)
 	env->malloc_textures_floor = 0;
 	env->malloc_line = 1;
 	env->malloc_check = 1;
-}
-
-void		init_env(t_env *env)
-{
-	int		i;
-
-	i = 0;
-	init_env_start(env);
 	if (!(env->text = malloc(sizeof(*env->text) * 4)))
 		error("Malloc of texture array has failed", env);
 	while (i < 4)
@@ -111,6 +106,11 @@ void		init_env(t_env *env)
 			error("Malloc of a texture has failed", env);
 		i++;
 	}
+}
+
+void		init_env(t_env *env)
+{
+	init_env_start(env);
 	env->malloc_textures = 1;
 	if (!(env->textf = malloc(sizeof(t_text))))
 		error("Malloc of textf failed", env);
