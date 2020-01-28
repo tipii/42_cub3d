@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/22 16:57:52 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/28 19:10:41 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/28 19:30:53 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void		parse_map(t_env *env, t_checks *c)
 	{
 		format_line(c);
 		add_line_to_map(env, c);
-		printf("%s\n", *c->line);
 		free(*c->line);
 	}
 }

@@ -18,7 +18,7 @@ SRCS = $(addprefix $(SOURCES_DIR)/,$(SRCS_NAME))
 OBJS = $(SRCS:.c=.o)
 
 $(NAME):	$(OBJS)
-			$(COMPIL) $(FLAG) $(G3) $(LIB) $(HEADER) $(OBJS) -o $(NAME)
+			$(COMPIL) $(FLAG) $(LIB) $(HEADER) $(OBJS) -o $(NAME)
 
 %.o: %.c
 			$(COMPIL) $(FLAG) $(HEADER) -c $< -o $@
