@@ -6,7 +6,7 @@
 /*   By: tpalhol <tpalhol@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/22 18:39:43 by tpalhol           #+#    #+#             */
-/*   Updated: 2020/01/28 19:13:36 by tpalhol          ###   ########.fr       */
+/*   Updated: 2020/01/30 15:23:31 by tpalhol          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,5 +74,7 @@ int				main(int argc, char **argv)
 		else
 			error("Unknow second argument", env);
 	}
+	else if (argc > 3)
+		error("Too many arguments", env);
 	return (0);
 }
